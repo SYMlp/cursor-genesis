@@ -1,0 +1,208 @@
+# 系统原型定义：收集型 (Collector)
+# 验证状态：confirmed（security-mgmt-center 五域验证）
+
+id: collector
+name: 收集型系统
+name_en: Collector
+version: 1.0.0
+status: confirmed
+
+# ─────────────────────────────────────────────
+# 原型定义
+# ─────────────────────────────────────────────
+
+definition:
+  one_liner: "从多个外部来源收集数据/资产/信息，汇聚到统一平台管理"
+  description: |
+    系统的核心职能不是自己产生数据，而是从外部多种通道（手动录入、自动扫描、
+    第三方同步、设备上报等）汇聚数据，然后在统一平台上进行规范化、去重、
+    生命周期管理和基于收集数据的分析/决策。
+
+# 判断"这是不是收集型系统"的信号
+identity_signals:
+  - "系统需要从多个外部来源获取数据"
+  - "数据进入系统后需要去重和规范化"
+  - "需要追踪每条数据的来源和采集通道"
+  - "数据有从暂存到确认的生命周期"
+  - "同一实体可能从不同通道重复进入"
+  - "系统的价值在于汇聚和管理，不在于产生"
+
+# ─────────────────────────────────────────────
+# 通用模式清单（"免费赠品"）
+# ─────────────────────────────────────────────
+
+universal_patterns:
+
+  - id: source-provenance
+    name: 来源追溯三件套
+    description: 每条被收集的数据需要回答三个追溯问题
+    fields:
+      - name: sourceType
+        type: enum
+        question: "怎么来的？"
+        description: 来源通道/类型（探测、同步、手动录入、外部推送等）
+      - name: sourceRef
+        type: reference
+        question: "哪个通道带来的？"
+        description: 可追溯到具体的采集任务、同步通道或外部接口
+      - name: operator
+        type: reference
+        question: "谁操作的？"
+        description: 人为操作记录操作人，自动化记录"系统"
+    distinction: |
+      与技术审计字段（create_by/update_by）正交。
+      技术审计是框架级基础设施（所有表都有），业务来源是领域特有字段（收集型实体专有）。
+    validation_instances:
+      - "安管：资产/知识/态势/事务/审计五域全部适用"
+
+  - id: deduplication
+    name: 去重机制
+    description: 同一数据从不同通道进入系统时的去重策略
+    components:
+      - name: uniqueKey
+        description: 实体的业务唯一标识（不是数据库主键）
+      - name: dedup_strategy
+        description: |
+          发现重复时的处理策略：
+          - 丢弃后来者（保留首次采集）
+          - 合并（取字段并集）
+          - 版本化（保留历史）
+      - name: dedup_scope
+        description: 去重的范围（全局 / 按来源通道 / 按时间窗口）
+    validation_instances:
+      - "安管：资产按 IP+端口去重，知识按标识符去重"
+
+  - id: conflict-resolution
+    name: 冲突校验
+    description: 不同来源对同一实体的描述不一致时的处理
+    components:
+      - name: authority_ranking
+        description: 来源的权威度排序（如：手动 > 扫描 > 第三方推送）
+      - name: conflict_fields
+        description: 哪些字段可能冲突（通常是非主键的描述性字段）
+      - name: resolution_strategy
+        description: |
+          冲突处理策略：
+          - 高权威覆盖低权威
+          - 保留双方 + 人工裁决
+          - 按时间戳取最新
+    validation_instances:
+      - "安管：手动修正优先于自动扫描结果"
+
+  - id: lifecycle-management
+    name: 生命周期管理
+    description: 被收集的实体从进入系统到退出的状态流转
+    typical_stages:
+      - name: temporary
+        description: 暂存/待确认（刚进入系统，尚未正式纳管）
+      - name: active
+        description: 正式/活跃（已确认，正在被管理）
+      - name: archived
+        description: 归档/退役（不再活跃但保留记录）
+    key_properties:
+      - "每个阶段有专属的可执行操作"
+      - "阶段转换有前置条件（如：临时→正式需要人工确认或自动规则匹配）"
+      - "不同阶段暴露不同的属性（见 perspective-dependent-property-emergence）"
+    validation_instances:
+      - "安管：资产 temporary→onboarded→archived"
+
+  - id: task-management
+    name: 任务管理
+    description: 所有采集/同步操作通过任务承载，而非裸调接口
+    components:
+      - name: task_definition
+        description: 任务定义（采集什么、从哪采、按什么策略）
+      - name: task_scheduling
+        description: 任务调度（周期性 / 事件触发 / 手动）
+      - name: task_monitoring
+        description: 任务监控（成功率、耗时、异常告警）
+      - name: task_result
+        description: 任务结果（采集了多少条、新增多少、去重多少）
+    validation_instances:
+      - "安管：资产发现任务、知识同步任务、日志采集任务"
+
+  - id: channel-adapter
+    name: 通道适配层
+    description: 对接多种外部来源需要适配器模式
+    components:
+      - name: adapter_interface
+        description: 统一的采集接口（不管外部系统的差异）
+      - name: adapter_registry
+        description: 已接入通道的注册表（支持查询和管理）
+      - name: adapter_config
+        description: 每个通道的连接配置（地址、认证、格式）
+      - name: data_normalization
+        description: 将不同来源的数据统一为内部格式
+    validation_instances:
+      - "安管：设备适配器（天融信/深信服等厂商）、外部系统集成"
+
+  - id: data-quality-audit
+    name: 数据质量审计
+    description: 收集来的数据不一定可靠，需要质量检查
+    components:
+      - name: completeness_check
+        description: 必填字段是否齐全
+      - name: format_validation
+        description: 字段格式是否合规（IP 格式、日期格式等）
+      - name: consistency_check
+        description: 字段间逻辑是否一致（如：类型为 IP 资产但无 IP 地址）
+      - name: anomaly_detection
+        description: 异常值检测（如：同一来源突然上报数量激增）
+    validation_instances:
+      - "安管：资产完整性校验、字段格式规范化"
+
+# ─────────────────────────────────────────────
+# 实体推导维度
+# ─────────────────────────────────────────────
+
+entity_derivation_dimensions:
+  - dimension: lifecycle_stage
+    description: "实体在生命周期中的哪个阶段？每个阶段的目的蕴含专属属性"
+    example: "TemporaryAsset 需要 sourceParty/sourceType，OnboardedAsset 需要 credential"
+
+  - dimension: entity_type
+    description: "实体的主类型是什么？不同类型有不同的专属属性集"
+    example: "IP 资产需要 ipAddress/macAddress，应用资产需要 accessUrl/belongPlatform"
+
+  - dimension: source_channel
+    description: "实体从哪个通道进入？不同通道可能携带不同的附加信息"
+    example: "扫描发现的资产有 discoveredBy/scanTime，手动录入的没有"
+
+  - dimension: management_role
+    description: "实体在管理域中扮演什么角色？"
+    example: "功能资产必须 belongsTo 应用资产，独立资产没有这个约束"
+
+# ─────────────────────────────────────────────
+# 元信息
+# ─────────────────────────────────────────────
+
+derived_from:
+  root_facts:
+    - id: abstraction-duality
+      role: "一个原型声明蕴含全部通用模式——token 效率极高"
+    - id: model-implementation-gap
+      role: "原型 = 主线，每个具体系统 = 变体"
+    - id: context-dependency
+      role: "不同来源通道 = 不同上下文，触发不同的处理规则"
+    - id: automation
+      role: "形式化的原型模板使 AI 可以辅助推导业务逻辑"
+
+validated_instances:
+  - id: security-mgmt-center
+    domain: 网络安全
+    sub_domains_validated:
+      - asset (资产管理)
+      - knowledge (知识库)
+      - posture (态势感知)
+      - affairs (安全事务)
+      - audit (审计日志)
+    validation_date: 2026-03-14
+    details: examples/security-mgmt-center.md
+
+typical_instances:
+  - CMS（内容管理系统）
+  - 数据中台 / 数据湖
+  - 爬虫/采集平台
+  - 日志收集系统（ELK 等）
+  - 监控系统（Prometheus 等）
+  - 舆情监控系统

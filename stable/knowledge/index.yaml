@@ -61,6 +61,18 @@ categories:
         title: 架构思维的来源
         file: 09-架构思维的来源.md
 
+# 系统原型模板（项目级认知脚手架）
+archetypes:
+  description: 系统原型分类学——识别系统类型后推导通用需求
+  path: ../archetypes/
+  methodology: ../archetypes/_methodology.md
+  items:
+    - id: collector
+      title: 收集型系统 (Collector)
+      status: confirmed
+      path: ../archetypes/collector/
+      validated_by: security-mgmt-center
+
 # 关键词（供上层跨节点检索）
 keywords:
   - cursor
@@ -74,3 +86,7 @@ keywords:
   - knowledge-graph
   - leaf-node-framework
   - 分布式知识管理
+  - 系统原型
+  - archetype
+  - 收集型
+  - 领域建模
