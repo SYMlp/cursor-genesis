@@ -14,7 +14,7 @@
 
 ## 已验证的效果
 
-来自首个落地案例：企业安全管理平台（6 个业务域，50+ 模块，Spring Boot + Vue 3）
+来自首个落地案例：一个大型全栈企业系统（50+ 模块，Spring Boot + Vue 3）
 
 | 指标 | 结果 |
 |:---|:---|
@@ -44,7 +44,7 @@
 | `engineered-multi-phase-plan.template.md` | 多 Phase + 多 sub-agent + 编译可验证的工程任务 | sub-agent clean context 启动时的"我以为它知道"协作缝隙 |
 
 派生原则：`plan-as-collaboration-contract`（plan 形态必须随协作主体演化为契约）。
-抽象自 secmgr 4 月 81 个工程化 plan（91% 完成率）的成熟形态。
+抽象自 soc 4 月 81 个工程化 plan（91% 完成率）的成熟形态。
 
 ### 工程实践 Skills（`stable/atoms/skills/`，v1.2 新增）
 
@@ -55,7 +55,7 @@
 | `java-backend-test-ops/SKILL.md` | Java + Maven + Spring Boot 3.x + Testcontainers + Docker Desktop | Testcontainers 留守容器累积导致 InnoDB EAGAIN（AIO 槽位耗尽）；Spring Boot 3.x MockMvc API @NonNull 注解告警扩散；共享测试基类变更传播失控 |
 
 派生原则：`cross-project-workflow-belongs-to-leaf-node`（跨项目可复用方法论应抽离到叶子节点 cursor-genesis）。
-抽象自 secmgr-test-ops §六 §九 通用化抽离（见 knowledge-graph rule_to_skill_distillation Phase 4）。
+抽象自 soc-test-ops §六 §九 通用化抽离（见 knowledge-graph rule_to_skill_distillation Phase 4）。
 
 ### ODD 方法论（`methodology/`）
 
@@ -68,14 +68,10 @@
 | `ontology-validation-rules.md` | 本体如何校验（对齐/自洽/跨域） |
 | `ontology-maintenance-guide.md` | 本体如何随项目演化持续维护 |
 
-### 案例研究（`case-study/`）
-
-- `security-mgmt-center.md`：完整的落地案例，含6域架构推导、16条规则生成过程、量化指标
-
 ## 快速安装
 
 ```bash
-git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 git sparse-checkout set \
   stable/packs/enterprise \
@@ -93,7 +89,7 @@ git sparse-checkout set \
 ## 适用场景
 
 - 企业级多模块后端（20+ 模块起步有收益，50+ 模块效果显著）
-- 有明确业务域划分的系统（DDD 风格，或等保/监管驱动的领域划分）
+- 有明确业务域划分的系统（DDD 风格，或监管驱动的领域划分）
 - 使用设计文档驱动开发的团队（有需求规格、架构设计等文档资产）
 
 ## 与其他 Pack 的区别

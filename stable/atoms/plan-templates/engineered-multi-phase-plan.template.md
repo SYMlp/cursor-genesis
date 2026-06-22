@@ -1,6 +1,6 @@
 <!--
 TEMPLATE-NOTE
-模板来源：knowledge-graph 4 月 secmgr 系列 plan 的成熟形态抽象
+模板来源：knowledge-graph 4 月 soc 系列 plan 的成熟形态抽象
 派生原则：plan-as-collaboration-contract（plan 即协作契约）
 承载规则：plan-execution-guide.mdc + plan-architecture-navigation.mdc
 

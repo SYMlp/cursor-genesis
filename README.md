@@ -12,9 +12,11 @@ When configuring AI for large-scale enterprise software (e.g., 50+ modules, tens
 
 Instead of writing manual prompts for every single module, `cursor-genesis` uses **Meta-Rules**. When we discover a robust AI working model in a production enterprise project, we crystallize it into an "**Atom**" (e.g., a `.mdc` rule) and package it into a "**Pack**" for downstream teams to inject into their own repositories via Git sparse-checkout.
 
+> **Tool-agnostic by design.** Built and battle-tested on Cursor, but the patterns — meta-rules, ontology-driven generation, intent routing, self-evolving rules — are about *how you govern an agent*, not which IDE. They carry over to Claude Code, Gemini CLI, Cline, and others. The point isn't the tool; it's understanding *why* the workflow works.
+
 ## The Crown Jewels: Enterprise Meta-Rules
 
-Extracted from a real-world enterprise system delivery (6 domains, 50+ modules, zero to acceptance in 2 weeks), this repository contains the core meta-rules that govern how an Agent *should* behave in a massive codebase. 
+Extracted from a real-world enterprise system delivery (50+ modules, zero to acceptance in ~2 weeks), this repository contains the core meta-rules that govern how an Agent *should* behave in a massive codebase. 
 
 Located in `stable/atoms/rules/enterprise/`:
 
@@ -32,13 +34,13 @@ Located in `stable/atoms/rules/enterprise/`:
 
 ## Provenance & Validation Status
 
-These meta-rules are **not theoretical**. They were extracted and generalized from a production enterprise system (an Enterprise Security Management Center: 6 business domains, 50+ modules, full-stack Java + Vue 3) that was delivered from zero to acceptance review in 2 weeks.
+These meta-rules are **not theoretical**. They were extracted and generalized from a real production enterprise system (a 50+ module, full-stack Java + Vue 3 platform) delivered from zero to acceptance review in ~2 weeks — and the same workflow is still in active use in my current work.
 
 | Rule | Origin | Production Validation |
 |:---|:---|:---|
 | `design-authority` | Discovered after observing 60%+ wasted token reads from legacy code scanning | Eliminated architecture drift across 50+ modules |
 | `routing-engine` | Evolved through 5 documented optimization rounds with quantified before/after metrics | Reduced diagnostic file reads from 9+ to 4-6; search operations from 5+ to 0-1 |
-| `ontology-driven-dev` | Created after measuring 35% field omission rate in first ontology extraction | Brought omission rate to near-zero across 6 domains |
+| `ontology-driven-dev` | Created after measuring 35% field omission rate in first ontology extraction | Brought omission rate to near-zero across all modules |
 | `rule-evolution` | Meta-rule created to prevent recurring behavioral failures | 5 optimization records with full root-cause analysis |
 
 The generalized versions in this repository are the first step in making these patterns available for any enterprise-scale Cursor project. Backflow from downstream adoption will continue to refine them.
@@ -56,16 +58,11 @@ The smallest reusable units of AI cognition. Context-agnostic.
 
 ### 2. Packs (`stable/packs/`)
 User-facing scenario combinations. Users don't pick atoms; they install packs.
-- **`enterprise/`**: **Enterprise ODD Pack** — Meta-Rules + Ontology-Driven Development methodology, validated on a 50+ module production system. [→ View Pack](stable/packs/enterprise/README.md) | [→ Case Study](stable/packs/enterprise/case-study/security-mgmt-center.md)
+- **`enterprise/`**: **Enterprise ODD Pack** — Meta-Rules + Ontology-Driven Development methodology, validated on a 50+ module production system. [→ View Pack](stable/packs/enterprise/README.md)
 - `v1-talk/`: A conversational orchestration pack with 6 team patterns.
 - `deep-research/`: A Plan → Execute → Synthesize research workflow.
 - `knowledge-manage/`: Knowledge system management pack.
 - `create-toolkit/`: Project scaffolding toolkit.
-
-### 3. Examples (`examples/`)
-Real-world source rules from the production enterprise project that the Enterprise Meta-Rules were extracted from. Includes the original Chinese-language rules with 60+ routing entries, proving these atoms are battle-tested — not theoretical.
-
-See [`examples/source-project/README.md`](examples/source-project/README.md) for the full source-to-generalized mapping.
 
 ## How to use (Downstream Injection)
 
@@ -73,10 +70,10 @@ You can inject these cognitive assets into any new Cursor project without downlo
 
 ```bash
 # In your new project's root directory:
-git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 
-# Option A: Inject the full enterprise pack (meta-rules + ODD methodology + case study)
+# Option A: Inject the full enterprise pack (meta-rules + ODD methodology)
 git sparse-checkout set stable/packs/enterprise stable/atoms/rules/enterprise
 
 # Option B: Inject only the 4 meta-rules

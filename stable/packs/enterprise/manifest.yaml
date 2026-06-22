@@ -9,7 +9,7 @@ description: |
   实现 50+ 模块规模下的 Agent 认知治理。
 version: 1.2.0
 audience: enterprise
-validated_by: security-mgmt-center（6域/50+模块/2周交付/4 个月 80+ 工程化 plan）
+validated_by: enterprise-soc（50+ 模块/2 周交付/4 个月 80+ 工程化 plan）
 
 # 引用原子层
 atoms:
@@ -24,14 +24,14 @@ atoms:
       # 来源：atoms/plan-templates/engineered-multi-phase-plan.template.md
       # 适用：多 Phase + 多 sub-agent + 编译可验证的协作工程
       # 派生原则：plan-as-collaboration-contract
-      # 抽象自：security-mgmt-center 4 月所有 secmgr_*.plan.md（见 plan-evolution-2026-04-18 derivation）
+      # 抽象自：enterprise-soc 4 月所有 soc_*.plan.md（见 plan-evolution-2026-04-18 derivation）
 
   skills:
     - java-backend-test-ops
       # 来源：atoms/skills/java-backend-test-ops/SKILL.md
       # 适用：Java + Maven + Spring Boot 3.x + Testcontainers + Docker Desktop（Windows/macOS/Linux）
       # 派生原则：cross-project-workflow-belongs-to-leaf-node
-      # 抽象自：security-mgmt-center secmgr-test-ops §六 §九（见 rule-to-skill-distillation-2026-04-17 derivation）
+      # 抽象自：enterprise-soc soc-test-ops §六 §九（见 rule-to-skill-distillation-2026-04-17 derivation）
       # 内容：Testcontainers 资源治理（避免 InnoDB EAGAIN）+ Spring Boot 3.x Null-Safety 规范 + 共享测试基类变更传播
 
 # 方法论
@@ -60,9 +60,8 @@ mechanisms:
 
 # 已验证案例
 case_studies:
-  - id: security-mgmt-center
+  - id: enterprise-soc
     type: enterprise-platform
-    domains: 6
     modules: 50+
     delivery: "< 2 weeks (zero to acceptance)"
     token_reduction: "60%"
@@ -76,7 +75,7 @@ version_history:
   - version: 1.2.0
     date: 2026-04-18
     changes:
-      - atoms 引入 skills 资产引用（首个：java-backend-test-ops，源自 secmgr-test-ops §六 §九 通用化抽离）
+      - atoms 引入 skills 资产引用（首个：java-backend-test-ops，源自 soc-test-ops §六 §九 通用化抽离）
       - methodology 增加 cross-project-workflow-belongs-to-leaf-node 派生原则
       - mechanisms 增加 reusable_engineering_practices 机制
       - 配合 knowledge-graph rule_to_skill_distillation Phase 4 完成
@@ -86,8 +85,8 @@ version_history:
       - 引入 plan_templates 资产引用（engineered-multi-phase-plan）
       - methodology 增加 plan-as-collaboration-contract 派生原则
       - mechanisms 增加 contract_oriented_plan 机制
-      - case_studies 补充 secmgr 4 月工程化 plan 数据（81 个/91% 完成率）
+      - case_studies 补充 soc 4 月工程化 plan 数据（81 个/91% 完成率）
   - version: 1.0.0
     date: 2026-03-31
     changes:
-      - 初版：4 条 Meta-Rules + ODD 方法论 + secmgr 案例
+      - 初版：4 条 Meta-Rules + ODD 方法论 + soc 案例

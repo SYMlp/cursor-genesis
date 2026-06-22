@@ -8,8 +8,8 @@
 
 | 参数 | 必填 | 说明 | 示例 |
 |:---|:---|:---|:---|
-| `name` | 是 | 项目名称（英文短横线格式） | `security-mgmt-center` |
-| `path` | 否 | 项目路径，默认 `D:/Project/{name}/` | `D:/Project/security-mgmt-center` |
+| `name` | 是 | 项目名称（英文短横线格式） | `enterprise-soc` |
+| `path` | 否 | 项目路径，默认 `D:/Project/{name}/` | `D:/Project/enterprise-soc` |
 | `stack` | 否 | 技术栈预设，默认 `custom` | `full-stack-java-vue` |
 | `packs` | 否 | 额外部署的 Pack 列表 | `deep-research` |
 | `workspace` | 否 | .code-workspace 文件路径 | 自动检测当前 workspace |

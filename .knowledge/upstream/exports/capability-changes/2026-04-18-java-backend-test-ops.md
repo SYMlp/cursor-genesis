@@ -9,7 +9,7 @@
 
 跨项目可复用的"Java 后端测试运维方法论"在 cursor-genesis 之前没有承载形式：
 
-- 项目 A 在 secmgr-test-ops §六 §九 中沉淀了 Testcontainers 资源治理 + Spring Boot 3.x Null-Safety 规范两段方法论
+- 项目 A 在 soc-test-ops §六 §九 中沉淀了 Testcontainers 资源治理 + Spring Boot 3.x Null-Safety 规范两段方法论
 - 项目 B / C / ... 后续如果用 Java + Spring Boot + Testcontainers，会重新踩同一类坑（InnoDB EAGAIN / MockMvc @NonNull 告警扩散）
 - 派生原则 `cross-project-workflow-belongs-to-leaf-node` 要求：跨项目通用方法论应抽离到叶子节点，避免每个项目维护一份
 
@@ -21,7 +21,7 @@
 - **§二 Testcontainers 资源治理**：留守容器累积导致 InnoDB AIO 槽位耗尽（EAGAIN）的根因 + PowerShell `Clear-Testcontainers` 函数 + Bash 等价示例 + 替代方案对比 + 何时必须执行 / 不触发情况
 - **§三 共享测试基类变更传播**：grep 全部继承者 + 常量/方法签名/注解全量传播 + 代码生成器模板同步
 - **§四 故障案例**：EAGAIN 实战复盘 + Null-Safety 扩散事故复盘
-- **§五 来源回链**：明确指向 secmgr-test-ops + 派生原则
+- **§五 来源回链**：明确指向 soc-test-ops + 派生原则
 
 ## 适用场景
 
@@ -50,7 +50,7 @@
 
 - PowerShell `Clear-Testcontainers` 函数在 macOS / Linux 用户需用 §2.4 的 Bash 等价示例
 - Spring Boot 4.x 启用包级 `@NonNullApi` 后，§一规范可能简化（需重新评估）
-- 项目特异性内容（`AbstractCrudControllerTest` / `BaseIntegrationTest` 等命名 / 40+ 子类规模 / 具体测试类名）保留在 `secmgr-test-ops`，本 skill 不重复
+- 项目特异性内容（`AbstractCrudControllerTest` / `BaseIntegrationTest` 等命名 / 40+ 子类规模 / 具体测试类名）保留在 `soc-test-ops`，本 skill 不重复
 
 ## 与现有资产的边界
 
@@ -59,7 +59,7 @@
 | `cg-install.skill.yaml` / `kg-search.skill.yaml` / `kg-assemble.skill.yaml` | 命令封装型（`.skill.yaml`），主题完全不同 |
 | `packs/deep-research/skills/base-research-*/SKILL.md` | 方法论型（SKILL.md），管 deep research，主题完全不同 |
 | `packs/create-toolkit/skills/base-*/SKILL.md` | 方法论型，管 skill/rule/command 创建，主题完全不同 |
-| 项目特化版 `secmgr-test-ops`（在 security-mgmt-center 仓）| 本 skill 是其通用化抽离版，两者并存 |
+| 项目特化版 `soc-test-ops`（在 enterprise-soc 仓）| 本 skill 是其通用化抽离版，两者并存 |
 
 ## 派生原则
 

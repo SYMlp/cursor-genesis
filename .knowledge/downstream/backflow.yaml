@@ -3,10 +3,10 @@
 
 # 回流来源项目
 sources:
-  - project: security-mgmt-center
+  - project: enterprise-soc
     last_backflow: 2026-04-01
     status: active
-    description: "企业安全管理平台（6业务域/50+模块/Spring Boot + Vue 3），ODD方法论第一个验证场"
+    description: "大型全栈企业系统（50+ 模块/Spring Boot + Vue 3），ODD 方法论第一个验证场"
     backflow_type: methodology-validation
     exported_to: stable/packs/enterprise/
 
@@ -36,12 +36,12 @@ processing: []
 # 已完成的回流（最近 10 条）
 completed:
   - id: bf-001
-    from: security-mgmt-center
+    from: enterprise-soc
     completed_at: 2026-04-01
     result: accepted
     exported_to: stable/packs/enterprise/
     notes: |
-      ODD元方法论栈（4个方法论文件）+ enterprise pack（README/manifest/case-study）。
+      ODD元方法论栈（4个方法论文件）+ enterprise pack（README/manifest）。
       验证了Meta-Rules → 域专属规则自动生成的完整闭环。
       量化结果：<2周交付，60% token读取节省，字段缺失率35%→~0%。
   # 示例:

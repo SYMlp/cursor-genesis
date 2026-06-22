@@ -217,9 +217,9 @@ rg "extends <your-base-test-class>" <test-source-root>
 
 ## 五、来源与回链
 
-- **抽离自**：`security-mgmt-center/.cursor/skills/secmgr-test-ops/SKILL.md` §六「共享测试基础设施变更约束」+ §九「Testcontainers 资源治理」
+- **抽离自**：`enterprise-soc/.cursor/skills/soc-test-ops/SKILL.md` §六「共享测试基础设施变更约束」+ §九「Testcontainers 资源治理」
 - **派生原则**：`cross-project-workflow-belongs-to-leaf-node` —— 跨项目可复用的方法论应抽离到叶子节点 cursor-genesis，避免在每个项目内重复维护。
 - **抽离评估**：`knowledge-graph/docs/learnings/rule-skill-phase4-extraction-assessment.md`（P4-1 PROBE 产出）
-- **本 skill 不包含**：项目特有测试基类清单（`AbstractCrudControllerTest` 等命名）、项目特有事故的具体测试类名（`RefSearchApiTest` 等）、项目特有代码生成器（`gen-test.js`）。这些保留在 `secmgr-test-ops`（项目特化版）中。
+- **本 skill 不包含**：项目特有测试基类清单（`AbstractCrudControllerTest` 等命名）、项目特有事故的具体测试类名（`RefSearchApiTest` 等）、项目特有代码生成器（`gen-test.js`）。这些保留在 `soc-test-ops`（项目特化版）中。
 
 如果你的项目也产生了同类通用方法论，欢迎通过 cursor-genesis 的 backflow 机制贡献：参见 `.knowledge/downstream/pending/README.md`。

@@ -235,7 +235,7 @@ items:
       - §二 Testcontainers 资源治理（PowerShell Clear 函数 + Bash 等价 + 替代方案对比）
       - §三 共享测试基类变更传播（grep + 全量传播 + 生成器同步）
       - §四 故障案例（EAGAIN 实战 + Null-Safety 扩散）
-      - §五 来源回链（指向 secmgr-test-ops + 派生原则）
+      - §五 来源回链（指向 soc-test-ops + 派生原则）
     applicable_scenario: 任何 Java 17+ / Maven / Spring Boot 3.2 ~ 3.x / Testcontainers / Docker Desktop 项目
     related_artifacts:
       - stable/atoms/skills/java-backend-test-ops/SKILL.md
@@ -246,7 +246,7 @@ items:
       - stable/knowledge/index.yaml (engineering-practices category)
     derived_from:
       - principle: cross-project-workflow-belongs-to-leaf-node
-      - source_skill: security-mgmt-center/.cursor/skills/secmgr-test-ops/SKILL.md §六 §九
+      - source_skill: enterprise-soc/.cursor/skills/soc-test-ops/SKILL.md §六 §九
       - derivation_doc: knowledge-graph/meta/derivation/rule-to-skill-distillation-2026-04-17.md
       - extraction_assessment: knowledge-graph/docs/learnings/rule-skill-phase4-extraction-assessment.md
       - gate_report: knowledge-graph/docs/learnings/rule-skill-distillation-phase4-regression.md
