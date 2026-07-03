@@ -1,0 +1,69 @@
+# cursor-templates 套装
+# 定位：Cursor 开发模板，与知识管理体系无关
+
+name: cursor-templates
+description: |
+  Cursor 项目开发模板，包含团队协作模式、代码风格和最佳实践。
+  与知识管理体系无关，任何 Cursor 项目都可以使用。
+version: 1.0.0
+audience: all
+previous_name: v1-talk
+
+# 引用原子层
+atoms:
+  rules:
+    - 01-project-rules
+    - 02-project-playbook
+    - 03-user-preferences
+    - project-map-summary
+    - teams/virtual-streamlit-team
+    - teams/strategic-research-team
+    - teams/topic-research-team
+    - teams/domain-driven-design
+    - teams/ai-migration-team
+    - teams/knowledge-system-team
+
+  capabilities:
+    # 01_insight
+    - 01_insight/concept-decoder
+    - 01_insight/market-analyst
+    - 01_insight/technical-pm
+    - 01_insight/topic-guide
+    - 01_insight/literature-hunter
+    # 02_architecture
+    - 02_architecture/systems-designer
+    - 02_architecture/project-mapper
+    - 02_architecture/tech-feasibility-auditor
+    - 02_architecture/prometheus-prompt-engineer
+    - 02_architecture/research-architect
+    - 02_architecture/domain-architect
+    # 03_engineering
+    - 03_engineering/streamlit-expert
+    - 03_engineering/code-maintainer
+    - 03_engineering/python-distributor
+    - 03_engineering/research-executor
+    - 03_engineering/codebase-scout
+    - 03_engineering/env-setup-specialist
+    # 04_quality
+    - 04_quality/rubric-specialist
+    - 04_quality/logic-auditor
+    - 04_quality/experiment-designer
+
+# 包含的团队模式
+patterns:
+  - virtual-streamlit-team
+  - strategic-research-team
+  - topic-research-team
+  - domain-driven-design
+  - ai-migration-team
+  - knowledge-system-team
+
+# 核心机制
+mechanisms:
+  routing: 动态路由，rules/teams/*.mdc 通过决策矩阵自动分发
+  cognition: Think-First 法则 + 强制 <thinking> 块
+
+# 与 knowledge-manage 的区别
+notes: |
+  cursor-templates 是纯粹的开发模板，与知识管理体系无关。
+  如果需要知识管理功能（回流、搜索、组装），请同时拉取 knowledge-manage/cursor-project/。

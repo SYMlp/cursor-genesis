@@ -1,6 +1,9 @@
 # 本地工作台（不开源）
 workspace/
 
+# 待处理内容（本地临时）
+pending/
+
 # 系统文件
 .DS_Store
 Thumbs.db

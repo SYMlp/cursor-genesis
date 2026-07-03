@@ -1,0 +1,56 @@
+# node-backflow.skill.yaml
+
+name: 节点回流技能
+version: 1.0.0
+description: 处理下游项目的回流改进
+
+## 功能
+
+- 监控 GitHub PR
+- 拉取 PR 内容
+- 审核回流质量
+- 精炼和导出
+
+## 使用场景
+
+- 接收下游项目的改进
+- 审核回流内容
+- 精炼后上报到上游
+
+## 技术实现
+
+### 1. 监控 GitHub PR
+
+```bash
+# 使用 gh CLI
+gh pr list --label backflow --state open
+```
+
+### 2. 拉取 PR 内容
+
+```bash
+# 拉取到 .knowledge/downstream/pending/
+gh pr checkout {PR_NUMBER}
+cp -r .knowledge/downstream/pending/{project}/ .knowledge/downstream/pending/
+```
+
+### 3. 审核回流质量
+
+**审核标准**：
+- 内容质量：是否解决真实问题
+- 可复用性��是否适用于其他项目
+- 格式规范：是否符合模板
+- 测试验证：是否有验证
+
+### 4. 精炼和导出
+
+```bash
+# 精炼后放入 exports/
+cp .knowledge/downstream/processing/{item} .knowledge/upstream/exports/capability-changes/
+```
+
+## 相关命令
+
+- `/backflow status` - 查看待处理回流
+- `/backflow review` - 审核回流内容
+- `/backflow accept` - 接受并精炼

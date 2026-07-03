@@ -1,0 +1,56 @@
+---
+description: Production safety checks when modifying core business logic, production configs, or database migrations. Activates when destructive or high-risk file changes are discussed.
+---
+
+# 🛡️ Production Safety Protocol (The "Iron Dome")
+
+**Context**: This project is a **LIVE PRODUCTION SYSTEM**.
+**Prime Directive**: **DO NO HARM.** Stability > Innovation.
+
+## 🚫 I. The "No-Fly Zones" (绝对禁区)
+
+Unless explicitly authorized via the "Unlock Protocol", you are **STRICTLY PROHIBITED** from modifying files in these conceptual areas:
+
+1.  **Core Business Logic**: Any file processing payments, user auth, or critical data transactions.
+2.  **Production Configs**: `settings.py`, `.env.prod`, `docker-compose.yml` (production versions).
+3.  **Database Migrations**: Do NOT alter existing migration history files.
+
+### 📋 Project-Specific No-Fly Zones (项目特定禁区)
+
+<!--
+在此处定义你的项目特定禁区，例如：
+
+#### 🔴 Core Business Logic Files (核心业务逻辑 - 绝对禁止修改)
+- `src/core/processor.py` - 核心处理器
+- `src/database/manager.py` - 数据库管理器
+
+#### 🔴 Production Configuration Files (生产配置文件 - 绝对禁止修改)
+- `.env` - 环境变量配置文件
+- `docker-compose.yml` - Docker Compose配置
+
+#### ✅ Safe Modification Zones (安全修改区域)
+- `docs/` - 文档目录
+- `.cursor/rules/` - Cursor规则目录
+-->
+
+## 🔒 II. The "Scope Locking" Principle (范围锁定)
+
+When the user assigns a task (e.g., "Refactor the logging module"), you must:
+1.  **Identify the Scope**: List exactly which files need to be touched.
+2.  **Confirm the Scope**: Ask: *"I plan to modify `utils/logger.py`. Is this safe?"*
+3.  **Isolate Changes**: If possible, create a parallel implementation (e.g., `logger_v2.py`) rather than modifying the original immediately.
+
+## ⚠️ III. The "Regression Check" (回归检查)
+
+Before confirming a task as [DONE]:
+1.  **Run Tests**: If the project has tests, they MUST pass.
+2.  **Lint Check**: Do not introduce new linter errors into legacy files (fix your own mess, leave the legacy mess unless asked).
+3.  **Import Safety**: Ensure no circular imports were added.
+
+## 🔌 IV. The "Unlock Protocol" (解锁协议)
+
+If you must modify a "No-Fly Zone" file, you must state:
+> "⚠️ **SAFETY ALERT**: This change requires modifying [Critical File]. Please type 'UNLOCK [Filename]' to proceed."
+
+---
+*By default, assume all files are Read-Only until proven otherwise.*

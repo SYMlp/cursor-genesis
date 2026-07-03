@@ -1,0 +1,89 @@
+.perspective-panel {
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.perspective-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.perspective-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.perspective-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.perspective-item.active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.perspective-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.perspective-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.perspective-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.perspective-desc {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.active-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+}

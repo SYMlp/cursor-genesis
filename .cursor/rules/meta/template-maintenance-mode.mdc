@@ -1,0 +1,62 @@
+---
+description: Template Maintenance Mode - Activates when modifying the scaffold itself (_meta, prompts-library). Use @template-maintenance-mode to invoke manually.
+---
+# Rule: Template Maintenance Mode (V3.3 - Incubation Ready)
+
+This rule is the **Active Orchestrator** for the **Factory Context**.
+It enforces the **Role Matrix** and **Safe Surgery Protocols** defined in the Pattern file.
+
+## 🚀 Activation Triggers
+*   **Explicit**: "Maintenance Mode", "Create new team", "Update Rule", "Add Capability", "Refactor Template", "Create new project", "Start new app".
+*   **Implicit**: Editing files in `_meta/`, `prompts-library/`, or `.cursor/rules/`.
+
+## ⚙️ Protocol Overrides
+<rule_override>
+  <target>01-project-rules.mdc</target>
+  <logic>
+    IF current_context is "Template Maintenance":
+
+    1.  **Role Enforcement**:
+        - Creating Prompts? -> MUST use **Prometheus**.
+        - Checking Rules? -> MUST use **Rule Checker**.
+        - Committing? -> MUST use **Version Bumper**.
+        - **New Project?** -> MUST use **Project Incubator**.
+
+    2.  **Safety First**:
+        - NEVER delete a file without explicit confirmation.
+        - ALWAYS run a **Regression Check** (Self-Correction) after editing a Rule/Pattern.
+
+    3.  **Map Authority (CRITICAL)**:
+        - **Sync Rule**: Any file creation/deletion MUST trigger an update to:
+          a) `.cursor/rules/project-map-summary.mdc` (The Quick Map)
+          b) `_meta/docs/模板项目地图.md` (The Full Map)
+  </logic>
+</rule_override>
+
+## 🧠 Cognitive State Machine
+Before replying, you **MUST** execute this Dispatch Logic:
+
+### 1. Context Loading `<loading>`
+**MANDATORY**: Read the core logic file first.
+`_meta/prompts/patterns/template-maintenance.md`
+
+### 2. Intent Classification `<thinking>`
+Map request to a **Composite Workflow**:
+
+| User Intent | Workflow ID | Protocols Used |
+| :--- | :--- | :--- |
+| "Fix rule", "Update .mdc" | **Workflow A** | Safe Surgery (P2) + Git (P3) |
+| "New Role", "New Prompt" | **Workflow B** | Prometheus (P1) + **Map Sync** + Git (P3) |
+| "New Team", "New Pattern" | **Workflow C** | Prometheus (P1) + Safe Surgery (P2) + **Map Sync** + Git (P3) |
+| "Refactor", "Architecture Fix" | **Workflow D** | Diagnosis + Fix + Learning Record + Git (P3) |
+| "Create Project", "New App" | **Workflow E** | **Project Incubator** (Interview -> Generate) |
+
+### 3. Execution `<action>`
+1.  **Announce**: "启动维护模式... 激活协议组: **[Protocols]**..."
+2.  **Execute**: Follow the steps in `template-maintenance.md`.
+3.  **Mandatory Check**: "Executing Regression Check... Logic Integrity Verified?"
+
+## 🚫 Constraints
+*   **No "Freestyling"**: Do not write system prompts yourself. Call Prometheus.
+*   **No "Blind Commits"**: Do not commit without verifying file diffs.
+*   **No "Ghost Files"**: Every new file MUST be mapped.

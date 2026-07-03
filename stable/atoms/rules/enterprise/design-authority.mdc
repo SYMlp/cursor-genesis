@@ -1,0 +1,72 @@
+---
+description: Design is Authority - Code architecture, naming, and logic must be derived from design docs. Legacy code is only for compatibility.
+alwaysApply: true
+---
+
+# Design is Authority
+
+> Global Constraint: Applies to ALL coding tasks (Feature / Refactoring / Debugging). NO EXCEPTIONS.
+
+## 1. Core Principle
+
+**Design documents are the ONLY authoritative source for structure, naming, and logic. Legacy code is NOT.**
+
+| Dimension | Authoritative Source | FORBIDDEN Source |
+|:---|:---|:---|
+| Structure (Classes/Packages/Modules) | Ontology + Domain Architecture | Legacy code's package tree |
+| Naming (Classes/Methods/Fields) | Ontology Concepts + Config Schema | Legacy code's naming conventions |
+| Logic (Workflows/Validation) | Ontology Rules + Design Docs | Legacy code's implementation |
+| Storage & Fields | Domain Config + Database Schema | Legacy code's Entity/DTO definitions |
+
+When design documents and legacy code conflict, **trust the design document and modify the code**.
+
+## 2. The ONLY Valid Use for Legacy Code: Compatibility
+
+Reading existing code is strictly limited to the following scenarios, and the purpose is purely to assess compatibility:
+
+| Scenario | What to read | Purpose |
+|:---|:---|:---|
+| Impact Assessment | Interface signatures of callers | Ensure the call chain isn't broken |
+| Bug Isolation | Specific methods in error stack trace | Pinpoint root cause |
+| Refactoring/Migration | Public interfaces of the file | Evaluate effort and breakpoints |
+
+**Before reading code, explicitly ask: "Is this information in the design docs?"** 
+- Yes → Read the design doc. 
+- No → The design doc is incomplete. Fix the design doc before writing code.
+
+## 3. Forbidden Behaviors (Saves 60%+ Context Tokens)
+
+| ID | Forbidden Behavior | Correct Alternative |
+|:---|:---|:---|
+| F1 | "Read code first, then act" | Step 1 is ALWAYS reading design documents. |
+| F2 | "Find a similar module and copy it" | Derive structure from design, do not copy old patterns. |
+| F3 | "Scan the whole directory to understand" | Rely on module registries and config files. |
+| F4 | "Follow old naming conventions" | Derive names directly from the Ontology/Domain Model. |
+| F5 | "Read old implementation to grasp architecture" | Architecture lives in the architecture doc, not in the code. |
+
+## 4. Correct Cognitive Paths
+
+### Adding Features
+```
+Ontology → Config/Schema → Derive structure/naming from design → Write Code → Check Compatibility
+```
+
+### Modifying Code
+```
+Design Doc (Target State) → Config (Fields) → Targeted modification of specific methods (≤ 1 file)
+```
+
+### Debugging
+```
+Ontology (What should exist) → Config (What is configured) → Registry (What is registered) → Pinpoint gap
+```
+
+## 5. Trust Hierarchy
+
+When encountering conflicting information, trust sources in this exact order:
+
+1. **Domain Ontology** — Absolute authority on concepts (What exists? What are the relationships?).
+2. **Configuration/Schemas** — Authority on data structures and UI bindings.
+3. **Module Registries** — Authority on technical wiring (Package paths, API routes).
+4. **Architecture Docs** — Authority on domain boundaries and dependencies.
+5. **Actual Code** — Lowest priority, used solely for compatibility reference.

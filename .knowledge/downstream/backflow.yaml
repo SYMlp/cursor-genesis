@@ -1,0 +1,66 @@
+# downstream/backflow.yaml
+# 与下游项目的回流配置和记录
+
+# 回流来源项目
+sources:
+  - project: enterprise-soc
+    last_backflow: 2026-04-01
+    status: active
+    description: "大型全栈企业系统（50+ 模块/Spring Boot + Vue 3），ODD 方法论第一个验证场"
+    backflow_type: methodology-validation
+    exported_to: stable/packs/enterprise/
+
+# 待审核的回流
+pending_reviews: []
+  # 示例:
+  # - id: bf-001
+  #   from: anfu_test
+  #   contributor: user123
+  #   commit: e5f6g7h8
+  #   submitted_at: 2026-02-26T15:30:00Z
+  #   status: pending
+  #   type: capability-change
+  #   title: "对话状态机改进"
+  #   description: "优化了对话状态机的错误处理逻辑"
+
+# 处理中的回流
+processing: []
+  # 示例:
+  # - id: bf-002
+  #   from: anfu_test
+  #   status: refining
+  #   started_at: 2026-02-27T09:00:00Z
+  #   target_export: capability-changes/dialog-state-machine.md
+  #   notes: "需要补充测试用例"
+
+# 已完成的回流（最近 10 条）
+completed:
+  - id: bf-001
+    from: enterprise-soc
+    completed_at: 2026-04-01
+    result: accepted
+    exported_to: stable/packs/enterprise/
+    notes: |
+      ODD元方法论栈（4个方法论文件）+ enterprise pack（README/manifest）。
+      验证了Meta-Rules → 域专属规则自动生成的完整闭环。
+      量化结果：<2周交付，60% token读取节省，字段缺失率35%→~0%。
+  # 示例:
+  # - id: bf-003
+  #   from: anfu_test
+  #   completed_at: 2026-02-25T16:00:00Z
+  #   result: accepted
+  #   exported_to: .knowledge/upstream/exports/capability-changes/xxx.md
+  #   notes: "已精炼并准备上报"
+
+# 回流审核标准
+review_criteria:
+  - 内容质量：是否解决真实问题
+  - 可复用性：是否适用于其他项目
+  - 格式规范：是否符合模板
+  - 测试验证：是否有验证结果
+
+# 回流处理 SLA
+sla:
+  initial_review: 2  # 初审时间（工作日）
+  refinement: 5      # 精炼时间（工作日）
+  total: 7           # 总处理时间（工作日）

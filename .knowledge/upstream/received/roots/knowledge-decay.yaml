@@ -1,0 +1,41 @@
+# L1 根事实：知识衰减
+# 记忆的自然规律
+
+id: knowledge-decay
+name: 知识衰减
+principle: "未经复习的知识会按遗忘曲线指数衰减"
+
+# 来源
+source:
+  reference: "Ebbinghaus (1885). Memory: A Contribution to Experimental Psychology"
+  type: 认知心理学
+  verifiable: true
+
+# 系统边界
+system_boundary: 知识管理、学习系统
+
+# 不可动摇性检验
+immutability_check:
+  can_be_further_decomposed: false
+  depends_on_experience: false
+  if_invalid_system_collapses: true
+
+# 推论
+implications:
+  - id: must-retrievable
+    statement: "知识必须可被检索，以便重新激活"
+    reasoning: "不被使用的知识会遗忘，检索机制让知识被重新激活"
+
+  - id: must-externalized
+    statement: "重要知识必须外化存储，不能只靠记忆"
+    reasoning: "外化存储不受遗忘曲线影响"
+
+  - id: usage-reinforces
+    statement: "知识被使用会强化记忆"
+    reasoning: "检索和应用是对抗遗忘的方式"
+
+# 在本系统中的应用
+applications_in_system:
+  - "知识外化到文件系统"
+  - "检索工具（search.py）的存在必要性"
+  - "回流机制让知识被重新激活和验证"

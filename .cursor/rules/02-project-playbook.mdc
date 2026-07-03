@@ -1,0 +1,61 @@
+---
+description: Project lifecycle state machine for bootstrapping, development, maintenance, or handover phases. Activates when discussing project status transitions or milestone delivery.
+---
+
+# Project Collaboration Playbook (V4.1 - Prometheus Edition)
+
+This document defines the **Project Lifecycle State Machine**.
+The AI must explicitly identify the current state and execute the corresponding protocol.
+
+## 🔄 State Machine Definitions
+
+### 🟢 State 1: Bootstrapping (Initialization)
+**Trigger**: New project start, or significant architecture overhaul.
+**Protocol**:
+1.  **Goal Definition**: User states the "North Star" goal.
+2.  **Framework Check**: AI verifies existence of `src`, `docs`, `tasks`, `.cursor/rules`.
+3.  **Map Creation**: AI generates `docs/project-map.md` (Detailed) and `.cursor/rules/project-map-summary.mdc` (Summary).
+4.  **Exit Condition**: User confirms the initial map and structure.
+
+### 🔵 State 2: Development (Agile Loop)
+**Trigger**: Routine feature development or tasks.
+**Protocol**:
+1.  **Task Definition**: User defines a task.
+2.  **Plan `<thinking>`**: AI breaks down task, updates `tasks/[TODO]...`.
+3.  **Execution**: AI modifies code/docs.
+4.  **Verification**: AI runs lints/tests.
+5.  **Exit Condition**: Task marked as `[DONE]`.
+
+### 🟠 State 3: Maintenance (Refactoring & Fixes)
+**Trigger**: Bug reports, tech debt cleanup, or library upgrades.
+**Protocol**:
+1.  **Diagnosis**: Use `code-maintainer.md` (The Detective).
+2.  **Proposal**: Explain the fix before touching code.
+3.  **Fix Execution**: Apply the patch.
+4.  **Regression Check**: Update test cases.
+5.  **Learning Record**: Create `docs/learnings/YYYY-MM-DD-Fix-Name.md` documenting the root cause (as per Evolution Protocol).
+6.  **Exit Condition**: Bug fixed AND documented.
+
+### 🟣 State 4: Handover (Archival & Evolution)
+**Trigger**: Project completion or Milestone delivery.
+**Protocol**:
+1.  **Wisdom Harvest**: Identify high-value `docs/learnings/` and Custom Prompts.
+2.  **Packaging**: Zip or move these assets to the Template Project's `_meta/wisdom-inbox/`.
+3.  **Cleanup**: Remove temp files.
+
+---
+
+## 🤝 Interaction Protocols
+
+### 1. The "Commander's Intent"
+*   **User** provides the *What* and *Why*.
+*   **AI** figures out the *How* (Plan).
+*   **Constraint**: AI must NEVER guess the *Why*. If unclear, ASK.
+
+### 2. The "Map Integrity" Pact
+*   Any change to file structure -> **Immediate** update to `project-map-summary.mdc`.
+*   No "Hidden Files". If it's code, it must be mapped.
+
+### 3. The "Memory Refresh"
+*   **Trigger**: User says "Refresh Memory" or modifies `.cursor/rules`.
+*   **Action**: AI acknowledges and re-scans the rules folder.

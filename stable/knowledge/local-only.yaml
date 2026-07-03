@@ -1,0 +1,189 @@
+# cursor-genesis 仅本地内容清单
+# 生成日期：2026-02-26
+# 说明：这些内容不上报到 knowledge-graph，仅在本节点使用
+
+# 不上报的判断标准：
+# - Cursor 特定语法/配置
+# - 工具版本绑定
+# - 具体技术栈实现
+# - 项目特定代码/模板
+# - 过程性文档/草稿
+
+items:
+  # ============================================================
+  # 一、Cursor 特定语法/配置
+  # ============================================================
+
+  - id: mdc-rules
+    title: .mdc 规则文件
+    source: stable/atoms/rules/*.mdc
+    reason: Cursor 特定的规则语法，其他 AI 工具不支持 .mdc 格式
+    files:
+      - 00-production-safety.mdc
+      - 01-project-rules.mdc
+      - 02-project-playbook.mdc
+      - 03-user-preferences.mdc
+      - project-map-summary.mdc
+      - meta/template-maintenance-mode.mdc
+      - teams/*.mdc
+
+  - id: cursor-workflow
+    title: Cursor 工作流程
+    source: stable/knowledge/cursor-specs/sop-02-cursor-workflow.md
+    reason: Cursor IDE 特定的操作流程，依赖 Cursor 的 UI 和功能
+
+  - id: cursor-patterns
+    title: Cursor 特定模式
+    source: stable/knowledge/cursor-specs/cursor-specific-patterns.md
+    reason: 文件名已明确标注为 Cursor 特定，内容与 Cursor 功能绑定
+
+  # ============================================================
+  # 二、工具版本绑定
+  # ============================================================
+
+  - id: skill-definitions
+    title: Skill 定义文件
+    source: stable/atoms/skills/*.skill.yaml
+    reason: Cursor/Claude Code 特定的 skill 语法，其他工具不支持
+    files:
+      - kg-search.skill.yaml
+      - kg-assemble.skill.yaml
+      - cg-install.skill.yaml
+
+  - id: v1-talk-pack
+    title: v1-talk 套装
+    source: stable/packs/v1-talk/
+    reason: 特定工具版本的预组合配置，依赖 Cursor Rules 机制
+
+  # ============================================================
+  # 三、具体角色实现（技术栈绑定）
+  # ============================================================
+
+  - id: streamlit-expert
+    title: Streamlit 专家
+    source: stable/atoms/capabilities/03_engineering/streamlit-expert.md
+    reason: 特定技术栈（Python/Streamlit）的实现细节
+
+  - id: vue-architect
+    title: Vue 架构师
+    source: stable/atoms/standalone/03_engineering/vue-architect.md
+    reason: 特定技术栈（Vue.js）的实现细节
+
+  - id: java-architect
+    title: Java 架构师
+    source: stable/atoms/standalone/03_engineering/java-architect.md
+    reason: 特定技术栈（Java/Spring）的实现细节
+
+  - id: python-distributor
+    title: Python 分发专家
+    source: stable/atoms/capabilities/03_engineering/python-distributor.md
+    reason: 特定技术栈（Python/PyInstaller）的实现细节
+
+  - id: legacy-roles
+    title: 遗留系统角色
+    source: stable/atoms/standalone/legacy/
+    reason: 特定场景（遗留系统迁移）的具体实现
+    files:
+      - vue-inspector.md
+      - java-excavator.md
+
+  - id: tech-specific-capabilities
+    title: 技术栈特定能力
+    source: stable/atoms/capabilities/
+    reason: 这些能力的方法论已抽象上报，具体实现保留本地
+    files:
+      - 03_engineering/env-setup-specialist.md
+      - 03_engineering/codebase-scout.md
+      - 03_engineering/research-executor.md
+
+  # ============================================================
+  # 四、代码模板
+  # ============================================================
+
+  - id: code-templates
+    title: 代码模板
+    source: stable/atoms/code-templates/
+    reason: 项目特定的脚手架代码，非方法论
+    subdirs:
+      - backend/java-spring-boot/
+      - frontend/vue-admin/
+      - tools/
+
+  - id: ddd-structure
+    title: DDD 结构模板
+    source: stable/atoms/code-templates/design/ddd-structure/
+    reason: 具体的 DDD 实现模板，方法论已在 domain-driven-design pattern 中抽象
+    files:
+      - domain_model_template.xml
+      - features/feature_template.md
+      - workflow.md
+      - guidelines.md
+
+  # ============================================================
+  # 五、讨论记录/草稿
+  # ============================================================
+
+  - id: discussion-records
+    title: 讨论记录
+    source: stable/knowledge/knowledge-system/*讨论记录.md
+    reason: 过程性文档，核心结论已整理到正式文档中
+    files:
+      - 01-讨论记录.md
+      - 02-讨论记录.md
+      - 03-讨论记录.md
+      - 04-讨论记录.md
+      - 讨论记录.md
+
+  - id: inbox
+    title: 待整理区
+    source: stable/knowledge/knowledge-system/inbox/
+    reason: 未整理的草稿内容，不符合上报的稳定性要求
+
+  # ============================================================
+  # 六、索引/配置文件
+  # ============================================================
+
+  - id: index-files
+    title: 索引配置文件
+    source: stable/knowledge/index.yaml
+    reason: 本节点的内部索引，上层通过 nodes-registry.yaml 引用
+
+  - id: gitkeep-files
+    title: 占位文件
+    source: stable/**/.gitkeep
+    reason: Git 占位文件，无实际内容
+
+  # ============================================================
+  # 七、团队模式的具体实现
+  # ============================================================
+  # 注：团队编排的方法论已上报，以下是具体实现
+
+  - id: virtual-streamlit-team
+    title: 虚拟 Streamlit 团队
+    source: stable/atoms/patterns/virtual-streamlit-team.md
+    reason: 方法论已抽象上报（team-orchestration-pattern），这是 Streamlit 特定实现
+
+  - id: strategic-research-team
+    title: 战略研判团队
+    source: stable/atoms/patterns/strategic-research-team.md
+    reason: 方法论已抽象上报，这是特定场景实现
+
+  - id: topic-research-team
+    title: 课题研究团队
+    source: stable/atoms/patterns/topic-research-team.md
+    reason: 方法论已抽象上报，这是特定场景实现
+
+  - id: domain-driven-design-team
+    title: DDD 建模团队
+    source: stable/atoms/patterns/domain-driven-design.md
+    reason: 方法论已抽象上报，这是 DDD 特定实现
+
+  - id: ai-migration-team
+    title: AI 迁移团队
+    source: stable/atoms/patterns/ai-migration-team.md
+    reason: 方法论已抽象上报，这是遗留系统迁移特定实现
+
+  - id: knowledge-system-team
+    title: 知识体系团队
+    source: stable/atoms/patterns/knowledge-system-team.md
+    reason: 方法论已抽象上报，这是知识管理特定实现

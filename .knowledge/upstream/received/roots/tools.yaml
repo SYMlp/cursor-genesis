@@ -1,0 +1,34 @@
+# L1 派生原则：工具体系
+# 从根事实推导出的领域原则（不是根事实，是推论）
+
+id: tools
+name: 工具体系
+type: derived_principle  # 标记：这是派生原则，不是根事实
+
+principle: "工具是认知的延伸"
+
+# 推导依据（从哪些根事实推导出来）
+derived_from:
+  - root: cognitive-limits
+    reasoning: "人脑容量有限，需要外部工具扩展处理能力"
+  - root: knowledge-decay
+    reasoning: "记忆会衰减，需要外部工具持久化存储"
+  - root: automation
+    reasoning: "重复劳动可自动化，工具承担这部分"
+
+# 原理阐述（指向叶子节点中的具体内容）
+elaboration:
+  - source: data/cursor-genesis/stable/knowledge/knowledge-system/07-架构思维与应用路径.md
+    aspect: 工具如何延伸认知能力
+  - source: data/cursor-genesis/stable/knowledge/knowledge-system/01-结构化认知模型.md
+    aspect: AI 作为认知工具的定位
+
+# 派生的领域/叶子节点
+derived_nodes:
+  - cursor-genesis  # Cursor AI 协作
+
+# 核心问题（这个原则要回答的问题）
+core_questions:
+  - 为什么要用这个工具？
+  - 这个工具延伸了什么认知能力？
+  - 工具的边界在哪里？

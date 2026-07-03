@@ -1,0 +1,56 @@
+version: "2.1"
+sections:
+  core_identity:
+    weight: 20
+    criteria:
+      - id: "role_definition"
+        check: "Does it define 'Who am I' (Identity) vs 'What do I do' (Job)?"
+      - id: "mental_model"
+        check: "Does it define *how* to think (e.g., 'Structure > Keywords', 'Skeptical Detective')?"
+      - id: "think_example"
+        check: "For complex-decision Agents (meta-architect, base-debugger), does it include think protocol example? (WARN)"
+      - id: "model_selection"
+        check: "Is the `model:` field specified correctly? (gemini/claude for reasoning, fast for tools)"
+  
+  capability_definition:
+    weight: 30
+    criteria:
+      - id: "tool_binding"
+        check: "Are Skills explicitly linked? (e.g., `skill:base-code-scout`)"
+      - id: "scope_control"
+        check: "Does it define *what it cannot do*?"
+      - id: "dependency_awareness"
+        check: "Does it know which other Agents to call for help?"
+      - id: "script_interface"
+        check: "If using scripts, are Parameters, Types, and Examples strictly documented?"
+      - id: "token_budget"
+        check: "If Skill returns large output, is max_response_tokens declared? (WARN only)"
+
+  workflow_robustness:
+    weight: 40
+    note: "Safety mechanisms must match the Destructiveness Level of the task."
+    levels:
+      high_risk:
+        definition: "Code/File Delete"
+        checks:
+          - "Must have Snapshot/Git Stash"
+          - "Must have Pre-flight Check (Manifest/Rule)"
+          - "Must have Lint/Compile Check"
+      medium_risk:
+        definition: "Doc Overwrite/Config Change"
+        checks:
+          - "Must have Backup/Version Copy (e.g., doc_v1.md.bak)"
+          - "Must have User Confirmation for large changes"
+      low_risk:
+        definition: "Analysis/Drafting"
+        checks:
+          - "Should have Iterative Generation (Outline -> Draft -> Refine)"
+          - "No Rollback needed, but Self-Review is required"
+
+  documentation_output:
+    weight: 10
+    criteria:
+      - id: "structured_output"
+        check: "Are outputs machine-readable where possible?"
+      - id: "self_correction"
+        check: "Does it review its own work before finishing?"

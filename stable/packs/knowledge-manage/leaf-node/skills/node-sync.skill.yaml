@@ -1,0 +1,56 @@
+# node-sync.skill.yaml
+
+name: 节点同步技能
+version: 1.0.0
+description: 从 knowledge-graph 同步推荐内容到叶子节点
+
+## 功能
+
+- 读取上游推荐清单
+- 执行 git sparse-checkout
+- 管理 .knowledge/upstream/received/ 目录
+- 审核和合入流程
+
+## 使用场景
+
+- 叶子节点需要从上游拉取推荐内容
+- 定期同步上游更新
+- 审核和合入上游推荐
+
+## 技术实现
+
+### 1. 读取推荐清单
+
+```python
+import yaml
+
+def read_recommendations(node_id):
+    with open('knowledge-graph/meta/recommendations.yaml') as f:
+        data = yaml.safe_load(f)
+    return data['recommendations'].get(node_id, {})
+```
+
+### 2. 执行 sparse-checkout
+
+```bash
+git remote add knowledge-graph https://github.com/SYMlp/knowledge-graph.git
+git fetch knowledge-graph main
+git sparse-checkout set {files}
+git checkout knowledge-graph/main -- {files}
+```
+
+### 3. 管理 received 目录
+
+```bash
+# 拉取到 .knowledge/upstream/received/
+cp -r {files} .knowledge/upstream/received/
+
+# 审核通过后合入
+cp -r .knowledge/upstream/received/{files} stable/knowledge/
+```
+
+## 相关命令
+
+- `/sync pull` - 拉取推荐内容
+- `/sync status` - 查看同步状态
+- `/sync list` - 列出可用推荐

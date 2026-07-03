@@ -1,0 +1,51 @@
+# create-toolkit Pack 安装清单
+# install-pack 脚本读取此文件，将 Pack 内容部署到目标项目的 .cursor/ 下
+
+pack: create-toolkit
+version: 1.0.0
+description: 资产创建三件套（/create-skill + /create-command + /create-subagent），含认知元层和闭环级联
+
+mappings:
+  # Commands (4)
+  - source: commands/create-skill.md
+    target: commands/create-skill.md
+  - source: commands/create-command.md
+    target: commands/create-command.md
+  - source: commands/create-subagent.md
+    target: commands/create-subagent.md
+  - source: commands/session-summary.md
+    target: commands/session-summary.md
+  - source: commands/create-project.md
+    target: commands/create-project.md
+
+  # Agents (1)
+  - source: agents/base-skill-engineer.md
+    target: agents/base-skill-engineer.md
+
+  # Skills - 核心（目录级别复制）
+  - source: skills/base-skill-generator
+    target: skills/base-skill-generator
+    type: directory
+  - source: skills/base-rule-generator
+    target: skills/base-rule-generator
+    type: directory
+  - source: skills/base-closure-validator
+    target: skills/base-closure-validator
+    type: directory
+
+  # Skills - 可选
+  - source: skills/base-prompt-auditor
+    target: skills/base-prompt-auditor
+    type: directory
+    optional: true
+  - source: skills/base-inventory-updater
+    target: skills/base-inventory-updater
+    type: directory
+    optional: true
+
+  # Standards
+  - source: standards/skill-meta-standard.md
+    target: standards/skill-meta-standard.md
+
+dependencies:
+  note: 无外部 MCP 依赖，所有组件自包含

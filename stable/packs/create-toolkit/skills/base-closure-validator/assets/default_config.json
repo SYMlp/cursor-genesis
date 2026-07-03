@@ -1,0 +1,67 @@
+{
+  "inventory": {
+    "path": "_meta/docs/v2-asset-inventory.md"
+  },
+  "reference_check": {
+    "scan_dirs": [
+      "_meta",
+      ".cursor",
+      "prompts-library"
+    ],
+    "exclude_dirs": [
+      "archive",
+      "legacy",
+      "legacy_roles",
+      "__pycache__",
+      "node_modules",
+      ".git",
+      "plans"
+    ],
+    "exclude_path_contains": [
+      "_meta/archive/",
+      "_meta/legacy/",
+      "node_modules/",
+      "_meta/data/meta-assets/README.md",
+      "_meta/docs/project-analysis-2026/",
+      "_meta/docs/analysis/",
+      "_meta/docs/learnings/",
+      "_meta/docs/2025-",
+      "_meta/docs/模板项目地图.md",
+      "_meta/wisdom-inbox/",
+      "_meta/prompts/",
+      "_meta/learnings/",
+      "prompts-library/archetypes/",
+      "prompts-library/guides/",
+      "prompts-library/templates/patterns/",
+      "assets/docs/"
+    ],
+    "include_extensions": [".md", ".mdc", ".yaml", ".json"],
+    "exclude_ref_prefixes": [
+      "docs/project-map",
+      "docs/domain-models",
+      "docs/domain/",
+      "docs/business/",
+      "docs/project-capabilities",
+      "docs/immutable-manifest",
+      "docs/archive/",
+      "docs/template-origin",
+      "docs/templates/",
+      "src/domain/",
+      "src/features/",
+      "src/application/",
+      "src/main/java/",
+      "src/components/",
+      "src/",
+      "roles/",
+      "product/",
+      "development/",
+      "testing/",
+      "feat/",
+      "fix/",
+      "docs/update",
+      "refactor/",
+      "package.json",
+      "code-templates/"
+    ]
+  }
+}

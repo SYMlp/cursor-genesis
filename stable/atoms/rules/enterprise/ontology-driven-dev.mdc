@@ -1,0 +1,46 @@
+---
+description: Ontology-Driven Development (ODD) Workflow - The generative paradigm linking specs to code.
+globs: docs/domain/**, docs/architecture/**
+---
+
+# Ontology-Driven Development (ODD) Workflow
+
+## Scope: What this manages
+
+The `docs/domain/` directory serves as the **Semantic Map** of the business, utilizing a dual-track ontology system:
+
+| Type | Location | Problem it Solves |
+|:---|:---|:---|
+| **Business Ontology** | `ontology-extracted.md` | What concepts exist? What are their relationships and rules? |
+| **Technical Ontology** | Tech registries / DB schemas | How are tables split? Where do concepts land in the database? |
+| **Generative Config** | `model.yaml` (or similar) | The bridge configuration used to auto-generate code and UI. |
+
+## Workflow Execution
+
+### Scenario 1: Extracting Ontology for a New Sub-Domain
+
+1. **Rule Constraint**: Do not rely on memory or free-form text generation. Scan specification documents paragraph by paragraph.
+2. **Explicit Extraction**: Extract concepts, properties, and relationships explicitly into a structured markdown document (`ontology-extracted.md`).
+3. **Formalization**: Determine cardinality (1:1, 1:N), enumerations, and state machines based solely on the text.
+4. **Validation**: Perform forward validation (Spec → Ontology) and reverse validation (Ontology → Spec) to guarantee zero omission.
+5. **Tech Sync**: Update technical registries (tables, modules) to reflect the new business concepts.
+
+### Scenario 2: Generating Code from Ontology
+
+1. Map the finalized business concepts into the generative configuration file (`model.yaml`).
+2. Run the established codebase scaffolding/generation scripts.
+3. *Never hand-write code that can be generated deterministically from the ontology configuration.*
+
+### Scenario 3: Debugging Data/Logic Discrepancies
+
+When a user reports "missing data", "empty dropdowns", or "logic errors", **Perform an Ontology vs. Implementation Diff**:
+
+1. Read the Business Ontology (`ontology-extracted.md`): Confirm if the concept *should* theoretically exist.
+2. Read the Config (`model.yaml`): Check if the concept was actually *configured* for generation.
+3. Read the Tech Registry: Confirm if the backend module was *implemented*.
+4. **Diagnose**: 
+   - Exists in Ontology but not Implementation → Implementation Gap.
+   - Exists in Implementation but no data → Seed Data Missing.
+   - Config mismatch → Sync Error.
+
+**STRICTLY FORBIDDEN**: Do not immediately `grep` the codebase or check server logs. The Ontology is the absolute cognitive authority. Always establish "What should exist" before checking "What currently exists".

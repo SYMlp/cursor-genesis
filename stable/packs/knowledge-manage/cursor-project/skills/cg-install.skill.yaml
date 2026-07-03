@@ -1,0 +1,314 @@
+# cg-install - Cursor Genesis 资源安装工具
+# 用于安装和管理 cursor-genesis 的资源
+
+name: cg-install
+version: 1.0.0
+description: 安装 cursor-genesis 的规则、能力、模板等资源
+category: setup
+
+# ============================================================
+# 命令定义
+# ============================================================
+
+# 注意：这是一个复合 skill，需要多步操作
+# 实际使用时会根据参数生成具体的命令序列
+
+command: |
+  # Step 1: 检查是否已有 cursor-genesis
+  if [ ! -d ".cursor-genesis" ]; then
+    # 添加 submodule
+    git submodule add https://github.com/your-org/cursor-genesis.git .cursor-genesis
+    cd .cursor-genesis
+    git sparse-checkout init --cone
+  else
+    cd .cursor-genesis
+  fi
+
+  # Step 2: 配置 sparse checkout
+  git sparse-checkout set {{paths}}
+
+  # Step 3: 创建 .cursor 目录结构
+  cd ..
+  mkdir -p .cursor/rules .cursor/skills
+
+  # Step 4: 复制或链接资源
+  {{install_commands}}
+
+# ============================================================
+# 参数定义
+# ============================================================
+
+parameters:
+  preset:
+    type: choice
+    description: 预设配置
+    required: false
+    choices:
+      - minimal: 最小化配置（基础规则）
+      - standard: 标准配置（基础规则 + 常用团队）
+      - full-stack: 全栈配置（完整开发能力）
+      - research: 研究配置（学术研究）
+      - knowledge-management: 知识管理配置
+      - custom: 自定义（需指定 resources）
+    default: standard
+
+  resources:
+    type: list
+    description: 要安装的资源列表（当 preset=custom 时使用）
+    required: false
+    examples:
+      - "rules/production-safety,rules/project-rules"
+      - "rules/teams/strategic-research,skills/kg-search"
+    format: 逗号分隔的资源路径
+
+  link:
+    type: boolean
+    description: 使用符号链接而非复制（推荐）
+    required: false
+    default: true
+
+  update:
+    type: boolean
+    description: 更新已存在的资源
+    required: false
+    default: false
+
+# ============================================================
+# 预设配置详情
+# ============================================================
+
+presets:
+  minimal:
+    description: 最小化配置，只包含基础规则
+    paths:
+      - stable/atoms/rules/production-safety.mdc
+      - stable/atoms/rules/project-rules.mdc
+    install:
+      - source: stable/atoms/rules/production-safety.mdc
+        target: .cursor/rules/production-safety.mdc
+      - source: stable/atoms/rules/project-rules.mdc
+        target: .cursor/rules/project-rules.mdc
+
+  standard:
+    description: 标准配置，适合大多数项目
+    paths:
+      - stable/atoms/rules
+      - stable/atoms/skills
+    install:
+      - source: stable/atoms/rules/production-safety.mdc
+        target: .cursor/rules/production-safety.mdc
+      - source: stable/atoms/rules/project-rules.mdc
+        target: .cursor/rules/project-rules.mdc
+      - source: stable/atoms/rules/teams/strategic-research-team.mdc
+        target: .cursor/rules/teams/strategic-research-team.mdc
+      - source: stable/atoms/rules/teams/domain-driven-design.mdc
+        target: .cursor/rules/teams/domain-driven-design.mdc
+      - source: stable/atoms/skills
+        target: .cursor/skills
+        type: directory
+
+  full-stack:
+    description: 全栈开发配置
+    paths:
+      - stable/atoms/rules
+      - stable/atoms/capabilities/03_engineering
+      - stable/atoms/code-templates
+      - stable/atoms/skills
+    install:
+      - source: stable/atoms/rules
+        target: .cursor/rules
+        type: directory
+      - source: stable/atoms/skills
+        target: .cursor/skills
+        type: directory
+
+  research:
+    description: 学术研究配置
+    paths:
+      - stable/atoms/rules/teams/topic-research-team.mdc
+      - stable/atoms/rules/teams/strategic-research-team.mdc
+      - stable/atoms/capabilities/01_insight
+      - stable/atoms/skills
+    install:
+      - source: stable/atoms/rules/teams/topic-research-team.mdc
+        target: .cursor/rules/teams/topic-research-team.mdc
+      - source: stable/atoms/rules/teams/strategic-research-team.mdc
+        target: .cursor/rules/teams/strategic-research-team.mdc
+      - source: stable/atoms/skills
+        target: .cursor/skills
+        type: directory
+
+  knowledge-management:
+    description: 知识管理配置
+    paths:
+      - stable/atoms/rules/teams/knowledge-system-team.mdc
+      - stable/atoms/skills
+      - stable/atoms/capabilities/02_architecture
+    install:
+      - source: stable/atoms/rules/teams/knowledge-system-team.mdc
+        target: .cursor/rules/teams/knowledge-system-team.mdc
+      - source: stable/atoms/skills
+        target: .cursor/skills
+        type: directory
+
+# ============================================================
+# 使用场景
+# ============================================================
+
+use_cases:
+  - scenario: 初次安装（标准配置）
+    command: "/cg-install"
+    description: 使用默认的标准配置安装
+
+  - scenario: 最小化安装
+    command: "/cg-install --preset minimal"
+    description: 只安装基础规则
+
+  - scenario: 自定义安装
+    command: "/cg-install --preset custom --resources rules/teams/strategic-research,skills/kg-search"
+    description: 安装指定的资源
+
+  - scenario: 更新已有资源
+    command: "/cg-install --update"
+    description: 更新已安装的资源到最新版本
+
+# ============================================================
+# 安装步骤说明
+# ============================================================
+
+installation_steps:
+  step1:
+    name: 检查环境
+    description: 检查是否在 git 仓库中，是否已有 .cursor-genesis
+
+  step2:
+    name: 添加 submodule
+    description: 如果没有 .cursor-genesis，添加为 submodule
+    command: git submodule add https://github.com/your-org/cursor-genesis.git .cursor-genesis
+
+  step3:
+    name: 配置 sparse checkout
+    description: 只拉取需要的资源
+    command: |
+      cd .cursor-genesis
+      git sparse-checkout init --cone
+      git sparse-checkout set {paths}
+
+  step4:
+    name: 创建目录结构
+    description: 创建 .cursor 目录
+    command: mkdir -p .cursor/rules .cursor/skills
+
+  step5:
+    name: 安装资源
+    description: 复制或链接资源到 .cursor
+    options:
+      link: ln -s ../.cursor-genesis/{source} .cursor/{target}
+      copy: cp -r .cursor-genesis/{source} .cursor/{target}
+
+  step6:
+    name: 验证安装
+    description: 检查资源是否正确安装
+    checks:
+      - .cursor/rules 目录存在
+      - .cursor/skills 目录存在
+      - 资源文件可访问
+
+# ============================================================
+# 手动安装指南
+# ============================================================
+
+manual_installation:
+  description: 如果 skill 不可用，可以手动执行以下步骤
+
+  steps:
+    - step: 1
+      title: 添加 cursor-genesis submodule
+      command: |
+        git submodule add https://github.com/your-org/cursor-genesis.git .cursor-genesis
+        cd .cursor-genesis
+
+    - step: 2
+      title: 配置 sparse checkout
+      command: |
+        git sparse-checkout init --cone
+        git sparse-checkout set stable/atoms/rules stable/atoms/skills
+
+    - step: 3
+      title: 创建 .cursor 目录
+      command: |
+        cd ..
+        mkdir -p .cursor/rules/teams .cursor/skills
+
+    - step: 4
+      title: 链接资源（推荐）
+      command: |
+        # 链接 rules
+        ln -s ../.cursor-genesis/stable/atoms/rules/production-safety.mdc .cursor/rules/
+        ln -s ../.cursor-genesis/stable/atoms/rules/project-rules.mdc .cursor/rules/
+
+        # 链接 teams
+        ln -s ../.cursor-genesis/stable/atoms/rules/teams/strategic-research-team.mdc .cursor/rules/teams/
+
+        # 链接 skills
+        ln -s ../.cursor-genesis/stable/atoms/skills .cursor/skills
+
+    - step: 5
+      title: 或者复制资源
+      command: |
+        cp .cursor-genesis/stable/atoms/rules/production-safety.mdc .cursor/rules/
+        cp .cursor-genesis/stable/atoms/rules/project-rules.mdc .cursor/rules/
+        cp -r .cursor-genesis/stable/atoms/skills .cursor/
+
+# ============================================================
+# 资源清单
+# ============================================================
+
+resources_catalog:
+  file: resources-catalog.yaml
+  description: 查看完整的可用资源清单
+  location: stable/atoms/skills/resources-catalog.yaml
+
+# ============================================================
+# 故障排查
+# ============================================================
+
+troubleshooting:
+  - issue: "fatal: not a git repository"
+    solution: |
+      当前目录不是 git 仓库。请先初始化：
+      git init
+
+  - issue: "Submodule already exists"
+    solution: |
+      .cursor-genesis 已存在。使用 --update 更新：
+      /cg-install --update
+
+  - issue: "Permission denied (symbolic link)"
+    solution: |
+      Windows 上创建符号链接需要管理员权限。
+      方案 1: 以管理员身份运行
+      方案 2: 使用 --link false 改为复制文件
+
+  - issue: "Resource not found"
+    solution: |
+      检查资源路径是否正确。参考 resources-catalog.yaml
+      查看可用资源列表
+
+# ============================================================
+# 相关工具
+# ============================================================
+
+related_skills:
+  - cg-update: 更新 cursor-genesis 资源（计划中）
+  - cg-list: 列出已安装的资源（计划中）
+  - cg-remove: 移除资源（计划中）
+
+# ============================================================
+# 设计参考
+# ============================================================
+
+design_reference:
+  resources_catalog: stable/atoms/skills/resources-catalog.yaml
+  downstream_spec: docs/downstream-spec.md
+  description: 参考资源清单和下游集成规范

@@ -1,0 +1,30 @@
+---
+description: Project Mini-Map - High-level directory structure and architectural topology.
+globs: "**/*"
+alwaysApply: true
+---
+
+# 🗺️ Project Mini-Map (Dynamic)
+
+**Context**: This file provides the **High-Level Topology** for the AI.
+**Update Frequency**: Must be updated whenever the directory structure changes.
+
+## 📂 Core Structure
+
+```text
+project-root/
+├── .cursor/rules/          # [RUNTIME] Active AI Instructions (Context Hooks)
+├── src/                    # [CODE] Application source code
+├── docs/                   # [DOCS] Project documentation
+│   ├── project-map.md     # Detailed architecture map
+│   └── learnings/         # Post-mortem records
+└── tasks/                  # [TRACKING] Work management
+```
+
+## 🔗 Key References
+*   **Detailed Architecture**: `docs/project-map.md` (The Source of Truth)
+
+## 🧭 Navigation Principles
+1.  **Map Authority**:
+    *   If you add a file/folder, you **MUST** update this file immediately.
+2.  **Atomic Design**: Capabilities are small; Patterns assemble them; Rules trigger them.

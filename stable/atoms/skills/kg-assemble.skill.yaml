@@ -1,0 +1,157 @@
+# kg-assemble - Knowledge Graph 内容组装工具
+# 用于组装 knowledge-graph 中的主题内容
+
+name: kg-assemble
+version: 1.0.0
+description: 根据主题索引组装结构化内容
+category: knowledge-management
+
+# ============================================================
+# 命令定义
+# ============================================================
+
+command: python {{kg_root}}/tools/assemble.py --topic {{topic}} {{flags}}
+
+# ============================================================
+# 参数定义
+# ============================================================
+
+parameters:
+  kg_root:
+    type: path
+    description: knowledge-graph 项目根目录
+    default: "{{workspace_root}}"
+    required: false
+
+  topic:
+    type: string
+    description: 主题名称（对应 index/topics/ 下的文件）
+    required: true
+    prompt: "请输入主题名称"
+    examples:
+      - "ai-collaboration"
+      - "knowledge-management"
+      - "cursor-best-practices"
+
+  pretty:
+    type: boolean
+    description: 美化输出格式
+    required: false
+    default: false
+    flag: --pretty
+
+  outline-only:
+    type: boolean
+    description: 仅输出大纲，不包含详细内容
+    required: false
+    default: false
+    flag: --outline-only
+
+# ============================================================
+# 使用场景
+# ============================================================
+
+use_cases:
+  - scenario: 组装完整主题内容
+    example: "/kg-assemble ai-collaboration --pretty"
+    description: 组装 AI 协作主题的完整内容并美化输出
+
+  - scenario: 查看主题大纲
+    example: "/kg-assemble ai-collaboration --outline-only"
+    description: 仅查看主题的大纲结构
+
+  - scenario: 准备演示材料
+    example: "/kg-assemble knowledge-management --pretty"
+    description: 组装知识管理主题的内容用于演示
+
+# ============================================================
+# 输出说明
+# ============================================================
+
+output:
+  format: markdown
+  structure: |
+    # {主题标题}
+
+    ## 概述
+    {主题描述}
+
+    ## 内容
+    ### {章节1}
+    {内容1}
+
+    ### {章节2}
+    {内容2}
+
+    ...
+
+# ============================================================
+# 前置条件
+# ============================================================
+
+prerequisites:
+  - knowledge-graph 项目存在且可访问
+  - 主题索引文件存在于 index/topics/
+  - 相关知识节点已注册
+
+# ============================================================
+# 故障排查
+# ============================================================
+
+troubleshooting:
+  - issue: "Topic not found: {topic}"
+    solution: |
+      1. 检查 index/topics/ 目录下是否有对应的 .yaml 文件
+      2. 确认主题名称拼写正确（不含 .yaml 后缀）
+      3. 查看 index/topics/ 目录列出可用主题
+
+  - issue: "Node not found in registry"
+    solution: |
+      1. 检查 index/nodes-registry.yaml 确认节点已注册
+      2. 确认节点的 index_file 路径正确
+      3. 验证节点的知识索引文件存在
+
+  - issue: "Knowledge item not found"
+    solution: |
+      1. 检查节点的 index.yaml 中是否有对应的知识项
+      2. 确认知识项的 file 路径正确
+      3. 验证实际文件存在
+
+# ============================================================
+# 工作流示例
+# ============================================================
+
+workflow_example:
+  name: 生成主题报告
+  steps:
+    - step: 1
+      action: 搜索相关知识
+      command: "/kg-search {关键词}"
+
+    - step: 2
+      action: 查看主题大纲
+      command: "/kg-assemble {主题} --outline-only"
+
+    - step: 3
+      action: 组装完整内容
+      command: "/kg-assemble {主题} --pretty"
+
+    - step: 4
+      action: 导出或进一步处理
+      description: 将组装的内容用于生成 PPT、文档等
+
+# ============================================================
+# 相关工具
+# ============================================================
+
+related_skills:
+  - kg-search: 搜索知识节点
+  - kg-validate: 验证知识完整性（计划中）
+
+# ============================================================
+# 设计参考
+# ============================================================
+
+design_reference:
+  tools_registry: knowledge-graph/meta/tools-registry.yaml
+  description: 参考工具注册表了解完整的参数和用法

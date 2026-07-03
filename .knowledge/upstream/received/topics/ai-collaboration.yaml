@@ -1,0 +1,90 @@
+# 主题索引：AI 协作研发
+# 回答「你是如何用 AI 协作研发的」这类问题
+
+topic: AI 协作研发
+description: 跨节点组装 AI 协作相关知识
+
+# 关联的 L1 根节点
+root: roots/tools.yaml
+
+# ============================================================
+# 认知层：从实践中提炼的洞察（PPT 要讲的观点）
+# ============================================================
+insights:
+  - id: human-ai-division
+    insight: "AI 做认知的执行者，人做认知的设计者"
+    explanation: |
+      人负责定义框架、判断价值、做最终决策；
+      AI 负责记忆细节、检索信息、执行具体任务。
+      这种分工让人从重复劳动中解放，专注于更高层次的思考。
+
+  - id: context-boundary
+    insight: "AI 协作的核心是让 AI 理解上下文边界，而不是给它更多信息"
+    explanation: |
+      信息过载会导致 AI 认知污染，输出质量下降。
+      通过 Rules 限定边界、通过团队编排分工，比堆砌 context 更有效。
+
+  - id: team-orchestration
+    insight: "团队编排的价值在于分工明确，避免单一 Agent 认知过载"
+    explanation: |
+      不同任务需要不同的认知模式（洞察/架构/工程/质量）。
+      让专门的角色处理专门的任务，比一个全能 Agent 更可靠。
+
+  - id: reusable-methodology
+    insight: "方法论是可复用的认知路径，从原则推导到实践"
+    explanation: |
+      不是记住具体怎么做，而是掌握推导方法。
+      同一套原则，结合不同约束，可以推导出不同的实践方案。
+
+# ============================================================
+# 证据层：支撑认知的实践素材（按 L1/L2/L3 组织）
+# ============================================================
+evidence:
+  L1-理念层:
+    question: 为什么要 AI 协作？
+    supports_insights: [human-ai-division]
+    sources:
+      - node: cursor-genesis
+        path: stable/knowledge/knowledge-system/01-结构化认知模型.md
+        section: AI 与人的协作定位
+        extract: "AI做『认知的执行者』，人做『认知的设计者』"
+
+  L2-方法层:
+    question: 怎么做 AI 协作？
+    supports_insights: [team-orchestration, reusable-methodology]
+    sources:
+      - node: cursor-genesis
+        path: stable/atoms/patterns/
+        description: 团队编排模式（5个团队）
+      - node: cursor-genesis
+        path: stable/knowledge/knowledge-system/04-工程落地模板.md
+        description: 从原则到实践的推导方法
+
+  L3-实现层:
+    question: 具体怎么实现？
+    supports_insights: [context-boundary]
+    sources:
+      - node: cursor-genesis
+        path: stable/atoms/rules/
+        description: Cursor Rules 配置（限定上下文边界）
+      - node: cursor-genesis
+        path: stable/atoms/capabilities/
+        description: 原子角色能力（20个角色，四层认知）
+      - node: cursor-genesis
+        path: stable/atoms/standalone/
+        description: 独立角色
+
+  案例层:
+    question: 效果如何？
+    supports_insights: [human-ai-division, team-orchestration]
+    sources:
+      - node: cursor-genesis
+        path: stable/knowledge/learnings/
+        description: 经验沉淀
+
+# 输出模板
+output_templates:
+  - type: ppt
+    generator: tools/generators/ppt/
+  - type: json
+    generator: tools/assemble.py

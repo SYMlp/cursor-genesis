@@ -1,0 +1,33 @@
+# L1 派生原则：方法论
+# 从根事实推导出的领域原则（不是根事实，是推论）
+
+id: methodology
+name: 方法论
+type: derived_principle  # 标记：这是派生原则，不是根事实
+
+principle: "方法论是可复用的认知路径"
+
+# 推导依据（从哪些根事实推导出来）
+derived_from:
+  - root: cognitive-limits
+    reasoning: "认知资源有限，复用已验证的路径可节省认知成本"
+  - root: context-dependency
+    reasoning: "方法论提供上下文框架，帮助在新场景中激活相关知识"
+  - root: automation
+    reasoning: "形式化的方法论��以被工具辅助执行"
+
+# 原理阐述（指向叶子节点中的具体内容）
+elaboration:
+  - source: data/cursor-genesis/stable/knowledge/knowledge-system/02-知识组织方法论.md
+    aspect: 知识如何组织才能复用
+  - source: data/cursor-genesis/stable/knowledge/knowledge-system/04-工程落地模板.md
+    aspect: 从原则到实践的推导路径
+
+# 派生的领域/叶子节点
+derived_nodes: []  # 待扩充
+
+# 核心问题
+core_questions:
+  - 这个方法论解决什么问题？
+  - 适用边界是什么？
+  - 如何从原则推导到具体实践？

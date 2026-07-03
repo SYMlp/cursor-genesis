@@ -9,7 +9,63 @@ categories:
   cursor-specs:
     description: Cursor 相关规范
     path: cursor-specs/
-    items: []  # 待迁移填充
+    items:
+      - id: prompt-writing-guide
+        title: 提示词编写指南
+        file: prompt-writing-guide.md
+        solves: 解决如何编写高质量、结构化的 AI 提示词，提供角色化、目标导向、模板化的方法论
+      - id: capability-catalog
+        title: 原子能力目录
+        file: capability-catalog.md
+        solves: 解决如何查找和选择合适的原子角色（Insight/Architecture/Engineering/Quality 四层能力）
+      - id: team-patterns
+        title: 协作模式手册
+        file: team-patterns.md
+        solves: 解决如何组合多个原子角色应对复杂业务场景（战略研判、全栈开发、课题研究等）
+      - id: library-structure
+        title: 库结构与治理规范
+        file: library-structure-and-governance.md
+        solves: 解决 Prompt 库的目录组织、工程分级标准和维护原则问题
+      - id: cursor-patterns
+        title: Cursor 特定模式
+        file: cursor-specific-patterns.md
+        solves: 解决 Cursor IDE 中的特定使用模式和最佳实践问题
+      - id: sop-engineering
+        title: 完美软件工程结构标准
+        file: sop-01-engineering-structure.md
+        solves: 解决 AI 辅助开发时代如何构建完整上下文（领域设计、后端工程、前端工程）的问题
+      - id: sop-workflow
+        title: Cursor 工作流程
+        file: sop-02-cursor-workflow.md
+        solves: 解决使用 Cursor 进行日常开发的标准操作流程问题
+      - id: sop-migration
+        title: 遗留系统迁移故事
+        file: sop-03-legacy-migration-story.md
+        solves: 解决如何将遗留系统迁移到 Cursor 协作模式的实践问题
+      - id: deep-research
+        title: Deep Research 系统化调研
+        file: deep-research-pack.md
+        solves: 解决如何将模糊的调研需求转化为结构化的研究报告，提供 Plan→Execute→Synthesize 三阶段自动化流程
+      - id: rules-lifecycle
+        title: Rules 生命周期管理指南
+        file: rules-lifecycle.md
+        solves: 解决 .cursor/rules/ 中规则文件何时创建、何时更新、何时废弃、如何命名、如何避免冲突的管理问题
+      - id: create-toolkit
+        title: Create Toolkit 资产创建三件套
+        file: create-toolkit-pack.md
+        solves: 解决如何在 Cursor 项目中系统化地创建 Skill、Command、Subagent，提供三命令闭环级联和认知元层自动分级
+      - id: component-type-decision
+        title: 组件类型选择指南
+        file: component-type-decision-guide.md
+        solves: 解决新增内容应该做成 Rule、Skill、Command 还是 Agent 的选择问题，提供上下文加载时机梯度和调用关系矩阵
+      - id: context-management
+        title: 上下文管理指南
+        file: context-management-guide.md
+        solves: 解决 AI 对话中上下文管理的问题，提供 JIT 检索、Compaction、多 Agent 隔离、长时任务 Harness 等实践策略
+      - id: agent-autonomy
+        title: Agent 自主性选择指南
+        file: agent-autonomy-guide.md
+        solves: 解决什么任务应该给 AI 多大自主权的问题，提供从 Tab 补全到 Cloud Agent 的连续谱和匹配原则
 
   prompt-engineering:
     description: 提示词方法论
@@ -26,6 +82,25 @@ categories:
     path: learnings/
     items: []  # 待迁移填充
 
+  engineering-practices:
+    description: 工程实践方法论（语言/框架级可复用约束与运维经验）
+    path: ../atoms/skills/  # 实际承载于 atoms 层 SKILL.md，本 category 仅作上层检索入口
+    items:
+      - id: java-backend-test-ops
+        title: Java 后端测试运维方法论
+        file: ../atoms/skills/java-backend-test-ops/SKILL.md
+        solves: 解决 Java + Spring Boot 3.x + Testcontainers 项目中的两类高频痛点——Testcontainers 留守容器累积导致 InnoDB EAGAIN（AIO 槽位耗尽），以及 Spring Boot 3.x MockMvc API @NonNull 注解带来的 null-safety 告警扩散；附带共享测试基类变更传播规则
+        keywords:
+          - testcontainers
+          - spring-boot
+          - mysql
+          - docker
+          - java
+          - maven
+          - mockmvc
+          - eagain
+          - null-safety
+
   knowledge-system:
     description: 知识体系设计文档
     path: knowledge-system/
@@ -33,45 +108,43 @@ categories:
       - id: overview
         title: 目录与分析报告
         file: 00-目录与分析报告.md
+        solves: 解决如何快速了解整个知识体系的结构、内容分布和核心价值
       - id: cognitive-model
         title: 结构化认知模型
         file: 01-结构化认知模型.md
+        solves: 解决如何基于认知心理学原理（Miller 7±2、Ebbinghaus 遗忘曲线）构建知识管理模型
       - id: organization
         title: 知识组织方法论
         file: 02-知识组织方法论.md
+        solves: 解决如何系统化地组织和分类知识内容，建立可检索的知识结构
       - id: growth
         title: 知识增长机制
         file: 03-知识增长机制.md
+        solves: 解决知识如何持续积累、更新和演化，避免知识衰退和过时
       - id: engineering
         title: 工程落地模板
         file: 04-工程落地模板.md
+        solves: 解决如何将知识体系理论转化为可执行的工程实践和模板
       - id: distributed-arch
         title: 分布式知识管理架构
         file: 05-分布式知识管理架构.md
+        solves: 解决多项目、多团队场景下的知识分布式管理和协同问题
       - id: leaf-framework
         title: 叶子节点治理框架
         file: 06-叶子节点治理框架.md
+        solves: 解决知识图谱中叶子节点的规范定义、注册、回流和治理机制
       - id: architecture-thinking
         title: 架构思维与应用路径
         file: 07-架构思维与应用路径.md
+        solves: 解决如何培养和应用架构思维来设计知识管理系统
       - id: theory-mapping
         title: 理论模型与实现形态的映射
         file: 08-理论模型与实现形态的映射.md
+        solves: 解决理论概念如何映射到具体的文件结构、工具和工作流
       - id: architecture-source
         title: 架构思维的来源
         file: 09-架构思维的来源.md
-
-# 系统原型模板（项目级认知脚手架）
-archetypes:
-  description: 系统原型分类学——识别系统类型后推导通用需求
-  path: ../archetypes/
-  methodology: ../archetypes/_methodology.md
-  items:
-    - id: collector
-      title: 收集型系统 (Collector)
-      status: confirmed
-      path: ../archetypes/collector/
-      validated_by: security-mgmt-center
+        solves: 解决架构设计的理论基础和思维方法的溯源问题
 
 # 关键词（供上层跨节点检索）
 keywords:
@@ -86,7 +159,9 @@ keywords:
   - knowledge-graph
   - leaf-node-framework
   - 分布式知识管理
-  - 系统原型
-  - archetype
-  - 收集型
-  - 领域建模
+  - deep-research
+  - 调研
+  - create-skill
+  - create-command
+  - create-subagent
+  - 资产创建

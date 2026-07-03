@@ -1,0 +1,60 @@
+---
+description: Enterprise Route Engine - Map vague user intents to deterministic diagnostic and document-reading pipelines.
+alwaysApply: true
+---
+
+# Intent-Based Workflow Router
+
+> Dependency: `design-authority.mdc` (Always read design before code)
+
+## Design First (Global Constraint)
+
+**Unconditional**: Regardless of whether the user mentions a design document, the Agent's cognitive path MUST begin with design/specifications:
+
+```
+Design Doc → Ontology/Domain Model → Config/Schema → Determine changes → Code (only for compatibility check)
+```
+
+- Legacy code is **never** the source of truth for architecture, naming, or logic—it is only for compatibility evaluation.
+- Before reading code, ask yourself: *Is this information in the design docs?* If yes, DO NOT read the code.
+- Every route below specifies the "Agent's First Read". **DO NOT skip this to grep the codebase.**
+
+## Pre-Routing: Task Classification
+
+When the user points to a TODO, a legacy item, or when the intent is vague, **Classify before Acting**:
+
+1. **Locate Module**: Determine which sub-domain is involved from context keywords.
+2. **Locate Layer**: Is this Frontend? Config? Backend API? Database schema?
+3. **Locate Task Type**: Feature addition? Enhancement? Bug fix? Data issue?
+4. **Read Design Chain**: Domain Ontology → Config (e.g., `model.yaml`) → Design Docs.
+5. **Evaluate Change Path**: Decide what needs modifying based on design. **Only read code if code modifications are confirmed necessary.**
+
+## Routing Table
+
+### 1. Development Workflows
+
+| User Intent Signal | Workflow | Agent's First Read (Must not skip!) |
+|:---|:---|:---|
+| "Implement X module", "scaffold" | Module Implementation | Module Config → Scaffolding Specs |
+| "Add feature", "new concept" | Ontology Driven Design | Architecture Doc → Extraction Rules |
+| "Change field", "modify schema" | Schema Sync | Domain Ontology → Tech Mapping Doc |
+| "Frontend", "UI list", "Page" | Frontend Dev | Frontend Component Spec → Module Schema |
+| "Backend", "API", "Service" | Backend Dev | Module Registry → Base Service Class |
+| "Dropdown empty", "missing data", "wrong field" | Concept Integrity Check | Domain Ontology (What *should* exist?) → Config (What is *configured*?) → Module Registry (Is it *implemented*?) |
+| "UI broken", "wrong component type" | Component Behavior Check | Domain Ontology (What is the data structure?) → Config (Is fallback correct?) → UI Engine Rendering Logic |
+| Pointing to a TODO or "enhance this" | Design Enhancement | Design Doc → Domain Ontology → Config → Evaluate Change Path |
+| "Write tests", "unit test", "coverage" | Test Generation | Tested Module's Ontology (for boundaries) → Config (for structure) → Interface Signatures (DO NOT read full implementation) |
+| "What is X", "find design", "where is it" | Concept Tracing | Domain Ontology → Tech Registry → Search in `docs/` |
+
+### 2. Meta-Activities
+
+| User Intent Signal | Workflow | Agent's First Read |
+|:---|:---|:---|
+| "Optimize rule", "bad agent behavior", "wrong path" | Rule Optimization | `.cursor/rules/optimizations/` → Follow Rule Evolution Guide |
+
+## Fallback Routing
+
+If the user intent does not match the table:
+1. Execute the 5-step "Pre-Routing: Task Classification".
+2. If still ambiguous, ask the user to clarify their current phase (Development / Debugging / Meta-planning).
+3. If it's a completely new scenario, consult the project's Core Architecture Doc on where it belongs.

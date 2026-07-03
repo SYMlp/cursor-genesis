@@ -1,0 +1,236 @@
+project:
+  name: cursor-genesis
+  description: Cursor AI 协作知识叶子节点
+  version: v1.0.0
+
+perspectives:
+  - id: producer
+    name: 知识生产者
+    description: 向 knowledge-graph 上报精炼内容
+    highlight:
+      - .knowledge/upstream/exports/
+      - stable/knowledge/
+    flow: outbound
+    color: "#10b981"
+
+  - id: consumer
+    name: 知识消费者
+    description: 从 knowledge-graph 拉取推荐
+    highlight:
+      - .knowledge/upstream/sync.yaml
+    flow: inbound
+    color: "#3b82f6"
+
+  - id: provider
+    name: 模板提供者
+    description: 向下游项目提供配置
+    highlight:
+      - stable/atoms/
+      - stable/packs/
+    flow: outbound
+    color: "#8b5cf6"
+
+  - id: receiver
+    name: 改进接收者
+    description: 接收下游项目回流
+    highlight:
+      - .knowledge/downstream/
+    flow: inbound
+    color: "#f59e0b"
+
+flows:
+  - id: upstream-sync
+    from: knowledge-graph
+    to: .knowledge/upstream/
+    type: bidirectional
+    label: 上游交互
+    color: "#3b82f6"
+
+  - id: config-output
+    from: stable/
+    to: downstream-projects
+    type: outbound
+    label: 配置输出
+    color: "#8b5cf6"
+
+  - id: backflow-receive
+    from: downstream-projects
+    to: .knowledge/downstream/
+    type: inbound
+    label: 回流接收
+    color: "#f59e0b"
+
+annotations:
+  .knowledge/:
+    label: 知识管理中枢
+    icon: brain
+    description: 与知识图谱交互的元数据，隐藏目录不干扰日常使用
+    color: "#6366f1"
+
+  .knowledge/upstream/:
+    label: 上游交互
+    icon: arrow-up
+    description: 与 knowledge-graph 的交互配置和记录
+
+  .knowledge/upstream/sync.yaml:
+    label: 同步配置
+    icon: refresh-cw
+    description: 记录上次同步时间、已拉取的推荐清单、同步范围
+
+  .knowledge/upstream/exports/:
+    label: 待上报内容
+    icon: upload
+    description: 精炼后准备上报给 knowledge-graph 的内容
+
+  .knowledge/downstream/:
+    label: 下游交互
+    icon: arrow-down
+    description: 与下游项目的交互配置和记录
+
+  .knowledge/downstream/backflow.yaml:
+    label: 回流配置
+    icon: git-pull-request
+    description: 记录回流来源项目、审核状态、处理进度
+
+  .knowledge/downstream/pending/:
+    label: 待处理回流
+    icon: inbox
+    description: 来自下游项目的待审核改进
+
+  stable/:
+    label: 对外稳定内容
+    icon: package
+    description: 下游项目通过 sparse checkout 拉取这里的内容
+    color: "#10b981"
+
+  stable/atoms/:
+    label: 原子层
+    icon: atom
+    description: 最小粒度的可复用单元
+
+  stable/atoms/rules/:
+    label: Cursor Rules
+    icon: file-code
+    description: .mdc 格式的 Cursor 规则文件
+
+  stable/atoms/capabilities/:
+    label: 能力层
+    icon: layers
+    description: 四层认知能力（洞察/架构/工程/质量）
+
+  stable/packs/:
+    label: 包层
+    icon: package-2
+    description: 原子组合成的功能包
+
+  stable/packs/v1-talk/:
+    label: v1-talk 包
+    icon: message-circle
+    description: 面向普通用户的简化包（仅对话）
+
+  stable/knowledge/:
+    label: 知识层
+    icon: book-open
+    description: 可被上层索引的知识内容
+
+  stable/knowledge/index.yaml:
+    label: 知识索引
+    icon: list
+    description: 知识内容的结构化索引
+
+  workspace/:
+    label: 本地工作区
+    icon: folder-open
+    description: 不纳入版本控制的本地工作目录
+    color: "#94a3b8"
+
+  docs/:
+    label: 文档
+    icon: file-text
+    description: 项目文档
+
+  README.md:
+    label: 项目介绍
+    icon: info
+    description: 项目的入口文档
+
+# 目录结构（用于演示，实际使用时由扫描器生成）
+structure:
+  - name: cursor-genesis
+    type: directory
+    children:
+      - name: README.md
+        type: file
+      - name: .knowledge
+        type: directory
+        children:
+          - name: meta.yaml
+            type: file
+          - name: upstream
+            type: directory
+            children:
+              - name: sync.yaml
+                type: file
+              - name: exports
+                type: directory
+                children:
+                  - name: capability-changes
+                    type: directory
+                  - name: refined-knowledge
+                    type: directory
+                  - name: feedback
+                    type: directory
+          - name: downstream
+            type: directory
+            children:
+              - name: backflow.yaml
+                type: file
+              - name: pending
+                type: directory
+      - name: stable
+        type: directory
+        children:
+          - name: atoms
+            type: directory
+            children:
+              - name: rules
+                type: directory
+              - name: capabilities
+                type: directory
+                children:
+                  - name: 01_insight
+                    type: directory
+                  - name: 02_architecture
+                    type: directory
+                  - name: 03_engineering
+                    type: directory
+                  - name: 04_quality
+                    type: directory
+              - name: standalone
+                type: directory
+              - name: code-templates
+                type: directory
+          - name: packs
+            type: directory
+            children:
+              - name: v1-talk
+                type: directory
+          - name: knowledge
+            type: directory
+            children:
+              - name: index.yaml
+                type: file
+              - name: cursor-specs
+                type: directory
+              - name: prompt-engineering
+                type: directory
+              - name: architecture-decisions
+                type: directory
+              - name: learnings
+                type: directory
+              - name: knowledge-system
+                type: directory
+      - name: workspace
+        type: directory
+      - name: docs
+        type: directory

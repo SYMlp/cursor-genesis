@@ -1,0 +1,35 @@
+---
+description: User coding preferences, language choices, code style, and interaction style overrides. Activates when preferences conflict with role defaults.
+---
+
+# User Preferences (V2.0)
+
+This file stores the User's personal coding habits and interaction preferences.
+**Conflict Resolution**: `User Preferences` > `Role Constraints` > `Default Behavior`.
+
+## 🎨 Preference Registry
+
+### 1. Language & Frameworks
+<!-- Example:
+- **Python**: Prefer `pydantic` over `dataclasses`.
+- **JS**: Prefer `const` over `let`.
+-->
+
+### 2. Code Style
+<!-- Example:
+- **Comments**: Write comments in English, but commit messages in Chinese.
+- **Testing**: Always use `pytest`.
+-->
+
+### 3. Interaction Style
+<!-- Example:
+- **Conciseness**: Do not apologize ("I'm sorry"). Just fix the error.
+- **Planning**: Always show Pseudo-code before full implementation.
+-->
+
+## ⚙️ Override Logic
+<rule_override>
+  IF a Role (e.g., TPM) suggests a style that conflicts with this file,
+  THEN this file's preference WINS.
+  Example: If TPM wants "Verbose Docstrings" but User wants "Minimal", use Minimal.
+</rule_override>

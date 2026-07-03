@@ -79,7 +79,15 @@ cursor-genesis/（叶子节点，已建）  ← 我们在这里
 
 ```
 cursor-genesis/
-├── meta.yaml                 # 节点元信息
+├── .knowledge/               # 【知识管理元数据】
+│   ├── meta.yaml            # 节点元信息
+│   ├── upstream/            # 与上游 knowledge-graph 的交互
+│   │   ├── sync.yaml       # 同步配置和记录
+│   │   └── exports/        # 待上报内容
+│   └── downstream/          # 与下游项目的交互
+│       ├── backflow.yaml   # 回流配置和记录
+│       └── pending/        # 待处理回流
+│
 ├── README.md
 ├── CHANGELOG.md
 ├── .gitignore
@@ -93,17 +101,14 @@ cursor-genesis/
 │   │   └── code-templates/ # DDD/Java/Vue 脚手架
 │   │
 │   ├── packs/               # 套装层
-│   │   └── v1-talk/        # 简化版套装（only talk）
+│   │   ├── knowledge-manage/  # 知识管理配置
+│   │   └── cursor-templates/  # 开发模板
 │   │
 │   └── knowledge/           # 知识层（可被上层索引）
 │       ├── index.yaml      # 知识索引
 │       ├── cursor-specs/   # 8 份使用手册
 │       ├── architecture-decisions/ # 9 份 ADR
 │       └── learnings/      # 2 份经验沉淀
-│
-├── backflow/                 # 【回流区】
-│   ├── pending/             # 待审批
-│   └── processing/          # 处理中
 │
 ├── workspace/                # 【本地工作台】.gitignore，不开源
 │
@@ -122,23 +127,23 @@ cursor-genesis/
 ### 4.1 目录结构
 
 ```
-backflow/
-├── pending/                  # 待审批（PR 提交到这里）
-│   └── {project-hash}/
-│       └── {contributor}/
-│           └── {commit-id}/
-│               └── content.md
-└── processing/               # 审批通过，正在处理
+.knowledge/downstream/
+├── backflow.yaml             # 回流配置和记录
+└── pending/                  # 待审批（PR 提交到这里）
+    └── {project-hash}/
+        └── {contributor}/
+            └── {commit-id}/
+                └── content.md
 ```
 
 ### 4.2 流转路径
 
 ```
-PR 提交到 backflow/pending/
+PR 提交到 .knowledge/downstream/pending/
     ↓ 审批通过
-移到 backflow/processing/
+记录到 .knowledge/downstream/backflow.yaml (processing)
     ↓ 处理完成
-合并到 stable/
+合并到 stable/ 或 .knowledge/upstream/exports/
 ```
 
 ### 4.3 回流内容限制
@@ -195,12 +200,12 @@ cursor-genesis -> ../../../cursor-genesis/stable/knowledge
 
 **原因**：
 - `stable/atoms/`、`stable/packs/` 是给项目稀疏检出用的，不是给上层索引的
-- `scripts/`、`backflow/` 是内部维护用的
+- `scripts/`、`.knowledge/` 是内部维护用的
 - 只有 `stable/knowledge/` 是认知内容，需要被上层索引和提炼
 
 **暴露的文件**：
 - `stable/knowledge/index.yaml` - 知识索引，供上层检索
-- `meta.yaml` - 节点元信息，遵循 leaf-node-framework 规范
+- `.knowledge/meta.yaml` - 节点元信息，遵循 leaf-node-framework 规范
 
 ---
 
@@ -221,7 +226,7 @@ cursor-genesis -> ../../../cursor-genesis/stable/knowledge
         │                       │                       │
         ▼                       ▼                       ▼
    新项目初始化            回流流程验证              开源发布
-   (scripts/init)         (backflow/)              (双仓库?)
+   (scripts/init)         (.knowledge/)            (双仓库?)
         │                       │                       │
         └───────────────────────┴───────────────────────┘
                                 │

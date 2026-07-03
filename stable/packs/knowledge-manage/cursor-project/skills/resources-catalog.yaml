@@ -1,0 +1,279 @@
+# cursor-genesis 可用资源清单
+# 供 cg-install skill 使用
+
+version: 1.1.0
+description: cursor-genesis 提供的可复用资源清单
+
+# ============================================================
+# 资源分类
+# ============================================================
+
+resources:
+  # ------------------------------------------------------------
+  # Rules - 规则文件
+  # ------------------------------------------------------------
+  rules:
+    description: Cursor Rules (.mdc 文件)，持久化项目上下文
+    path: stable/atoms/rules
+
+    items:
+      production-safety:
+        file: production-safety.mdc
+        description: 生产安全规则，防止误操作
+        recommended: true
+        size: small
+
+      project-rules:
+        file: project-rules.mdc
+        description: 项目通用规则
+        recommended: true
+        size: small
+
+      playbook:
+        file: playbook.mdc
+        description: 工作手册，定义工作流程
+        recommended: false
+        size: medium
+
+      user-preferences:
+        file: user-preferences.mdc
+        description: 用户偏好设置
+        recommended: false
+        size: small
+
+      meta-template:
+        file: meta-template.mdc
+        description: 元模板，用于生成新规则
+        recommended: false
+        size: small
+
+    teams:
+      description: 团队协作规则
+      path: stable/atoms/rules/teams
+
+      items:
+        strategic-research:
+          file: strategic-research-team.mdc
+          description: 战略研判小组（Go/No-Go 决策）
+          use_case: 评估新想法的可行性
+
+        virtual-streamlit:
+          file: virtual-streamlit-team.mdc
+          description: 虚拟 Streamlit 研发团队
+          use_case: 快速开发数据看板
+
+        topic-research:
+          file: topic-research-team.mdc
+          description: 课题研究团队
+          use_case: 学术/深度技术研究
+
+        domain-driven-design:
+          file: domain-driven-design.mdc
+          description: 领域建模团队
+          use_case: DDD 领域建模
+
+        ai-migration:
+          file: ai-migration-team.mdc
+          description: AI 迁移团队
+          use_case: 遗留系统迁移
+
+        knowledge-system:
+          file: knowledge-system-team.mdc
+          description: 知识体系团队
+          use_case: 构建知识管理系统
+
+  # ------------------------------------------------------------
+  # Capabilities - 能力定义
+  # ------------------------------------------------------------
+  capabilities:
+    description: 原子角色能力，按四层认知分类
+    path: stable/atoms/capabilities
+
+    layers:
+      insight:
+        path: stable/atoms/capabilities/01_insight
+        description: 洞察与定义（需求分析、市场洞察）
+        count: 5
+
+      architecture:
+        path: stable/atoms/capabilities/02_architecture
+        description: 结构与设计（架构设计、技术评估）
+        count: 6
+
+      engineering:
+        path: stable/atoms/capabilities/03_engineering
+        description: 实现与执行（代码编写、工程落地）
+        count: 6
+
+      quality:
+        path: stable/atoms/capabilities/04_quality
+        description: 质量与风控（逻辑审计、验收标准）
+        count: 3
+
+  # ------------------------------------------------------------
+  # Patterns - 协作模式
+  # ------------------------------------------------------------
+  patterns:
+    description: 团队编排模式，多角色协作
+    path: stable/atoms/patterns
+    count: 6
+    note: 与 rules/teams 配合使用
+
+  # ------------------------------------------------------------
+  # Skills - 技能封装
+  # ------------------------------------------------------------
+  skills:
+    description: 工具和命令的封装
+    path: stable/atoms/skills
+
+    items:
+      kg-search:
+        file: kg-search.skill.yaml
+        description: 搜索 knowledge-graph 中的知识
+        category: knowledge-management
+
+      kg-assemble:
+        file: kg-assemble.skill.yaml
+        description: 组装主题内容
+        category: knowledge-management
+
+      cg-install:
+        file: cg-install.skill.yaml
+        description: 安装 cursor-genesis 资源
+        category: setup
+
+  # ------------------------------------------------------------
+  # Code Templates - 代码模板
+  # ------------------------------------------------------------
+  code-templates:
+    description: 代码脚手架和模板
+    path: stable/atoms/code-templates
+
+    items:
+      ddd:
+        path: stable/atoms/code-templates/ddd
+        description: DDD 领域驱动设计模板
+        language: java
+
+      spring-boot:
+        path: stable/atoms/code-templates/java-spring-boot
+        description: Java Spring Boot 项目模板
+        language: java
+
+      vue-admin:
+        path: stable/atoms/code-templates/vue-admin
+        description: Vue Admin 管理后台模板
+        language: javascript
+
+  # ------------------------------------------------------------
+  # Packs - 场景包
+  # ------------------------------------------------------------
+  packs:
+    description: 预组合套装，开箱即用
+    path: stable/packs
+
+    items:
+      v1-talk:
+        path: stable/packs/v1-talk
+        description: 对话场景包（6 个团队协作模式）
+        includes:
+          - rules/teams/*
+          - capabilities (referenced)
+          - patterns (referenced)
+
+# ============================================================
+# 推荐组合
+# ============================================================
+
+recommended_combinations:
+  minimal:
+    name: 最小化配置
+    description: 只包含基础规则
+    includes:
+      - rules/production-safety
+      - rules/project-rules
+    use_case: 快速原型、个人项目
+
+  standard:
+    name: 标准配置
+    description: 包含基础规则和常用团队
+    includes:
+      - rules/production-safety
+      - rules/project-rules
+      - rules/teams/strategic-research
+      - rules/teams/domain-driven-design
+    use_case: 企业应用、正式项目
+
+  full-stack:
+    name: 全栈配置
+    description: 完整的开发能力
+    includes:
+      - rules/*
+      - rules/teams/virtual-streamlit
+      - capabilities/engineering/*
+      - code-templates/spring-boot
+    use_case: 全栈开发项目
+
+  research:
+    name: 研究配置
+    description: 学术研究和深度技术探索
+    includes:
+      - rules/teams/topic-research
+      - rules/teams/strategic-research
+      - capabilities/insight/*
+    use_case: 学术研究、技术调研
+
+  knowledge-management:
+    name: 知识管理配置
+    description: 构建知识管理系统
+    includes:
+      - rules/teams/knowledge-system
+      - skills/kg-*
+      - capabilities/architecture/*
+    use_case: 知识图谱、文档系统
+
+# ============================================================
+# 安装方式
+# ============================================================
+
+installation_methods:
+  submodule:
+    description: 使用 git submodule + sparse checkout
+    recommended: true
+    pros:
+      - 版本追踪
+      - 易于更新
+      - 选择性拉取
+    cons:
+      - 需要 git 操作
+
+  direct-copy:
+    description: 直接复制文件
+    recommended: false
+    pros:
+      - 简单直接
+      - 不依赖 git
+    cons:
+      - 失去版本追踪
+      - 更新麻烦
+
+# ============================================================
+# 版本兼容性
+# ============================================================
+
+compatibility:
+  cursor-genesis: ">=1.1.0"
+  cursor: ">=0.30.0"
+  claude-code: ">=2.0.0"
+
+# ============================================================
+# 更新日志
+# ============================================================
+
+changelog:
+  - version: 1.1.0
+    date: 2026-02-26
+    changes:
+      - 新增 skills 资源类型
+      - 新增推荐组合配置
+      - 完善资源描述和使用场景

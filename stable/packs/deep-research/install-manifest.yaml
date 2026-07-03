@@ -1,0 +1,39 @@
+# deep-research Pack 安装清单
+# install-pack 脚本读取此文件，将 Pack 内容部署到目标项目的 .cursor/ 下
+
+pack: deep-research
+version: 1.0.0
+description: 系统化深度调研能力（Plan → Execute → Synthesize 三阶段流程）
+
+mappings:
+  # Command
+  - source: commands/deep-research.md
+    target: commands/deep-research.md
+
+  # Agents
+  - source: agents/base-research-planner-agent.md
+    target: agents/base-research-planner-agent.md
+  - source: agents/base-research-executor-agent.md
+    target: agents/base-research-executor-agent.md
+  - source: agents/base-research-synthesizer-agent.md
+    target: agents/base-research-synthesizer-agent.md
+  - source: agents/base-research-analyst-agent.md
+    target: agents/base-research-analyst-agent.md
+
+  # Skills（目录级别复制）
+  - source: skills/base-research-planner
+    target: skills/base-research-planner
+    type: directory
+  - source: skills/base-research-executor
+    target: skills/base-research-executor
+    type: directory
+  - source: skills/base-research-synthesizer
+    target: skills/base-research-synthesizer
+    type: directory
+
+dependencies:
+  mcp:
+    - name: brave-search
+      required: true
+      info: mcp-info/brave-search.md
+      description: Executor 的网络搜索能力依赖此 MCP

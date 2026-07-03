@@ -1,0 +1,134 @@
+# cursor-genesis 骨架配置
+# 固定目录结构从上游知识图谱推导，scan:true 的目录支持动态展开
+
+engine:
+  version: 1.0.0
+
+project:
+  name: cursor-genesis
+  description: Cursor AI 协作知识叶子节点
+  version: v1.0.0
+
+# 固定维度（从上游知识图谱推导）
+dimensions:
+  - id: perspectives
+    type: highlight-groups
+    name: 使用者视角
+    groups:
+      - id: producer
+        name: 知识生产者
+        highlight: [.knowledge/upstream/exports/, stable/knowledge/]
+        flow_direction: outbound
+        color: "#10b981"
+      - id: consumer
+        name: 知识消费者
+        highlight: [.knowledge/upstream/sync.yaml]
+        flow_direction: inbound
+        color: "#3b82f6"
+      - id: provider
+        name: 模板提供者
+        highlight: [stable/atoms/, stable/packs/]
+        flow_direction: outbound
+        color: "#8b5cf6"
+      - id: receiver
+        name: 改进接收者
+        highlight: [.knowledge/downstream/]
+        flow_direction: inbound
+        color: "#f59e0b"
+  - id: architecture
+    type: layer-stack
+    name: 认知架构分层
+    layers:
+      - id: knowledge
+        name: 知识层
+        paths: [stable/knowledge/]
+        color: "#10b981"
+      - id: packs
+        name: 套装层
+        paths: [stable/packs/]
+        color: "#8b5cf6"
+      - id: atoms
+        name: 原子层
+        paths: [stable/atoms/]
+        color: "#6366f1"
+      - id: meta
+        name: 元数据层
+        paths: [.knowledge/]
+        color: "#f59e0b"
+
+flows:
+  - id: upstream-sync
+    from: knowledge-graph
+    to: .knowledge/upstream/
+    type: bidirectional
+    label: 上游交互
+    color: "#3b82f6"
+  - id: config-output
+    from: stable/
+    to: downstream-projects
+    type: outbound
+    label: 配置输出
+    color: "#8b5cf6"
+  - id: backflow-receive
+    from: downstream-projects
+    to: .knowledge/downstream/
+    type: inbound
+    label: 回流接收
+    color: "#f59e0b"
+
+annotations:
+  .knowledge/: { label: 知识管理中枢, icon: brain }
+  docs/: { label: 项目文档, icon: file-text }
+  stable/: { label: 对外稳定内容, icon: package }
+  stable/atoms/: { label: 原子层, icon: atom }
+  stable/packs/: { label: 包层, icon: package-2 }
+  stable/knowledge/: { label: 知识层, icon: book-open }
+
+# 骨架结构：固定目录 + 动态扫描
+structure:
+  # 项目根目录相对于 engine/ 的路径
+  root_path: "../../.."
+  root_name: cursor-genesis
+  scan_depth: 5
+  skeleton:
+    # 直接列出项目根目录下的固定目录（不再包装 cursor-genesis）
+    - name: .knowledge
+      type: directory
+      scan: true
+      children:
+        - name: upstream
+          type: directory
+          scan: true
+        - name: downstream
+          type: directory
+          scan: true
+        - name: visualizer
+          type: directory
+          scan: false
+    - name: stable
+      type: directory
+      children:
+        - name: atoms
+          type: directory
+          children:
+            - name: rules
+              type: directory
+              scan: true
+            - name: capabilities
+              type: directory
+              scan: true
+        - name: packs
+          type: directory
+          scan: true
+        - name: knowledge
+          type: directory
+          scan: true
+    - name: docs
+      type: directory
+      scan: true
+    - name: workspace
+      type: directory
+      scan: true
+    - name: backflow
+      type: directory
+      scan: true

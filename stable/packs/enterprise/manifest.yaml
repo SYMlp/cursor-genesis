@@ -1,0 +1,92 @@
+# enterprise 套装
+# 定位：面向企业级多模块项目的 AI 认知治理套件，规则驱动 + 本体支撑
+
+name: enterprise
+description: |
+  生成式规则系统（Meta-Rules）+ 本体驱动开发（ODD）的完整企业套件。
+  4 条 Meta-Rules 驱动 Agent 为每个业务域自动生成专属规则，
+  配合 ODD 方法论 + 工程化 plan 协作契约 + 工程实践方法论 skill，
+  实现 50+ 模块规模下的 Agent 认知治理。
+version: 1.2.0
+audience: enterprise
+validated_by: enterprise-soc（50+ 模块/2 周交付/4 个月 80+ 工程化 plan）
+
+# 引用原子层
+atoms:
+  rules:
+    - enterprise/design-authority
+    - enterprise/routing-engine
+    - enterprise/ontology-driven-dev
+    - enterprise/rule-evolution
+
+  plan_templates:
+    - engineered-multi-phase-plan
+      # 来源：atoms/plan-templates/engineered-multi-phase-plan.template.md
+      # 适用：多 Phase + 多 sub-agent + 编译可验证的协作工程
+      # 派生原则：plan-as-collaboration-contract
+      # 抽象自：enterprise-soc 4 月所有 soc_*.plan.md（见 plan-evolution-2026-04-18 derivation）
+
+  skills:
+    - java-backend-test-ops
+      # 来源：atoms/skills/java-backend-test-ops/SKILL.md
+      # 适用：Java + Maven + Spring Boot 3.x + Testcontainers + Docker Desktop（Windows/macOS/Linux）
+      # 派生原则：cross-project-workflow-belongs-to-leaf-node
+      # 抽象自：enterprise-soc soc-test-ops §六 §九（见 rule-to-skill-distillation-2026-04-17 derivation）
+      # 内容：Testcontainers 资源治理（避免 InnoDB EAGAIN）+ Spring Boot 3.x Null-Safety 规范 + 共享测试基类变更传播
+
+# 方法论
+methodology:
+  - ontology-extraction-rules
+  - ontology-document-guide
+  - ontology-validation-rules
+  - ontology-maintenance-guide
+  - plan-as-collaboration-contract  # 工程化 plan 设计原则（v1.1 新增）
+  - cross-project-workflow-belongs-to-leaf-node  # 跨项目可复用方法论应抽离到叶子节点（v1.2 新增）
+
+# 核心机制
+mechanisms:
+  design_authority: 设计文档 = 唯一权威；Agent 禁止从历史代码推断架构
+  intent_routing: 意图路由表将模糊自然语言转为确定性文档读取路径
+  odd: 本体驱动开发；Agent 从领域本体推导字段和逻辑，而非猜测
+  rule_evolution: 规则自演化；低效认知路径触发规则优化记录
+  generative_rules: Meta-Rules 驱动 Agent 为新业务域自动生成专属规则
+  contract_oriented_plan: |
+    Plan 即协作契约——TODO 必须显式编码执行者、前置依赖、首读路径、
+    验收 GATE，避免 sub-agent clean context 启动时的"我以为它知道"协作缝隙。
+    （v1.1 新增）
+  reusable_engineering_practices: |
+    跨项目通用的工程实践方法论以独立 skill 形式承载，
+    避免每个项目重复维护同一份运维经验（v1.2 新增）。
+
+# 已验证案例
+case_studies:
+  - id: enterprise-soc
+    type: enterprise-platform
+    modules: 50+
+    delivery: "< 2 weeks (zero to acceptance)"
+    token_reduction: "60%"
+    field_missing_rate: "35% → ~0%"
+    generated_rules: 16
+    engineered_plans_in_month_4: 81
+    plan_completion_rate_in_month_4: "91%"
+
+# 版本历史
+version_history:
+  - version: 1.2.0
+    date: 2026-04-18
+    changes:
+      - atoms 引入 skills 资产引用（首个：java-backend-test-ops，源自 soc-test-ops §六 §九 通用化抽离）
+      - methodology 增加 cross-project-workflow-belongs-to-leaf-node 派生原则
+      - mechanisms 增加 reusable_engineering_practices 机制
+      - 配合 knowledge-graph rule_to_skill_distillation Phase 4 完成
+  - version: 1.1.0
+    date: 2026-04-18
+    changes:
+      - 引入 plan_templates 资产引用（engineered-multi-phase-plan）
+      - methodology 增加 plan-as-collaboration-contract 派生原则
+      - mechanisms 增加 contract_oriented_plan 机制
+      - case_studies 补充 soc 4 月工程化 plan 数据（81 个/91% 完成率）
+  - version: 1.0.0
+    date: 2026-03-31
+    changes:
+      - 初版：4 条 Meta-Rules + ODD 方法论 + soc 案例

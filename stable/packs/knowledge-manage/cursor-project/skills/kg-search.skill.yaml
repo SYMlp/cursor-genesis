@@ -1,0 +1,117 @@
+# kg-search - Knowledge Graph 搜索工具
+# 用于在 knowledge-graph 中搜索知识
+
+name: kg-search
+version: 1.0.0
+description: 搜索 knowledge-graph 中的知识节点和内容
+category: knowledge-management
+
+# ============================================================
+# 命令定义
+# ============================================================
+
+command: python {{kg_root}}/tools/search.py --query "{{query}}" {{flags}}
+
+# ============================================================
+# 参数定义
+# ============================================================
+
+parameters:
+  kg_root:
+    type: path
+    description: knowledge-graph 项目根目录
+    default: "{{workspace_root}}"
+    required: false
+    notes: 如果 knowledge-graph 和当前项目在同一目录，使用默认值
+
+  query:
+    type: string
+    description: 搜索关键词
+    required: true
+    prompt: "请输入搜索关键词"
+    examples:
+      - "cursor"
+      - "prompt engineering"
+      - "ai协作"
+
+  deep:
+    type: boolean
+    description: 启用深度搜索（搜索知识项内容）
+    required: false
+    default: false
+    flag: --deep
+
+# ============================================================
+# 使用场景
+# ============================================================
+
+use_cases:
+  - scenario: 查找特定工具的知识
+    example: "/kg-search cursor"
+    description: 搜索所有与 cursor 相关的知识节点
+
+  - scenario: 深度搜索特定主题
+    example: "/kg-search prompt engineering --deep"
+    description: 深度搜索 prompt engineering 相关的知识项
+
+  - scenario: 查找中文关键词
+    example: "/kg-search ai协作"
+    description: 搜索中文关键词
+
+# ============================================================
+# 输出说明
+# ============================================================
+
+output:
+  format: text
+  structure: |
+    搜索: {query}
+    ==================================================
+
+    找到 N 个相关节点:
+
+    📦 {node_name}
+       匹配关键词: [keyword1, keyword2]
+       知识分类: [category1, category2]
+
+# ============================================================
+# 前置条件
+# ============================================================
+
+prerequisites:
+  - knowledge-graph 项目存在且可访问
+  - Python 3.8+ 已安装
+  - 已安装 pyyaml 包
+
+# ============================================================
+# 故障排查
+# ============================================================
+
+troubleshooting:
+  - issue: "No such file or directory: tools/search.py"
+    solution: 检查 kg_root 参数是否指向正确的 knowledge-graph 目录
+
+  - issue: "未找到匹配的节点"
+    solution: |
+      1. 检查关键词是否在节点的 keywords 中
+      2. 尝试使用 --deep 搜索知识项内容
+      3. 查看 index/nodes-registry.yaml 确认节点注册
+
+  - issue: "ModuleNotFoundError: No module named 'yaml'"
+    solution: 运行 pip install pyyaml
+
+# ============================================================
+# 相关工具
+# ============================================================
+
+related_skills:
+  - kg-assemble: 组装知识内容
+  - kg-validate: 验证知识完整性（计划中）
+
+# ============================================================
+# 设计参考
+# ============================================================
+
+design_reference:
+  tools_registry: knowledge-graph/meta/tools-registry.yaml
+  description: 参考工具注册表了解完整的参数和用法

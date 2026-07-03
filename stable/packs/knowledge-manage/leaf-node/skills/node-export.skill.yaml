@@ -1,0 +1,87 @@
+# node-export.skill.yaml
+
+name: 节点上报技能
+version: 1.0.0
+description: 向 knowledge-graph 上报精炼内容
+
+## 功能
+
+- 检查 exports/ 目录
+- 生成上报清单
+- 创建 PR
+- 跟踪上报状态
+
+## 使用场景
+
+- 向上游上报精炼内容
+- 批量上报多个改进
+- 跟踪上报进度
+
+## 技术实现
+
+### 1. 检查 exports/ 目录
+
+```bash
+# 检查各类型的上报内容
+ls -la .knowledge/upstream/exports/capability-changes/
+ls -la .knowledge/upstream/exports/refined-knowledge/
+ls -la .knowledge/upstream/exports/feedback/
+```
+
+### 2. 生成上报清单
+
+```markdown
+## 上报内容
+
+**来源节点**: cursor-genesis
+**上报类型**: 混合
+**日期**: 2026-02-27
+
+### 能力变更清单
+
+- [x] 2026-02-27-anfu_test-dialog-state-machine.md
+
+### 精炼知识清单
+
+- [x] 2026-02-27-prompt-engineering-summary.md
+
+### 方案反馈清单
+
+- [x] 2026-02-27-cursor-rules-feedback.md
+```
+
+### 3. 创建 PR
+
+```bash
+# 创建分支
+git checkout -b exports/2026-02-27
+
+# 提交内容
+git add .knowledge/upstream/exports/
+git commit -m "exports: 上报能力变更和精炼知识"
+
+# 推送
+git push origin exports/2026-02-27
+
+# 创建 PR
+gh pr create \
+  --repo SYMlp/knowledge-graph \
+  --title "[cursor-genesis] 能力变更上报 - 2026-02-27" \
+  --body "$(cat pr-description.md)"
+```
+
+### 4. 跟踪上报状态
+
+```bash
+# 查看 PR 状态
+gh pr view {PR_NUMBER}
+
+# 查看审核评论
+gh pr view {PR_NUMBER} --comments
+```
+
+## 相关命令
+
+- `/export status` - 查看待上报内容
+- `/export prepare` - 准备上报清单
+- `/export submit` - 提交 PR 到上游

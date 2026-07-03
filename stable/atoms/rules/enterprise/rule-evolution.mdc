@@ -1,0 +1,57 @@
+---
+description: Rule Evolution Guide - Triggered when the Agent modifies its own behavior or rule configurations.
+globs: .cursor/rules/optimizations/**
+---
+
+# Rule Evolution Guide
+
+## Purpose of this Space
+
+The `.cursor/rules/optimizations/` directory is the dedicated space for recording the optimization of the rule system itself.
+
+Every time a change is made to the **behavioral logic** or **routing** of the agents via `.cursor/rules/*.mdc`, a record MUST be created here. This explains what changed, why it changed, and the before/after metrics. This ensures subsequent agents and humans can trace the evolution of the system's cognition.
+
+## Trigger Conditions
+
+Create a record here whenever you:
+- Modify routing logic, behavioral constraints, or troubleshooting workflows in any `.mdc` file.
+- Add or delete a structural rule file.
+- Notice the Agent taking an inefficient cognitive path and making a rule correction to fix it.
+
+*(Do not record pure formatting tweaks, typo fixes, or simple comments).*
+
+## File Naming Convention
+
+`YYYY-MM-DD-<short-topic>.md` (e.g., `2026-03-30-design-first-routing.md`)
+
+## Record Structure
+
+Every record MUST contain the following sections (Do not omit any):
+
+### 1. Header Metadata
+Title, Date, and the scenario that triggered the optimization.
+
+### 2. The Problem
+Describe the flawed Agent behavior or the gap in the current rules. (e.g., "The Agent grepped 9 files and hallucinated a response instead of reading the design doc.")
+
+### 3. Root Cause Analysis
+Determine why it happened. Which rule was missing? Which route was unhandled? Use a simple "Missing Constraint → Impact" table.
+
+### 4. Ideal Path (Control Group)
+Describe what the optimal cognitive path *should* have been for the exact same problem. This serves as the benchmark.
+
+### 5. Optimization Method (Core)
+**Break down each specific change into a subsection**. Format strictly as:
+- **Original**: The rule state before the change.
+- **Optimized**: The new rule state.
+- **Rationale**: Exactly why this change fixes the root cause.
+*(The Before vs. After contrast is the most valuable part of this document).*
+
+### 6. Quantitative Results
+Use a table to compare metrics (e.g., Files Read: 9+ vs 4; Search Ops: 5 vs 0; Thinking Pauses).
+
+### 7. Verification
+Explain how to verify the new rule works (usually by starting a new chat and testing the same prompt).
+
+## Pre-Requisite
+Before writing a new optimization, quickly scan existing files in this directory to ensure you aren't contradicting or duplicating historical optimizations.

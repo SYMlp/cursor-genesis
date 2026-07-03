@@ -1,0 +1,41 @@
+# L1 根事实：可自动化原则
+# 计算理论的基本事实
+
+id: automation
+name: 可自动化原则
+principle: "可形式化描述的重复劳动可被自动化"
+
+# 来源
+source:
+  reference: "Turing (1936). On Computable Numbers; Church-Turing thesis"
+  type: 计算理论
+  verifiable: true
+
+# 系统边界
+system_boundary: 工具设计、AI 辅助
+
+# 不可动摇性检验
+immutability_check:
+  can_be_further_decomposed: false
+  depends_on_experience: false
+  if_invalid_system_collapses: true
+
+# 推论
+implications:
+  - id: ai-can-assist
+    statement: "AI 可以辅助检索、组装、生成等形式化任务"
+    reasoning: "这些任务可形式化描述，符合自动化条件"
+
+  - id: human-judges-root
+    statement: "根事实的识别和判断只能由人完成"
+    reasoning: "根识别需要主体视角和实践体感，无法形式化"
+
+  - id: structured-enables-automation
+    statement: "结构化存储是自动化的前提"
+    reasoning: "非结构化内容难以被程序处理"
+
+# 在本系统中的应用
+applications_in_system:
+  - "tools/ 层的存在（search.py, assemble.py）"
+  - "YAML/Markdown 结构化存储"
+  - "AI 辅助检索和组装，人判断根事实"

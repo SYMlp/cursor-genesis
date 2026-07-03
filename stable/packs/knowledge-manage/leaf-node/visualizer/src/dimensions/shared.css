@@ -1,0 +1,162 @@
+/* 维度面板通用样式 */
+.dimension-panel {
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.dimension-panel .panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.dimension-panel .panel-description {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* highlight-groups 继承自 perspective-panel 样式 */
+.group-list,
+.layer-list,
+.stage-list,
+.tag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.group-item,
+.layer-item,
+.stage-item,
+.tag-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.group-item:hover,
+.layer-item:hover,
+.stage-item:hover,
+.tag-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.group-item.active,
+.layer-item.active,
+.stage-item.active,
+.tag-item.active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.group-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.group-info,
+.layer-content,
+.stage-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.group-name,
+.layer-name,
+.stage-name,
+.tag-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.group-desc,
+.layer-desc,
+.stage-desc {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.active-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+}
+
+/* layer-stack 特定 */
+.layer-color-bar {
+  width: 4px;
+  height: 100%;
+  min-height: 24px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.layer-chevron {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+/* flow-sequence 特定 */
+.stage-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stage-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  padding-left: 12px;
+}
+
+.stage-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* tag-map 特定 */
+.tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}

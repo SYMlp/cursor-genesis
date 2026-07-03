@@ -1,0 +1,46 @@
+# upstream/sync.yaml
+# 与上游 knowledge-graph 的同步配置和记录
+
+# 上次同步时间
+last_sync: null  # 格式: 2026-02-27T10:00:00Z
+
+# 已同步的推荐清单
+synced_recommendations: []
+  # 示例:
+  # - id: rec-001
+  #   title: "Prompt Engineering 最佳实践"
+  #   file: stable/knowledge/prompt-engineering/best-practices.md
+  #   synced_at: 2026-02-20
+  # - id: rec-002
+  #   title: "团队协作模式更新"
+  #   file: stable/atoms/rules/teams/collaboration-v2.mdc
+  #   synced_at: 2026-02-25
+
+# 同步范围配置
+sync_scope:
+  # 关注的主题
+  topics:
+    - cursor-ai
+    - prompt-engineering
+    - team-collaboration
+    - knowledge-management
+
+  # 关注的类别
+  categories:
+    - rules
+    - capabilities
+    - knowledge
+
+  # 优先级过滤（可选）
+  priority:
+    - required    # 必须同步
+    - recommended # 推荐同步
+    # - optional  # 可选同步（默认不拉取）
+
+# 同步历史（最近 10 条）
+sync_history: []
+  # 示例:
+  # - timestamp: 2026-02-27T10:00:00Z
+  #   items_count: 3
+  #   status: success
+  #   notes: "同步了 3 个推荐项"

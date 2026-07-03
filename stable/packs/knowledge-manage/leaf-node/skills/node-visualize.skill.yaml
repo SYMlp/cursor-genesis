@@ -1,0 +1,101 @@
+# node-visualize.skill.yaml
+
+name: 叶子节点可视化技能
+version: 1.0.0
+description: |
+  在叶子节点中管理可视化配置，根据用户想法动态添加新的理解维度。
+  读取叶子节点目录结构，生成或修改 .knowledge/visualizer.yaml，支持内置维度类型（highlight-groups、layer-stack、flow-sequence、tag-map）。
+
+## 触发场景
+
+- 用户说「帮我添加一个架构分层的视角」
+- 用户说「我想从 XX 角度理解这个项目」
+- 用户说「启动可视化预览」
+- 用户执行 `/visualize` 命令
+
+## 核心能力
+
+1. **读取叶子节点结构**：扫描 .knowledge/、stable/、workspace/ 等目录，或读取 meta.yaml
+2. **生成维度配置**：根据用户想法，选择合适的内置维度类型，生成 YAML 配置
+3. **修改现有配置**：在已有 visualizer.yaml 中添加新维度或修改现有维度
+
+## 内置维度类型与 Schema
+
+### highlight-groups
+适用于：使用者视角、角色视角
+```yaml
+- id: <unique-id>
+  type: highlight-groups
+  name: <显示名称>
+  description: <可选>
+  groups:
+    - id: <group-id>
+      name: <组名>
+      description: <可选>
+      highlight: [<path1>, <path2>]
+      flow_direction: inbound|outbound|bidirectional
+      color: "#hex"
+```
+
+### layer-stack
+适用于：架构分层、认知层次
+```yaml
+- id: <unique-id>
+  type: layer-stack
+  name: <显示名称>
+  layers:
+    - id: <layer-id>
+      name: <层名>
+      paths: [<path>]
+      description: <可选>
+      color: "#hex"
+```
+
+### flow-sequence
+适用于：生命周期、流程阶段、管道
+```yaml
+- id: <unique-id>
+  type: flow-sequence
+  name: <显示名称>
+  stages:
+    - id: <stage-id>
+      name: <阶段名>
+      paths: [<path>]
+      description: <可选>
+      color: "#hex"
+```
+
+### tag-map
+适用于：按标签/分类组织
+```yaml
+- id: <unique-id>
+  type: tag-map
+  name: <显示名称>
+  tags:
+    - id: <tag-id>
+      name: <标签名>
+      paths: [<path>]
+      color: "#hex"
+```
+
+## 工作流程
+
+1. **init**：扫描目录，生成初始 visualizer.yaml（含 project、annotations、flows、一个默认维度）
+2. **add**：根据用户想法，选择维度类型，生成新维度配置，追加到 dimensions 数组
+3. **edit**：修改现有维度的 groups/layers/stages/tags
+4. **dev**：复制 visualizer.yaml 到 visualizer/public/config.yaml，执行 npm run dev
+5. **build**：同上复制配置，执行 npm run build
+
+## 配置文件位置
+
+- 源配置：`.knowledge/visualizer.yaml`
+- 引擎：`.knowledge/visualizer/` 或 `stable/packs/knowledge-manage/leaf-node/visualizer/`
+- 构建时需将 visualizer.yaml 复制到 visualizer/public/config.yaml
+
+## 相关命令
+
+- `/visualize init` - 生成初始配置
+- `/visualize add <idea>` - 根据想法添加新维度
+- `/visualize edit` - 编辑现有维度
+- `/visualize dev` - 启动开发服务器
+- `/visualize build` - 构建静态文件

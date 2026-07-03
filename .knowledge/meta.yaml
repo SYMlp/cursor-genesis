@@ -1,0 +1,143 @@
+# cursor-genesis 节点元信息
+# 遵循 leaf-node-framework 规范
+
+id: cursor-genesis
+name: Cursor 协作模板
+version: 1.5.0
+domain: 工具-Cursor
+description: |
+  Cursor AI 协作研发的组件库和知识库。
+  包含 Rules、Capabilities、Patterns、Code Templates 等可复用资产。
+
+# 框架配置
+framework:
+  upstream: knowledge-graph
+  index_file: stable/knowledge/index.yaml
+  export_path: .knowledge/upstream/exports/
+  reporting:
+    method: git_sparse_checkout
+    description: 通过 exports/ 目录上报内容，上游用稀疏检出拉取
+
+# 上游交互
+receives_from_upper:
+  # AI 通用知识（跨工具适用）
+  - type: ai_general_knowledge
+    description: AI 协作的通用原则和方法论
+    source: knowledge-graph/index/topics/ai-collaboration.yaml
+    usage: 作为设计提示词和团队编排的理论依据
+    auto_pull: false
+
+  # 根事实库
+  - type: root_facts
+    description: 认知科学、计算理论等根事实
+    source: knowledge-graph/roots/*.yaml
+    usage: 作为设计决策的推导起点
+    auto_pull: false
+
+  # 叶子节点规范
+  - type: leaf_node_spec
+    description: 叶子节点的通用规范
+    source: knowledge-graph/meta/leaf-node-spec.md
+    usage: 遵循规范组织内容和上报
+    auto_pull: true
+
+# 自维护知识（不从上游获取）
+self_maintained:
+  - type: cursor_tool_docs
+    description: Cursor IDE 使用文档和 API 规范
+    reason: 仅在 cursor-genesis 中有用，不具备跨工具通用性
+  - type: cursor_best_practices
+    description: Cursor 特定的最佳实践和使用技巧
+    reason: 工具特定知识，上游不需要维护
+  - type: implementation_details
+    description: Rules/Capabilities/Patterns 的具体实现
+    reason: 应用形式的具体内容，由本节点负责
+
+reports_to_upper:
+  # 能力变更（必须）
+  - type: capability_change
+    required: true
+    description: 新增或变更的能力（能解决什么新问题）
+    trigger: 当新增 rule/capability/pattern 时
+    format: 问题域 + 解决方案摘要 + 适用场景
+    export_to: stable/knowledge/exports/capability-changes/
+
+  # 精炼知识（可选）
+  - type: refined_knowledge
+    required: false
+    description: 从下游项目回流中整理的通用解决方案
+    trigger: 当下游回流被审批合入后
+    format: 问题描述 + 解决思路 + 适用场景（不含项目特定代码）
+    export_to: stable/knowledge/exports/refined-knowledge/
+
+  # 方案反馈（可选）
+  - type: solution_feedback
+    required: false
+    description: 对当前方案边界/局限性的新发现
+    trigger: 当发现新的边界或局限性时
+    format: 发现内容 + 影响范围 + 建议
+    export_to: stable/knowledge/exports/feedback/
+
+# 节点职责
+responsibilities:
+  - 生产 Cursor 相关的组件和知识
+  - 接收使用方的回流改进
+  - 暴露标准化索引供上层检索
+
+# 不负责的事项
+out_of_scope:
+  - 跨领域知识关联（上层职责）
+  - 治理框架设计（leaf-node-framework 职责）
+  - 知识体系定位（上层 domains.yaml 定义）
+
+# 生命周期
+lifecycle:
+  created: 2026-02-25
+  status: active
+
+# 版本记录
+changelog:
+  - version: 1.5.0
+    date: 2026-03-03
+    changes:
+      - "v2 选择性接入：从 personal_knowlegy/v2 提取精华，不搬入企业级治理架构"
+      - 新增 3 篇知识文档（component-type-decision-guide / context-management-guide / agent-autonomy-guide）
+      - 新增 3 个 atoms/commands（/checkpoint + /resume + /fix-bug）
+      - 知识来源：v2 原创思想 + Anthropic 16 篇研究笔记 + Cursor 2026 演进研究
+  - version: 1.4.0
+    date: 2026-03-03
+    changes:
+      - 新增 create-toolkit Pack：资产创建三件套（/create-skill + /create-command + /create-subagent）
+      - 三命令互相路由形成闭环级联（create-command → create-subagent → create-skill）
+      - 含认知元层支持（L0/L1/L2 自动分级）、学习型工厂检索、引用完整性校验
+      - Pack 包含 3 个 commands、1 个 agent、4 个 skills、1 个 standard、9 篇知识库文档
+      - 统一路径引用为 .cursor/skills/ 命名空间（与 deep-research 一致）
+  - version: 1.3.0
+    date: 2026-03-02
+    changes:
+      - 新增 deep-research Pack：系统化深度调研（Plan→Execute→Synthesize 三阶段）
+      - 新增 install-pack.py 通用 Pack 安装脚本
+      - Pack 包含 1 个 command、4 个 agents、3 个 skills
+  - version: 1.2.0
+    date: 2026-02-26
+    changes:
+      - 新增 Skills 层：封装工具和命令的使用方式
+      - 新增 kg-search skill：搜索 knowledge-graph 中的知识
+      - 新增 kg-assemble skill：组装主题内容
+      - 新增 cg-install skill：安装 cursor-genesis 资源
+      - 新增 resources-catalog.yaml：可用资源清单
+      - 新增 install.sh：自动化安装脚本
+      - 支持预设配置（minimal/standard/full-stack/research/knowledge-management）
+  - version: 1.1.0
+    date: 2026-02-26
+    changes:
+      - 完善知识索引：为所有知识项添加 solves 字段（问题导向索引）
+      - 补充 cursor-specs 类别的 8 个索引项
+      - 新增下游集成规范文档 docs/downstream-spec.md
+      - 新增回流操作文档 backflow/README.md 和提交模板 backflow/TEMPLATE.md
+      - 激活 framework 配置，明确与 knowledge-graph 的集成关系
+  - version: 1.0.0
+    date: 2026-02-25
+    changes:
+      - 初始结构创建
+      - 从 personal_knowlegy/v1 迁移

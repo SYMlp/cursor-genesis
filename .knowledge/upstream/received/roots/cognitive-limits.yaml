@@ -1,0 +1,41 @@
+# L1 根事实：认知限制
+# 不可动摇的生理/心理事实
+
+id: cognitive-limits
+name: 认知限制
+principle: "人脑工作记忆容量为 7±2 个信息单元"
+
+# 来源（不是经验，是科学研究）
+source:
+  reference: "Miller, G. A. (1956). The magical number seven, plus or minus two"
+  type: 认知心理学
+  verifiable: true
+
+# 系统边界（这个根事实适用于什么场景）
+system_boundary: 个人知识管理、信息架构设计
+
+# 不可动摇性检验
+immutability_check:
+  can_be_further_decomposed: false  # 不能再拆
+  depends_on_experience: false       # 不依赖经验
+  if_invalid_system_collapses: true  # 如果不成立，整个系统设计逻辑崩塌
+
+# 推论（从这个根事实可以推导出什么）
+implications:
+  - id: must-layered
+    statement: "知识必须分层组织，不能平铺"
+    reasoning: "超过 7±2 个单元人脑无法同时处理"
+
+  - id: must-indexed
+    statement: "必须建立索引，不能靠记忆检索"
+    reasoning: "知识量超过工作记忆容量时，需要外部索引辅助"
+
+  - id: must-chunked
+    statement: "复杂信息必须分块（chunking）"
+    reasoning: "通过分块可以在有限容量内处理更多信息"
+
+# 在本系统中的应用
+applications_in_system:
+  - "L1/L2/L3 三层结构设计"
+  - "索引层（L2）的存在必要性"
+  - "叶子节点分类（categories）的设计"
