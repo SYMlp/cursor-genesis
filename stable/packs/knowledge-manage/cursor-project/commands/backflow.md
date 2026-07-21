@@ -53,7 +53,7 @@ role: downstream
 
 upstream:
   name: cursor-genesis
-  repo: https://github.com/SYMlp/cursor-genesis
+  repo: https://github.com/LSRabbit6/cursor-genesis
 
 learnings_path: .cursor/learnings/
 project_id: <your-project-name>

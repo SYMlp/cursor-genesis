@@ -17,7 +17,7 @@ command: |
   # Step 1: 检查是否已有 cursor-genesis
   if [ ! -d ".cursor-genesis" ]; then
     # 添加 submodule
-    git submodule add https://github.com/your-org/cursor-genesis.git .cursor-genesis
+    git submodule add https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
     cd .cursor-genesis
     git sparse-checkout init --cone
   else
@@ -188,7 +188,7 @@ installation_steps:
   step2:
     name: 添加 submodule
     description: 如果没有 .cursor-genesis，添加为 submodule
-    command: git submodule add https://github.com/your-org/cursor-genesis.git .cursor-genesis
+    command: git submodule add https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 
   step3:
     name: 配置 sparse checkout
@@ -229,7 +229,7 @@ manual_installation:
     - step: 1
       title: 添加 cursor-genesis submodule
       command: |
-        git submodule add https://github.com/your-org/cursor-genesis.git .cursor-genesis
+        git submodule add https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
         cd .cursor-genesis
 
     - step: 2

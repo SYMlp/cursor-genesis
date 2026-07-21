@@ -92,7 +92,7 @@ cd d:/Project/knowledge-graph
 
 # 稀疏克隆 cursor-genesis
 git clone --filter=blob:none --sparse --depth=1 \
-  https://github.com/SYMlp/cursor-genesis.git .cursor-genesis-temp
+  https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis-temp
 
 cd .cursor-genesis-temp
 git sparse-checkout set stable/packs/knowledge-manage/knowledge-graph

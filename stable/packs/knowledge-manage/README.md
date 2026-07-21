@@ -101,7 +101,7 @@ git sparse-checkout set \
 
 ```bash
 cd d:/Project/knowledge-graph
-git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis-temp
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis-temp
 cd .cursor-genesis-temp
 git sparse-checkout set stable/packs/knowledge-manage/knowledge-graph
 cd ..
@@ -113,7 +113,7 @@ rm -rf .cursor-genesis-temp
 
 ```bash
 cd your-new-leaf-node
-git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis-temp
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis-temp
 cd .cursor-genesis-temp
 git sparse-checkout set stable/packs/knowledge-manage/leaf-node
 cd ..
@@ -125,7 +125,7 @@ rm -rf .cursor-genesis-temp
 
 ```bash
 cd your-cursor-project
-git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis-temp
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis-temp
 cd .cursor-genesis-temp
 git sparse-checkout set \
   stable/packs/knowledge-manage/cursor-project \

@@ -14,7 +14,7 @@
 
 ```bash
 # 初始化稀疏检出
-git clone --filter=blob:none --sparse https://github.com/your-org/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 
 # 选择需要的路径
@@ -27,7 +27,7 @@ git sparse-checkout add stable/packs/v1-talk
 #### 场景 B: 需要完整的 v1-talk 包
 
 ```bash
-git clone --filter=blob:none --sparse https://github.com/your-org/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 git sparse-checkout set stable/packs/v1-talk stable/atoms/rules stable/atoms/capabilities stable/atoms/patterns
 ```
@@ -43,7 +43,7 @@ git sparse-checkout add stable/atoms/code-templates
 适用于需要访问所有内容（包括知识库、文档）的场景。
 
 ```bash
-git clone https://github.com/your-org/cursor-genesis.git .cursor-genesis
+git clone https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 ```
 
 ### 1.3 版本固定（强烈推荐）
@@ -191,7 +191,7 @@ cat .cursor-genesis/stable/packs/v1-talk/manifest.yaml
 1. **Fork 仓库**
    ```bash
    # 在 GitHub 上 fork cursor-genesis
-   git clone https://github.com/your-username/cursor-genesis.git
+   git clone https://github.com/LSRabbit6/cursor-genesis.git
    cd cursor-genesis
    ```
 
@@ -254,7 +254,7 @@ cat .cursor-genesis/stable/packs/v1-talk/manifest.yaml
 cd D:/Project/work/anfu_test
 
 # 2. 克隆 cursor-genesis（稀疏检出）
-git clone --filter=blob:none --sparse https://github.com/your-org/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 git sparse-checkout set stable/atoms/rules stable/atoms/capabilities stable/atoms/patterns
 git checkout v1.0.0  # 固定版本
@@ -279,7 +279,7 @@ echo ".cursor-genesis/" >> .gitignore
 
 ```bash
 # 1. 最小化集成
-git clone --filter=blob:none --sparse https://github.com/your-org/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 git sparse-checkout set stable/atoms/rules/production-safety.mdc stable/atoms/capabilities/03_engineering/streamlit-expert.md
 
@@ -296,7 +296,7 @@ cp stable/atoms/rules/production-safety.mdc ../.cursor/rules/
 
 ```bash
 # 1. 完整克隆
-git clone https://github.com/your-org/cursor-genesis.git .cursor-genesis
+git clone https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 git checkout v1.0.0
 

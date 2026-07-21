@@ -14,7 +14,7 @@ NC='\033[0m' # No Color
 PRESET="standard"
 USE_LINK=true
 UPDATE=false
-CG_REPO="https://github.com/your-org/cursor-genesis.git"
+CG_REPO="https://github.com/LSRabbit6/cursor-genesis.git"
 
 # 打印帮助
 print_help() {

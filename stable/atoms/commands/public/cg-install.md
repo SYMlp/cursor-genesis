@@ -63,7 +63,7 @@
 ```yaml
 # cursor-genesis 安装配置
 source:
-  repo: https://github.com/SYMlp/cursor-genesis
+  repo: https://github.com/LSRabbit6/cursor-genesis
   branch: main
 
 installed:
@@ -83,7 +83,7 @@ custom_atoms:
 
 ```bash
 # 初始化 sparse-checkout
-git clone --filter=blob:none --sparse https://github.com/SYMlp/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 
 # 安装 v1-talk 套装

@@ -106,7 +106,7 @@ Dynamic routing via `rules/teams/*.mdc` using Signal → Pattern → Role decisi
 ### Sparse Checkout for Downstream Projects
 
 ```bash
-git clone --filter=blob:none --sparse https://github.com/you/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 git sparse-checkout set stable/packs/v1-talk stable/atoms/rules stable/atoms/capabilities
 ```
