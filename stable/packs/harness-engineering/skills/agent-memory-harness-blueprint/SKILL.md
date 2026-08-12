@@ -1,28 +1,31 @@
 ---
 name: agent-memory-harness-blueprint
 description: >-
-  Agent 记忆 harness 约束蓝图（33 条，五章：定位/准入/存储状态/运行/代谢验证）。
+  Agent 记忆 harness 约束蓝图（37 条，六章：定位/准入/存储状态/运行/代谢验证/执行面）。
   触发问法："agent 记忆的约束蓝图在哪"、"harness 约束条件取出来给壳子用"、
-  "自研 agent 记忆系统该守哪些约束"、"记忆系统准入/代谢规则"。
+  "自研 agent 记忆系统该守哪些约束"、"记忆系统准入/代谢规则"、
+  "无人值守 agent 的围栏/熔断/注入面约束"。
   给不带上下文的新会话或自研 harness 壳子提供可直接消费的约束集；
-  配套 export.py 取件 + 验鲜（--check）。
+  配套 export.py 取件 + 验鲜（--check）+ 条号索引（--toc）。
 ---
 
 # Agent 记忆 harness 约束蓝图 · 取用入口
 
-**是什么**：一套经真实系统淬炼的 agent 记忆 harness 约束集（33 条，C-01~C-33），
-每条〔约束/为什么/失效边界/溯源〕四要素。已通过零上下文验收（28/33 条零背景可执行；
-10 条骨架决定全部可从蓝图内推出）。方法层资产——慢变、可开源；
-资源池/本机配置等快变敏感件**不在此**（归 harness-environment）。
+**是什么**：一套经真实系统淬炼的 agent 记忆 harness 约束集（37 条，C-01~C-37），
+每条〔约束/为什么/失效边界/溯源〕四要素。**C-01~33 已转 candidate**（2026-08-12 用户拍板，
+依据两轮零上下文消费：验收 28/33 零背景可执行 + 真实审计 33/33 全判 0 质疑 0 读不懂）；
+第六章 C-34~37（执行面：围栏/互斥/熔断/注入信任级）为首次消费审计盲区起草，status: draft。
+方法层资产——慢变、可开源；资源池/本机配置等快变敏感件**不在此**（归 harness-environment）。
 
 **用法**：
 
 ```bash
 python export.py            # 取件（输出约束集）
 python export.py --check    # 只验鲜（对照祝福时点 commit，检查 kg 源文件是否漂移）
+python export.py --toc      # 只出章节+条号清单（审计/评审先拿这张表）
 ```
 
-- 正文：[blueprint.md](blueprint.md)（五章 33 条 + 逐条溯源附录 + 术语表）
+- 正文：[blueprint.md](blueprint.md)（六章 37 条 + 逐条溯源附录 + 术语表 + 开头"库/壳/环"路由表）
 - 验鲜依赖 kg 仓（`D:\Project\knowledge-graph`）在盘；脱仓时优雅降级为只取件不验鲜。
 - 蓝图是**投影非正本**：与 kg 宪法/特别法冲突时蓝图让位；祝福时点 commit 锚在 export.py 头部，
   与 blueprint.md 附录两处须同步改。

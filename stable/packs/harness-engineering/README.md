@@ -6,7 +6,7 @@
 
 | skill | 一句话 | 源判决 |
 |:--|:--|:--|
-| [agent-memory-harness-blueprint](skills/agent-memory-harness-blueprint/SKILL.md) | agent 记忆 harness 约束蓝图 33 条 + export.py 取件/验鲜 | 调度层设计场 2026-08-12（家分工：蓝图归 cg 职责③） |
+| [agent-memory-harness-blueprint](skills/agent-memory-harness-blueprint/SKILL.md) | agent 记忆 harness 约束蓝图 37 条（C-01~33 candidate，2026-08-12 拍板转正；第六章执行面 4 条 draft）+ export.py 取件/验鲜/--toc | 调度层设计场 2026-08-12（家分工：蓝图归 cg 职责③） |
 | [harness-engineering-fieldbook](skills/harness-engineering-fieldbook/SKILL.md) | 工程环境 AI 友好化改造规程 6 条（Java 微服务场景） | 批 2 片 1 甲-5"规程出口 = cg harness skill" |
 | [cross-host-thin-adapters](skills/cross-host-thin-adapters/SKILL.md) | 三宿主兼容层清单：能统一的/永不统一的/路径约定/验收状态 | 判-1 A 案（判断内核留 kg，清单迁 cg） |
 | [structured-output-dispatch](skills/structured-output-dispatch/SKILL.md) | 结构化表达 L3 调度规则（goal×audience→方法论） | 批 2 片 4 乙-6"可执行 skill 规格" |

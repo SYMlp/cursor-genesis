@@ -4,6 +4,7 @@
 用法:
     python export.py            # 取件：蓝图全文 → stdout；鲜度报告 → stderr
     python export.py --check    # 只验鲜，不取件
+    python export.py --toc      # 只出章节+条号清单（快速索引/引用用）
 
 设计约束（调度层设计场 2026-08-12，决策点 A/D）:
 - 泛化是判断不是拼接——本脚本永远不现场生成蓝图，只搬运人审过的静态蓝图。
@@ -19,7 +20,10 @@ HERE = Path(__file__).resolve().parent
 BLUEPRINT = HERE / "blueprint.md"
 
 # 祝福时点：人批准蓝图内容时的源仓 commit。刷新蓝图时一并更新（人批准，不自动）。
+# 注：v0.2（2026-08-12 用户拍板转正+终检修订）是消费读数驱动的蓝图修订，非源文件跟随——
+# 源文件状态自 6e5d539 未变，锚不动。
 BLESSED_COMMIT = "6e5d539"
+BLESSED_DATE = "2026-08-12"
 
 # 验鲜范围 = 蓝图"附·源文件清单"（相对源仓根）。两处必须同步改。
 SOURCE_FILES = [
@@ -57,17 +61,26 @@ def freshness_report() -> str:
     except (subprocess.SubprocessError, FileNotFoundError, OSError) as e:
         return f"[验鲜不可用] 不在源仓库或 git 不可用（{e.__class__.__name__}）。蓝图按祝福时点 {BLESSED_COMMIT} 内容交付。"
     if not out:
-        return f"[鲜] 源文件自祝福时点 {BLESSED_COMMIT} 起无变更，蓝图与权威源一致。"
+        return f"[鲜] 源文件自祝福时点 {BLESSED_COMMIT}（{BLESSED_DATE}）起无变更，蓝图与权威源一致。"
     changed = out.splitlines()
     lines = "\n".join(f"  - {p}" for p in changed)
     return (
-        f"[过期信号] 以下 {len(changed)} 个源文件在祝福时点 {BLESSED_COMMIT} 之后有变更：\n{lines}\n"
+        f"[过期信号] 以下 {len(changed)} 个源文件在祝福时点 {BLESSED_COMMIT}（{BLESSED_DATE}）之后有变更：\n{lines}\n"
         "蓝图内容仍可用（约束慢变），但引用受影响条目前建议回源核对；刷新蓝图须人批准。"
     )
 
 
+def print_toc(text: str) -> None:
+    """--toc：只出章节标题与条号行（终检消费者反馈：审计/评审类消费第一件事就是自造这张表）。"""
+    for line in text.splitlines():
+        if line.startswith("## ") or line.startswith("### C-"):
+            print(line.lstrip("# ").strip())
+
+
 def main() -> int:
-    check_only = "--check" in sys.argv[1:]
+    args = sys.argv[1:]
+    check_only = "--check" in args
+    toc_only = "--toc" in args
     print(freshness_report(), file=sys.stderr)
     if check_only:
         return 0
@@ -75,7 +88,11 @@ def main() -> int:
         print(f"[错误] 蓝图文件缺失: {BLUEPRINT}", file=sys.stderr)
         return 1
     sys.stdout.reconfigure(encoding="utf-8")
-    print(BLUEPRINT.read_text(encoding="utf-8"))
+    text = BLUEPRINT.read_text(encoding="utf-8")
+    if toc_only:
+        print_toc(text)
+    else:
+        print(text)
     return 0
 
 
