@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-BLUEPRINT = HERE / "agent-memory-harness-blueprint.md"
+BLUEPRINT = HERE / "blueprint.md"
 
 # 祝福时点：人批准蓝图内容时的源仓 commit。刷新蓝图时一并更新（人批准，不自动）。
 BLESSED_COMMIT = "6e5d539"
@@ -35,12 +35,24 @@ SOURCE_FILES = [
 ]
 
 
+def find_source_repo() -> Path | None:
+    """向上找 kg 源仓（本 skill 迁入 cg 后，HERE 所在 git 仓不再是验鲜锚定的源仓；
+    cg 作为 kg submodule 挂载时，沿父目录可找回源仓——找不到即优雅降级）。"""
+    for p in HERE.parents:
+        if (p / "meta" / "constitution.md").is_file() and (p / ".git").exists():
+            return p
+    return None
+
+
 def freshness_report() -> str:
     """对比祝福时点与 HEAD 的源文件差异。返回人读报告。"""
+    repo = find_source_repo()
+    if repo is None:
+        return f"[验鲜不可用] 未找到约束源仓（脱离源仓运行）。蓝图按祝福时点 {BLESSED_COMMIT} 内容交付。"
     try:
         out = subprocess.run(
             ["git", "diff", "--name-only", f"{BLESSED_COMMIT}..HEAD", "--", *SOURCE_FILES],
-            capture_output=True, text=True, cwd=HERE, timeout=30, check=True,
+            capture_output=True, text=True, cwd=repo, timeout=30, check=True,
         ).stdout.strip()
     except (subprocess.SubprocessError, FileNotFoundError, OSError) as e:
         return f"[验鲜不可用] 不在源仓库或 git 不可用（{e.__class__.__name__}）。蓝图按祝福时点 {BLESSED_COMMIT} 内容交付。"
