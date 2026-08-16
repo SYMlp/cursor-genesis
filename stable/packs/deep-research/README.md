@@ -2,6 +2,27 @@
 
 系统化深度调研能力，通过 **Plan → Execute → Synthesize** 三阶段流程，将模糊的调研需求转化为结构化的研究报告。
 
+## ⚠ 副本地图（改契约前必读）
+
+同一份 synthesizer / executor 契约在四处存在。**它们不是一个宿主的镜像，是两条已经分家的演进线**——
+Cursor 线（pack，Gemini 模型、`@.cursor/skills/` 引用、Brave MCP）与 Claude Code 线（后来单独演进，
+带 `tools:` / `model:` frontmatter、Glob/tavily、subagent 返回契约）。
+
+| # | 路径 | 宿主 / 角色 | 改契约时 |
+|:--|:---|:---|:---|
+| 1 | `~/.claude/agents/base-research-{planner,executor,synthesizer}.md` | **Claude Code 实际读取的生效版** | **必改** |
+| 2 | `kg/.cursor/skill-library/research/base-research-*/SKILL.md` | Cursor skill 库（宿主中性） | 必改 |
+| 3 | `packs/deep-research/skills/base-research-*/SKILL.md` | 本 pack 分发件 → 目标项目 `.cursor/skills/` | 必改 |
+| 4 | `packs/deep-research/agents/base-research-*-agent.md` | 本 pack 分发的 Cursor agent 壳，**只引用 #3、不含契约正文** | 一般不动 |
+
+**#1 不是本 pack 的安装产物**（`install-manifest.yaml` 只部署到 `.cursor/`），手改它安全，
+不会被 `install-pack.py` 覆盖；反过来说，**改本 pack 也不会让 Claude Code 那边生效**。
+
+> **2026-08-07 教训**：溯源契约的修复第一次只改了 #2 #3 就宣布"已从源头修好"，
+> 而实际在跑 deep research 的 #1 纹丝不动。起因是按目录直觉找文件、没验证"谁在运行时读它"。
+> 判据：**改任何契约前先确认生效路径，而不是按目录名推断**。
+> 推导与实证见 toys `self-analysis/2026-08-07-验证器装在准入而非流程-观测件.md` §同日更正。
+
 ## 组件清单
 
 | 类型 | 文件 | 说明 |
