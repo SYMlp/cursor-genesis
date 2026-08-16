@@ -1,13 +1,28 @@
 # cursor-genesis 知识索引
 # 供 knowledge-graph 上层检索
 
-domain: 工具-Cursor
-description: Cursor AI 协作研发相关知识
+domain: ai-collaboration-method
+description: 人—Agent 开发协作机制知识；Cursor 内容作为创始样本和参考实现保留
 
 # 知识分类
 categories:
+  collaboration-mechanisms:
+    description: 工具无关的人—Agent 操作与纠错机制
+    path: ../atoms/skills/
+    items:
+      - id: harvest-session
+        title: 会话成果收割
+        file: ../atoms/skills/harvest-session/SKILL.md
+        solves: 解决会话结束时聊天纪要、项目状态、定位 why、跨项目提炼候选和环境约定混在一起的问题；按证据分诊并明确负空间
+        keywords:
+          - session-harvest
+          - handoff
+          - session-summary
+          - decision-trace
+          - process-material
+
   cursor-specs:
-    description: Cursor 相关规范
+    description: Cursor 创始样本与参考实现；用于提炼工具无关协作机制，不代表 CG 的领域边界或兼容承诺
     path: cursor-specs/
     items:
       - id: prompt-writing-guide
@@ -51,9 +66,9 @@ categories:
         file: rules-lifecycle.md
         solves: 解决 .cursor/rules/ 中规则文件何时创建、何时更新、何时废弃、如何命名、如何避免冲突的管理问题
       - id: create-toolkit
-        title: Create Toolkit 资产创建三件套
-        file: create-toolkit-pack.md
-        solves: 解决如何在 Cursor 项目中系统化地创建 Skill、Command、Subagent，提供三命令闭环级联和认知元层自动分级
+        title: Create Toolkit 资产创建工具箱
+        file: ../../packs/create-toolkit/README.md
+        solves: 解决如何创建工具无关 Skill、Agent Contract、Command Contract 与 AGENTS.md Rule Contract，并用公共 rubric 做证据化审计
       - id: component-type-decision
         title: 组件类型选择指南
         file: component-type-decision-guide.md
@@ -149,7 +164,13 @@ categories:
 # 关键词（供上层跨节点检索）
 keywords:
   - cursor
+  - 人-Agent协作
   - ai协作
+  - 上下文装配
+  - 能力组合
+  - 能力分发
+  - human-gate
+  - guardrails
   - prompt engineering
   - 团队编排
   - rules

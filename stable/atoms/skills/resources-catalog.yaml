@@ -152,6 +152,13 @@ resources:
         format: methodology
         added_in: v1.2.0
 
+      harvest-session:
+        file: harvest-session/SKILL.md
+        description: 工具无关的会话成果分诊方法；将定位 why、状态交接、复利候选和环境约定送入已有项目容器
+        category: human-agent-collaboration
+        format: methodology
+        source_status: cg-core
+
   # ------------------------------------------------------------
   # Code Templates - 代码模板
   # ------------------------------------------------------------
@@ -209,18 +216,20 @@ resources:
 
       create-toolkit:
         path: stable/packs/create-toolkit
-        description: 资产创建工具箱（Skills / Rules / Commands / Subagents 全生命周期创建与治理）
+        description: 资产创建工具箱；含四个工具无关状态型 Workflow、机器 Validator、公共资产审计 Skill 与 Cursor 薄适配
         includes:
-          - commands/create-skill
-          - commands/create-command
-          - commands/create-subagent
-          - agents/base-skill-engineer
-          - skills/base-skill-generator
-          - skills/base-rule-generator
-          - skills/base-closure-validator
-          - skills/base-prompt-auditor (optional)
-          - skills/base-inventory-updater (optional)
-          - standards/skill-meta-standard
+          - skills/create-skill-workflow
+          - skills/create-subagent-workflow
+          - skills/create-command-workflow
+          - skills/create-rule-workflow
+          - skills/audit-agent-assets
+          - adapters/cursor/create-skill
+          - adapters/cursor/create-subagent
+          - adapters/cursor/render_subagent
+          - adapters/cursor/create-command
+          - adapters/cursor/render_command
+          - adapters/cursor/create-rule
+          - adapters/cursor/render_rule
         install: install-manifest.yaml
 
 # ============================================================

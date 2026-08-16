@@ -8,7 +8,7 @@ engine:
 
 project:
   name: cursor-genesis
-  description: Cursor AI 协作知识叶子节点
+  description: 人—Agent 开发协作机制 Leaf
   version: v1.2.0
 
 dimensions:

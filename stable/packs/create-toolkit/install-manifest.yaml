@@ -1,51 +1,51 @@
 # create-toolkit Pack 安装清单
-# install-pack 脚本读取此文件，将 Pack 内容部署到目标项目的 .cursor/ 下
+# install-pack 脚本读取此文件：公共作者层部署到 .agents/，Cursor 入口保留薄适配
 
 pack: create-toolkit
-version: 1.0.0
-description: 资产创建三件套（/create-skill + /create-command + /create-subagent），含认知元层和闭环级联
+version: 1.6.0
+description: 资产创建工具箱；默认安装四个工具无关状态型 Workflow、公共资产审计 Skill 与 Cursor 薄适配
+record_root: .agents
 
 mappings:
-  # Commands (4)
-  - source: commands/create-skill.md
+  # 公共作者层：Cursor / Claude Code / Codex CLI 共用
+  - source: skills/create-skill-workflow
+    target_root: .agents
+    target: skills/create-skill-workflow
+    type: directory
+  - source: skills/create-subagent-workflow
+    target_root: .agents
+    target: skills/create-subagent-workflow
+    type: directory
+  - source: skills/create-command-workflow
+    target_root: .agents
+    target: skills/create-command-workflow
+    type: directory
+  - source: skills/audit-agent-assets
+    target_root: .agents
+    target: skills/audit-agent-assets
+    type: directory
+  - source: skills/create-rule-workflow
+    target_root: .agents
+    target: skills/create-rule-workflow
+    type: directory
+
+  # Cursor 薄入口
+  - source: adapters/cursor/create-skill.md
     target: commands/create-skill.md
-  - source: commands/create-command.md
-    target: commands/create-command.md
-  - source: commands/create-subagent.md
+  - source: adapters/cursor/create-subagent.md
     target: commands/create-subagent.md
-  - source: commands/session-summary.md
-    target: commands/session-summary.md
-  - source: commands/create-project.md
-    target: commands/create-project.md
+  - source: adapters/cursor/create-command.md
+    target: commands/create-command.md
+  - source: adapters/cursor/create-rule.md
+    target: commands/create-rule.md
 
-  # Agents (1)
-  - source: agents/base-skill-engineer.md
-    target: agents/base-skill-engineer.md
-
-  # Skills - 核心（目录级别复制）
-  - source: skills/base-skill-generator
-    target: skills/base-skill-generator
-    type: directory
-  - source: skills/base-rule-generator
-    target: skills/base-rule-generator
-    type: directory
-  - source: skills/base-closure-validator
-    target: skills/base-closure-validator
-    type: directory
-
-  # Skills - 可选
-  - source: skills/base-prompt-auditor
-    target: skills/base-prompt-auditor
-    type: directory
-    optional: true
-  - source: skills/base-inventory-updater
-    target: skills/base-inventory-updater
-    type: directory
-    optional: true
-
-  # Standards
-  - source: standards/skill-meta-standard.md
-    target: standards/skill-meta-standard.md
+  # Cursor 宿主 renderer
+  - source: adapters/cursor/render_subagent.py
+    target: adapters/create-subagent/render_subagent.py
+  - source: adapters/cursor/render_command.py
+    target: adapters/create-command/render_command.py
+  - source: adapters/cursor/render_rule.py
+    target: adapters/create-rule/render_rule.py
 
 dependencies:
   note: 无外部 MCP 依赖，所有组件自包含

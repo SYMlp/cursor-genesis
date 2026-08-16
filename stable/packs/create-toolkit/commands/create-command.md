@@ -99,42 +99,24 @@
 
 #### 3a. 创建 Skill（如需）
 
-对每个需要新建的 Skill，执行 `/create-skill` 流程：
+对每个需要新建的 Skill，执行
+`@.agents/skills/create-skill-workflow/SKILL.md` 定义的持久化流程。
+公共产物必须位于 `.agents/skills/<skill-name>/SKILL.md`，不能只生成
+`.cursor/skills` 副本，否则后续 Agent Contract 的依赖 Guard 会失败。
 
-```
-Task(
-    subagent_type = "base-skill-engineer",
-    description = "Create skill: {skill_name}",
-    prompt = """
-    # Role Injection
-    You are the **Skill Engineer**.
-    Read and adopt the persona defined in `.cursor/agents/base-skill-engineer.md`.
-
-    # Mission
-    Create a new Skill:
-    - Name: {skill_name}
-    - Scope: {scope}
-    - Description: {description}
-
-    # Execution
-    1. Read knowledge base docs
-    2. Run gen.py to scaffold
-    3. Inject workflow logic
-    4. Verify
-    """
-)
-```
-
-独立的 Skill 可以**并行创建**（多个 Task 同时调用）。
+相互独立的 Skill 可以使用彼此独立的状态文件并行创建；每个状态都必须单独通过 Validator 和 register Gate。
 
 #### 3b. 创建 Subagent（如需）
 
-所有依赖的 Skill 就绪后，创建 Subagent 定义文件。
+所有依赖的 Skill 就绪后，执行
+`@.agents/skills/create-subagent-workflow/SKILL.md`：
 
-参考 `/create-subagent` 的 Step 4 流程：
-- 读取 `.cursor/skills/base-skill-generator/assets/docs/standard-subagent.md`
-- 读取 `.cursor/skills/base-skill-generator/assets/docs/model-selection-guide.md`
-- 创建 `.cursor/agents/{agent-name}.md`，引用刚创建的 Skill
+1. 先生成并验证 `.agents/agents/{agent-name}.md` 公共 Agent Contract；
+2. 再由 `.cursor/adapters/create-subagent/render_subagent.py` 选择当前 Cursor
+   真实支持的 model ID，渲染 `.cursor/agents/{agent-name}.md`；
+3. 最后用 `adapted` Gate 记录真实存在的 Cursor 产物。
+
+不得再引用旧 `/create-subagent` 的内部 Step 编号，也不得把 Cursor 的 model ID 写进公共契约。
 
 #### 3c. 创建 Command 本体
 
@@ -186,7 +168,7 @@ Task(
 ### 已创建资产
 - Command: `.cursor/commands/{command-name}.md`
 - Subagent: `.cursor/agents/{agent-name}.md` (如有)
-- Skill: `.cursor/skills/{skill-name}/SKILL.md` (如有)
+- Skill: `.agents/skills/{skill-name}/SKILL.md` (如有)
 
 ### 使用方式
 在 Chat 中输入 `/{command-name}` 即可触发。

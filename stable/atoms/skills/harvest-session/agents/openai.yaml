@@ -1,0 +1,4 @@
+interface:
+  display_name: "Harvest Session Outcomes"
+  short_description: "Triage session outcomes into durable project records"
+  default_prompt: "Use $harvest-session to close this work with an evidence-based harvest report."

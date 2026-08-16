@@ -1,6 +1,6 @@
 # Skills 目录
 
-本目录包含 cursor-genesis 提供的 skills，用于增强 Cursor/Claude Code 的能力。
+本目录包含 cursor-genesis 提供的工具无关 Skill 作者资产；宿主发现路径和调用入口由安装或适配层处理。
 
 ## 什么是 Skill
 
@@ -26,11 +26,23 @@ Skill 是对工具或命令的封装，提供：
 |:---|:---|:---|
 | [java-backend-test-ops](java-backend-test-ops/SKILL.md) | Java 后端测试运维方法论：Testcontainers 资源治理 + Spring Boot 3.x Null-Safety 规范 + 共享测试基类变更传播 | Testcontainers 报 EAGAIN / MockMvc @NonNull 告警 / 改测试基类前评估影响 |
 
-> 注：Engineering Practices 类 skill 用 SKILL.md 目录格式（YAML frontmatter + Markdown 主体），与 `.skill.yaml` 命令封装格式分开承载——前者是方法论参考，后者是命令操作。
+### Human–Agent Collaboration
+
+| Skill | 描述 | 触发场景 |
+|:---|:---|:---|
+| [harvest-session](harvest-session/SKILL.md) | 将会话成果分诊到定位 why、项目状态、提炼候选和环境约定 | 会话收尾、交接、总结阶段成果、判断“这场值得留什么” |
+
+> 注：方法论与协作机制使用 `SKILL.md` 目录格式（YAML frontmatter + Markdown 主体）；旧 `.skill.yaml` 仅保留命令封装型资产。
 
 ## 使用方式
 
-### 方式 1: 在 knowledge-graph 项目中使用
+### 方法论与协作机制型 `SKILL.md`
+
+`stable/atoms/skills/<name>/` 是 CG 作者资产。消费项目应选择需要的单个 Skill，部署到 `.agents/skills/<name>/`；Claude 等宿主的镜像由各自适配层生成，不把 `.cursor/skills` 当公共作者源。
+
+本仓尚未为 atom 级 Skill 提供通用安装器；有 Pack 映射时优先走 Pack，没有时由消费项目明确记录注入来源和版本。
+
+### 旧命令封装型 `.skill.yaml` · Cursor 参考方式
 
 ```bash
 # 1. 在 knowledge-graph 项目根目录
@@ -53,7 +65,7 @@ ln -s ../.cursor-genesis/stable/atoms/skills .cursor/skills
 # 在 Cursor/Claude Code 中输入 /kg-search
 ```
 
-### 方式 2: 在其他项目中使用
+在其他 Cursor 项目中的旧参考方式：
 
 ```bash
 # 1. 克隆 cursor-genesis（稀疏检出）
@@ -66,7 +78,7 @@ mkdir -p ../.cursor/skills
 cp stable/atoms/skills/kg-*.skill.yaml ../.cursor/skills/
 ```
 
-## Skill 文件格式
+## 旧 `.skill.yaml` 命令封装格式
 
 每个 skill 文件包含：
 
@@ -104,9 +116,9 @@ troubleshooting:
 
 如果你创建了新的 skill：
 
-1. 遵循现有的 YAML 格式
-2. 提供完整的文档和示例
-3. 通过回流机制贡献回 cursor-genesis
+1. 可复用方法与协作机制使用 `<name>/SKILL.md`；
+2. 仅封装已有命令时，存量资产可继续使用 `.skill.yaml`，新资产应先评估是否应迁为 `SKILL.md`；
+3. 只添加执行所需文件，并通过回流机制贡献回 cursor-genesis。
 
 参考：[backflow/README.md](../../../backflow/README.md)
 
