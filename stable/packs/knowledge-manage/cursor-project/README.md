@@ -49,7 +49,7 @@ cd d:/Project/work/anfu_test
 
 # 1. 拉取知识管理配置和开发模板
 git clone --filter=blob:none --sparse --depth=1 \
-  https://github.com/SYMlp/cursor-genesis.git .cursor-genesis-temp
+  https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis-temp
 
 cd .cursor-genesis-temp
 git sparse-checkout set \
@@ -358,7 +358,7 @@ cp -r .cursor-genesis-temp/stable/packs/cursor-templates/* .cursor/
 ```bash
 cd your-cursor-project
 git clone --filter=blob:none --sparse --depth=1 \
-  https://github.com/SYMlp/cursor-genesis.git .cursor-genesis-temp
+  https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis-temp
 cd .cursor-genesis-temp
 git sparse-checkout set \
   stable/packs/knowledge-manage/cursor-project \

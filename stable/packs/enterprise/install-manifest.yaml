@@ -1,0 +1,41 @@
+# enterprise Pack 安装清单
+# install-pack.py 读取此文件，将 enterprise 套装部署到目标项目的 .cursor/ 下。
+#
+# ⚠ 路径解析约定：install-pack.py 以本 pack 目录为基准解析 source（src = pack_dir / source）。
+#   - Meta-Rules / plan-template / skill 存放在 stable/atoms/（跨 pack 复用），
+#     不在本 pack 目录内 → source 用 ../../atoms/... 回溯到 atoms 层。
+#   - ODD 方法论文档为本 pack 独有 → 直接相对本目录 methodology/。
+
+pack: enterprise
+version: 1.2.0
+description: 生成式规则系统（4 条 Meta-Rules）+ 本体驱动开发（ODD）企业套件；50+ 模块规模的 Agent 认知治理
+
+mappings:
+  # ── 4 条 Meta-Rules（Crown Jewels）→ .cursor/rules/enterprise/ ──
+  - source: ../../atoms/rules/enterprise/design-authority.mdc
+    target: rules/enterprise/design-authority.mdc
+  - source: ../../atoms/rules/enterprise/routing-engine.mdc
+    target: rules/enterprise/routing-engine.mdc
+  - source: ../../atoms/rules/enterprise/ontology-driven-dev.mdc
+    target: rules/enterprise/ontology-driven-dev.mdc
+  - source: ../../atoms/rules/enterprise/rule-evolution.mdc
+    target: rules/enterprise/rule-evolution.mdc
+
+  # ── ODD 方法论文档（本 pack 独有）→ .cursor/rules/enterprise/methodology/ ──
+  - source: methodology/ontology-extraction-rules.md
+    target: rules/enterprise/methodology/ontology-extraction-rules.md
+  - source: methodology/ontology-document-guide.md
+    target: rules/enterprise/methodology/ontology-document-guide.md
+  - source: methodology/ontology-validation-rules.md
+    target: rules/enterprise/methodology/ontology-validation-rules.md
+  - source: methodology/ontology-maintenance-guide.md
+    target: rules/enterprise/methodology/ontology-maintenance-guide.md
+
+  # ── 工程化 plan 协作契约模板 → .cursor/plan-templates/ ──
+  - source: ../../atoms/plan-templates/engineered-multi-phase-plan.template.md
+    target: plan-templates/engineered-multi-phase-plan.template.md
+
+  # ── 跨项目工程实践 skill（Java / SpringBoot 3.x / Testcontainers）→ .cursor/skills/ ──
+  - source: ../../atoms/skills/java-backend-test-ops
+    target: skills/java-backend-test-ops
+    type: directory

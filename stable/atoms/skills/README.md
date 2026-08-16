@@ -49,7 +49,7 @@ Skill 是对工具或命令的封装，提供：
 cd knowledge-graph
 
 # 2. 添加 cursor-genesis 为 submodule（如果还没有）
-git submodule add https://github.com/your-org/cursor-genesis.git .cursor-genesis
+git submodule add https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 
 # 3. 配置 sparse checkout
 cd .cursor-genesis
@@ -69,7 +69,7 @@ ln -s ../.cursor-genesis/stable/atoms/skills .cursor/skills
 
 ```bash
 # 1. 克隆 cursor-genesis（稀疏检出）
-git clone --filter=blob:none --sparse https://github.com/your-org/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 git sparse-checkout set stable/atoms/skills
 

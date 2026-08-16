@@ -159,7 +159,7 @@ cd your-cursor-project
 
 # 只拉取开发模板
 git clone --filter=blob:none --sparse --depth=1 \
-  https://github.com/SYMlp/cursor-genesis.git .cursor-genesis-temp
+  https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis-temp
 
 cd .cursor-genesis-temp
 git sparse-checkout set stable/packs/cursor-templates
@@ -177,7 +177,7 @@ cd your-cursor-project
 
 # 同时拉取两者
 git clone --filter=blob:none --sparse --depth=1 \
-  https://github.com/SYMlp/cursor-genesis.git .cursor-genesis-temp
+  https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis-temp
 
 cd .cursor-genesis-temp
 git sparse-checkout set \

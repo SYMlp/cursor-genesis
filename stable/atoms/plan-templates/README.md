@@ -42,7 +42,7 @@
 
 ```bash
 cd your-project
-git clone --filter=blob:none --sparse https://github.com/your-org/cursor-genesis.git .cursor-genesis
+git clone --filter=blob:none --sparse https://github.com/LSRabbit6/cursor-genesis.git .cursor-genesis
 cd .cursor-genesis
 git sparse-checkout set stable/atoms/plan-templates
 cd ..

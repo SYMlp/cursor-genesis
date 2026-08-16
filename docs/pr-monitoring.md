@@ -142,7 +142,7 @@ code pending/pr-summary-$(date +%Y-%m-%d).md
 - **提交时间**: 2026-02-25
 - **文件数量**: 3
 - **本地路径**: `pending/pr-review/pr-123`
-- **GitHub 链接**: https://github.com/SYMlp/cursor-genesis/pull/123
+- **GitHub 链接**: https://github.com/LSRabbit6/cursor-genesis/pull/123
 
 **操作建议**:
 1. 审核内容质量和格式规范
@@ -158,7 +158,7 @@ code pending/pr-summary-$(date +%Y-%m-%d).md
 - **提交时间**: 2026-02-25
 - **文件数量**: 2
 - **本地路径**: `pending/pr-review/pr-124`
-- **GitHub 链接**: https://github.com/SYMlp/cursor-genesis/pull/124
+- **GitHub 链接**: https://github.com/LSRabbit6/cursor-genesis/pull/124
 
 **操作建议**:
 1. 审核内容质量和格式规范
