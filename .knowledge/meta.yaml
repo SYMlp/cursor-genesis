@@ -110,9 +110,10 @@ capabilities_planned:
   - versioned_runtime_public_contracts
 
 # ── 定位正本与投影（2026-08-17 kg 拍板：registry 单正本 + 每叶薄自述投影）──
-# kg 同日口径"插件包仓库/沉淀发布面、不承担 workspace bootstrap"与本文件 7-25 换轴实质同向
-# （out_of_scope 已明确越界项，两场独立收敛）；域名措辞（人—Agent 开发协作机制 Leaf vs
-# AI 协同域催化剂资产仓）双版并存待用户收敛，定位冲突以 registry 为准。别名 ai-catalyst。
+# 2026-08-17 晚两轴收敛（用户拍板）：identity"人—Agent 开发协作机制 Leaf"=域名（答研究什么，
+# 本文件 7-25 换轴被 registry 收编）；"插件包仓库/沉淀发布面"=承载角色（答以什么方式供给——
+# 只出可发布内容，不承担装配/workspace bootstrap，装配线=用户级 new-workspace + .agents 作者层 +
+# ai-runtime-compat）。两轴正交并存，定位冲突以 registry 为准。别名 ai-catalyst。
 positioning_source_of_truth: knowledge-graph/index/nodes-registry.yaml#cursor-genesis
 positioning_synced_at: 2026-08-17
 
