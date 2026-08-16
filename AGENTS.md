@@ -8,7 +8,7 @@ cursor-genesis (CG) is the **Human–Agent Development Collaboration Mechanisms 
 
 Cursor is CG's founding sample and a reference implementation. Its Rules, multi-model entry points, explicit commands, Agent modes, and project-context patterns are evidence to generalize from; Cursor is not CG's domain boundary, long-term compatibility target, or runtime dependency.
 
-Current stable assets are primarily Rules, Skills, Commands, Agent/Capability definitions, Patterns, Atoms + Packs, knowledge guides, and backflow mechanisms. `create-skill-workflow`, `create-subagent-workflow`, `create-command-workflow`, and `create-rule-workflow` now provide persisted gates/retries and machine Validators. Rule Contracts register into the project `AGENTS.md` author source; Cursor activation frontmatter remains an adapter concern. `audit-agent-assets` provides read-only, evidence-based review with Agent judgment, while `harvest-session` provides tool-neutral session-outcome triage; neither is represented as a machine Validator. Agent and Command Contracts stay tool-neutral while concrete model IDs, slash-command formats, and invocation syntax stay in host adapters. Additional Workflows, a generalized Validator framework, Hooks, and versioned runtime contracts remain planned.
+Current stable assets are primarily Rules, Skills, Commands, Agent/Capability definitions, Patterns, Atoms + Packs, knowledge guides, and backflow mechanisms. `create-skill-workflow`, `create-subagent-workflow`, `create-command-workflow`, and `create-rule-workflow` now provide persisted gates/retries and machine Validators. Rule Contracts register into the project `AGENTS.md` author source; Cursor activation frontmatter remains an adapter concern. `audit-agent-assets` provides read-only, evidence-based review with Agent judgment, while `harvest-session` provides tool-neutral session-outcome triage; neither is represented as a machine Validator. `stable/atoms/validators/state-header` is the first standalone machine Validator atom (truth-source state-header contract v1.0 + staleness referee), backflowed from a real workbench implementation with the workbench registered as its first consumer. Agent and Command Contracts stay tool-neutral while concrete model IDs, slash-command formats, and invocation syntax stay in host adapters. Additional Workflows, a generalized Validator framework, Hooks, and versioned runtime contracts remain planned.
 
 ### Architecture Position
 
@@ -60,6 +60,7 @@ stable/                   # Published assets (sparse checkout target)
 │   ├── patterns/       # Team orchestration patterns
 │   ├── standalone/     # Independent role definitions
 │   ├── skills/         # Skill definitions (.skill.yaml)
+│   ├── validators/     # Machine-verifiable contracts + runnable validators (stdlib-only)
 │   └── code-templates/ # DDD/Java/Vue scaffolding
 ├── packs/               # Package layer - scenario-based combinations
 │   ├── v1-talk/        # Talk-only package (6 team patterns)

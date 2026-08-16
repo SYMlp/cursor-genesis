@@ -1,7 +1,7 @@
 # cursor-genesis 可用资源清单
 # 供 cg-install skill 使用
 
-version: 1.2.0
+version: 1.3.0
 description: cursor-genesis 提供的可复用资源清单
 
 # ============================================================
@@ -158,6 +158,21 @@ resources:
         category: human-agent-collaboration
         format: methodology
         source_status: cg-core
+
+  # ------------------------------------------------------------
+  # Validators - 机器验证器（契约 + 可运行验证脚本）
+  # ------------------------------------------------------------
+  validators:
+    description: 机器可验证契约与配套验证器，工具无关、stdlib-only，可挂 CI/hook 做后置兜底
+    path: stable/atoms/validators
+
+    items:
+      state-header:
+        path: stable/atoms/validators/state-header
+        description: 真相源 5 字段机器头契约（project/status/ball/next/updated）+ 死存根裁判验证器；给多项目聚合视图（驾驶舱/看板）提供机器兜底
+        contract_version: "1.0"
+        provenance: my-desk 驾驶舱现役实现回流提炼（2026-08-17）
+        recommended: true
 
   # ------------------------------------------------------------
   # Code Templates - 代码模板
@@ -322,6 +337,10 @@ compatibility:
 # ============================================================
 
 changelog:
+  - version: 1.3.0
+    date: 2026-08-17
+    changes:
+      - 新增 validators 资源类型；首个条目 state-header（真相源机器头契约 v1.0 + 死存根裁判验证器，my-desk 回流提炼）
   - version: 1.2.0
     date: 2026-04-18
     changes:

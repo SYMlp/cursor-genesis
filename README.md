@@ -65,6 +65,7 @@ The smallest reusable units of AI cognition. Context-agnostic.
 - `rules/`: Additional base rules (production safety, project conventions)
 - `capabilities/`: Four-layer cognition bounds (insight, architecture, engineering, quality)
 - `patterns/`: Team orchestration templates (6 team patterns)
+- `validators/`: Machine-verifiable contracts with runnable, stdlib-only validators (first entry: `state-header`, a truth-source staleness referee backflowed from a production personal workbench)
 
 ### 2. Packs (`stable/packs/`)
 User-facing scenario combinations. Users don't pick atoms; they install packs.
