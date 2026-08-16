@@ -10,8 +10,9 @@ import json
 import sys
 from pathlib import Path
 
-REQUIRED_FIELDS = ("project", "status", "ball", "next", "updated")
-STATUS_ENUM = ("\U0001f7e2", "\U0001f7e1", "\U0001f534", "⚪")  # 🟢 🟡 🔴 ⚪
+# v1.1：status 降为可选——机器可观测态归探针，头只硬性承载判断态（ball/next/updated）
+REQUIRED_FIELDS = ("project", "ball", "next", "updated")
+STATUS_ENUM = ("\U0001f7e2", "\U0001f7e1", "\U0001f534", "⚪")  # 🟢 🟡 🔴 ⚪（存在时才校验）
 DEFAULT_STALE_DAYS = 7
 
 
@@ -80,7 +81,7 @@ def check(path, stale_days=DEFAULT_STALE_DAYS, today=None):
         level = "ok"
 
     return {"file": str(path), "level": level, "age": age, "findings": findings,
-            "head": {k: head.get(k, "") for k in REQUIRED_FIELDS}}
+            "head": {k: head.get(k, "") for k in REQUIRED_FIELDS + ("status",)}}
 
 
 def iter_registry(registry_path):

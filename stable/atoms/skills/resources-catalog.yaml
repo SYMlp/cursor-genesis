@@ -170,7 +170,7 @@ resources:
       state-header:
         path: stable/atoms/validators/state-header
         description: 真相源 5 字段机器头契约（project/status/ball/next/updated）+ 死存根裁判验证器；给多项目聚合视图（驾驶舱/看板）提供机器兜底
-        contract_version: "1.0"
+        contract_version: "1.1"
         provenance: my-desk 驾驶舱现役实现回流提炼（2026-08-17）
         recommended: true
 

@@ -15,7 +15,7 @@ WHY（2026-08-17，资产升入 + 新类目开设）：
 
 | 文件 | 作用 |
 |:---|:---|
-| `CONTRACT.md` | 契约正文 v1.0：字段规范、解析规则、裁判语义 |
+| `CONTRACT.md` | 契约正文 v1.1：字段规范、解析规则、裁判语义（v1.1 起 status 可选，头只硬性承载判断态） |
 | `scripts/validate_state_header.py` | 机器验证器：单文件 / 登记表批量，stdlib-only |
 | `tests/test_validate_state_header.py` | 行为测试 |
 
