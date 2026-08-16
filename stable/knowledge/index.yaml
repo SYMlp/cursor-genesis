@@ -161,6 +161,33 @@ categories:
         file: 09-架构思维的来源.md
         solves: 解决架构设计的理论基础和思维方法的溯源问题
 
+  # 2026-08-12 kg 跨仓迁移波接收：harness-engineering pack（skill 形态，双宿主原生发现；
+  # 判断内核全部留 kg 判断层，此处登记的是可执行操作面——供 kg 直读收割契约发现）
+  harness-engineering:
+    description: Harness 工程与 agent 记忆约束的可执行资产（pack 形态，正本在 stable/packs/）
+    path: ../packs/harness-engineering/
+    items:
+      - id: agent-memory-harness-blueprint
+        title: Agent 记忆 harness 约束蓝图（33 条 + 取件入口）
+        file: skills/agent-memory-harness-blueprint/blueprint.md
+        solves: 给不带上下文的新会话/自研 harness 壳子提供可直接消费的 agent 记忆约束集（准入/存储/运行/代谢五章），配 export.py 取件验鲜
+      - id: harness-engineering-fieldbook
+        title: Harness Engineering 实战规程手册
+        file: skills/harness-engineering-fieldbook/SKILL.md
+        solves: 解决远程依赖重的项目（Java 微服务等）如何改造为 AI 可本地闭环验证的环境（最小可运行子集/脚本化/分层验证/JVM 诊断 CLI 化）
+      - id: cross-host-thin-adapters
+        title: 三宿主跨宿主兼容层清单
+        file: skills/cross-host-thin-adapters/SKILL.md
+        solves: 解决一份资产喂 Cursor/Claude Code/Codex 三宿主时哪些能统一（作者层）哪些永不统一（薄适配层）的现行法清单与验收状态
+      - id: structured-output-dispatch
+        title: 结构化表达 L3 调度规则
+        file: skills/structured-output-dispatch/SKILL.md
+        solves: 解决按内容目标与受众类型选表达方法论骨架的调度问题（10 类 goal 映射 + 4 类受众适配 + 五步流程）
+      - id: sse-stream-parsing
+        title: SSE 流式解析 carry buffer 规程
+        file: skills/sse-stream-parsing/SKILL.md
+        solves: 解决 SSE/NDJSON 流按行分割的跨缓冲区残行解析失败与协议数据泄漏问题
+
 # 关键词（供上层跨节点检索）
 keywords:
   - cursor
