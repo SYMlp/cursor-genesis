@@ -1,13 +1,113 @@
 # cursor-genesis 节点元信息
 # 遵循 leaf-node-framework 规范
+#
+# 定位换轴 why（2026-07-25）：
+# - 触发事件：KG 已登记工具无关 AI 协作定位，但本地仍把 Cursor 写成领域边界，形成身份 drift。
+# - 参照系：本仓已有 Rule / Skill / Command / Agent、Atoms + Packs、上下文与回流机制；Cursor 是最早验证这些机制的创始样本。
+# - 本次决定：CG 收敛为“人—Agent 开发协作机制 Leaf”，通用机制进核心，Cursor 只保留创始样本和参考实现地位。
+# - 排除的替代定位：不做 Cursor 工具库、Cursor 长期兼容层、Leaf 管理者或所有 Consumer 必须在线调用的中央 runtime。
 
 id: cursor-genesis
-name: Cursor 协作模板
+name: cursor-genesis
+identity: 人—Agent 开发协作机制 Leaf
 version: 1.5.0
-domain: 工具-Cursor
+domain: ai-collaboration-method
 description: |
-  Cursor AI 协作研发的组件库和知识库。
-  包含 Rules、Capabilities、Patterns、Code Templates 等可复用资产。
+  人—Agent 开发协作机制 Leaf：研究并发布人的操作入口、上下文装配、Rule / Skill / Workflow
+  选择、Agent / 模型 / 工具调用、确定性护栏、Human Gate，以及能力组合、注入和分发机制。
+  当前稳定现货以 Rule、Skill、Command、Agent、Pattern、Atoms + Packs 和知识资产为主，
+  主要在项目或其他 Leaf 的 init / build 阶段注入；create-skill、create-subagent、
+  create-command 与 create-rule 已形成保存阶段、Gate 与重试状态的 Workflow 和配套机器 Validator。其他 Workflow、
+  通用 Validator 框架与 Hook 仍待建设，不构成当前能力承诺。audit-agent-assets 已提供工具无关、
+  只读且证据化的协作资产审计；最终判决由 Agent 完成，不等同于机器 Validator。
+
+# Cursor 是创始样本和参考实现，不是 CG 的领域边界、兼容承诺或运行依赖。
+cursor_position:
+  founding_sample: 保留历史来源、真实使用证据与设计 why
+  reference_implementation: 提炼 Rules、多模型入口、显式命令、Agent 模式和项目上下文等通用机制
+  platform_status: non_core
+  compatibility_commitment: none
+
+# Provider Leaf 的当前能力声明；关系权威仍在 KG，不在本地复制 Consumer 关系。
+capabilities_provided:
+  - id: human_agent_collaboration_assets
+    description: 人的操作入口、上下文装配、组件选择与 Agent 编排的可复用资产和方法
+    phase: [init, build]
+    status: current
+    evidence:
+      - stable/atoms/
+      - stable/knowledge/cursor-specs/component-type-decision-guide.md
+      - stable/knowledge/cursor-specs/context-management-guide.md
+      - stable/knowledge/cursor-specs/agent-autonomy-guide.md
+  - id: capability_composition_and_distribution
+    description: 通过 Atoms + Packs 组合、注入和分发协作能力
+    phase: [init, build]
+    status: current
+    evidence:
+      - stable/packs/
+      - scripts/install-pack.py
+  - id: stateful_create_skill_workflow
+    description: 以持久化状态驱动 scaffold、refine、validate、register、complete，并提供机器校验和有界重试
+    phase: [init, build]
+    status: current
+    evidence:
+      - stable/packs/create-toolkit/skills/create-skill-workflow/
+      - stable/packs/create-toolkit/adapters/cursor/create-skill.md
+      - stable/packs/create-toolkit/skills/create-skill-workflow/tests/
+  - id: stateful_create_subagent_workflow
+    description: 以持久化状态驱动能力分析、Skill 依赖检查、Agent Contract 创建校验和宿主适配，并隔离具体 model ID
+    phase: [init, build]
+    status: current
+    evidence:
+      - stable/packs/create-toolkit/skills/create-subagent-workflow/
+      - stable/packs/create-toolkit/adapters/cursor/create-subagent.md
+      - stable/packs/create-toolkit/adapters/cursor/render_subagent.py
+      - stable/packs/create-toolkit/skills/create-subagent-workflow/tests/
+  - id: stateful_create_command_workflow
+    description: 以持久化状态驱动 SOP 分析、Skill/Agent 依赖检查、Command Contract 创建校验和宿主操作入口适配
+    phase: [init, build]
+    status: current
+    evidence:
+      - stable/packs/create-toolkit/skills/create-command-workflow/
+      - stable/packs/create-toolkit/adapters/cursor/create-command.md
+      - stable/packs/create-toolkit/adapters/cursor/render_command.py
+      - stable/packs/create-toolkit/skills/create-command-workflow/tests/
+  - id: tool_neutral_agent_asset_audit
+    description: 确定性准备目标与公共 rubric，由 Agent 对 Skill、Agent、Command、Workflow 和 adapter 输出逐条证据化审计
+    phase: [init, build]
+    status: current
+    evidence:
+      - stable/packs/create-toolkit/skills/audit-agent-assets/
+      - stable/packs/create-toolkit/skills/audit-agent-assets/tests/
+  - id: stateful_create_rule_workflow
+    description: 以持久化状态创建并校验薄 Rule block，经 Human Gate 登记到 AGENTS.md，再由宿主 adapter 投影激活格式
+    phase: [init, build]
+    status: current
+    evidence:
+      - stable/packs/create-toolkit/skills/create-rule-workflow/
+      - stable/packs/create-toolkit/adapters/cursor/create-rule.md
+      - stable/packs/create-toolkit/adapters/cursor/render_rule.py
+      - stable/packs/create-toolkit/skills/create-rule-workflow/tests/
+  - id: project_feedback_refinement
+    description: 接收真实项目回流，提炼可复用协作机制并上报能力变化
+    phase: [build]
+    status: current
+    evidence:
+      - .knowledge/downstream/
+      - .knowledge/upstream/exports/
+  - id: session_outcome_harvest
+    description: 对会话成果做证据化分诊，将定位 why、项目状态、跨项目候选与环境约定送入已有容器并明确负空间
+    phase: [build]
+    status: current
+    evidence:
+      - stable/atoms/skills/harvest-session/SKILL.md
+
+# proposal 边界：以下能力尚未形成 CG 稳定现货。
+capabilities_planned:
+  - additional_stateful_workflows
+  - generalized_machine_validator_framework
+  - hooks
+  - versioned_runtime_public_contracts
 
 # 框架配置
 framework:
@@ -43,15 +143,15 @@ receives_from_upper:
 
 # 自维护知识（不从上游获取）
 self_maintained:
-  - type: cursor_tool_docs
-    description: Cursor IDE 使用文档和 API 规范
-    reason: 仅在 cursor-genesis 中有用，不具备跨工具通用性
-  - type: cursor_best_practices
-    description: Cursor 特定的最佳实践和使用技巧
-    reason: 工具特定知识，上游不需要维护
+  - type: human_agent_collaboration_mechanisms
+    description: 工具无关的人—Agent 操作入口、上下文装配、组件选择、调用与纠错机制
+    reason: CG 的领域正文，由本节点持续生产、验证和发布
+  - type: cursor_reference_assets
+    description: Cursor 创始样本、参考实现和历史设计材料
+    reason: 用于提炼工具无关机制；保留教材地位，不形成平台兼容承诺
   - type: implementation_details
-    description: Rules/Capabilities/Patterns 的具体实现
-    reason: 应用形式的具体内容，由本节点负责
+    description: Rules / Skills / Commands / Agents / Patterns / Packs 的具体实现
+    reason: 协作机制的资产实现，由本节点负责
 
 reports_to_upper:
   # 能力变更（必须）
@@ -80,15 +180,20 @@ reports_to_upper:
 
 # 节点职责
 responsibilities:
-  - 生产 Cursor 相关的组件和知识
-  - 接收使用方的回流改进
+  - 生产工具无关的人—Agent 开发协作机制、组件和知识
+  - 通过 Atoms + Packs 在 init / build 阶段组合、注入和分发可复用能力
+  - 接收使用方回流，提炼通用机制并上报能力变化
+  - 保留 Cursor 创始样本和参考实现，提炼其中可跨工具复用的操作范式
   - 暴露标准化索引供上层检索
 
 # 不负责的事项
 out_of_scope:
-  - 跨领域知识关联（上层职责）
-  - 治理框架设计（leaf-node-framework 职责）
-  - 知识体系定位（上层 domains.yaml 定义）
+  - Leaf Registry、全局拓扑、关系权威、跨领域路由与治理（knowledge-graph 职责）
+  - 其他 Leaf 的领域语义、具体项目事实与用户最终价值判断
+  - 用户个人入口布局、审批界面和工作台偏好（Desk 职责）
+  - 具体项目目录创建、个人 workspace 登记和完整 workspace bootstrap 编排；CG 只提供其中可复用的协作机制与 Pack
+  - Cursor 长期兼容、平台特权或运行依赖
+  - 所有 Consumer 必须在线调用的中央 runtime
 
 # 生命周期
 lifecycle:

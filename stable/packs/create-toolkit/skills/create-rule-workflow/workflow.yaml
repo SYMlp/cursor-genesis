@@ -1,0 +1,34 @@
+name: create-rule-workflow
+schema_version: 1
+stages:
+  - id: analyze
+    kind: human_or_agent_gate
+  - id: scaffold
+    kind: deterministic_action
+  - id: refine
+    kind: human_or_agent_gate
+  - id: validate
+    kind: machine_validator
+    retry:
+      max_attempts: 3
+  - id: register
+    kind: human_gate
+  - id: adapt
+    kind: human_or_adapter_gate
+  - id: complete
+    kind: terminal
+artifacts:
+  canonical_source: AGENTS.md
+  draft_default: docs/state/create-rule/drafts/<name>.md
+  state_default: docs/state/create-rule/<name>.json
+host_boundaries:
+  public:
+    - rule behavior
+    - activation intent
+    - path scope
+    - exclusions
+    - verification
+  adapter:
+    - host rule path
+    - activation frontmatter
+    - invocation syntax

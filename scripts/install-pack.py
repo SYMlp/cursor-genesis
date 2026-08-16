@@ -2,7 +2,8 @@
 """
 install-pack: cursor-genesis Pack 通用安装脚本
 
-将 cursor-genesis 的 Pack 部署到目标项目的 .cursor/ 目录下。
+将 cursor-genesis 的 Pack 部署到目标项目的公共作者层或宿主适配层。
+manifest 未声明 target_root 时保持兼容，默认部署到 .cursor/。
 支持首次安装和覆盖更新。
 
 用法:
@@ -28,6 +29,9 @@ except ImportError:
     HAS_YAML = False
 
 
+ALLOWED_TARGET_ROOTS = {".agents", ".cursor"}
+
+
 def load_yaml_simple(filepath: Path) -> dict:
     """简易 YAML 解析（不依赖 pyyaml 时的 fallback）"""
     if HAS_YAML:
@@ -51,6 +55,8 @@ def load_yaml_simple(filepath: Path) -> dict:
             elif stripped.startswith('description:'):
                 if 'description' not in result:
                     result['description'] = stripped.split(':', 1)[1].strip()
+            elif stripped.startswith('record_root:'):
+                result['record_root'] = stripped.split(':', 1)[1].strip()
             elif stripped == 'mappings:':
                 current_section = 'mappings'
             elif stripped == 'dependencies:':
@@ -62,6 +68,8 @@ def load_yaml_simple(filepath: Path) -> dict:
                     current_item = {'source': stripped.split(':', 1)[1].strip()}
                 elif stripped.startswith('target:'):
                     current_item['target'] = stripped.split(':', 1)[1].strip()
+                elif stripped.startswith('target_root:'):
+                    current_item['target_root'] = stripped.split(':', 1)[1].strip()
                 elif stripped.startswith('type:'):
                     current_item['type'] = stripped.split(':', 1)[1].strip()
 
@@ -98,6 +106,58 @@ def find_cursor_genesis_root(script_path: Path) -> Path:
     return script_path.parent.parent
 
 
+def _validated_relative_path(value: str, field: str) -> Path:
+    path = Path(value)
+    if not value.strip() or path == Path("."):
+        raise ValueError(f"{field} must not be empty or '.': {value}")
+    if path.is_absolute() or path.anchor or path.drive or ".." in path.parts:
+        raise ValueError(f"{field} must be an unanchored relative path without '..': {value}")
+    return path
+
+
+def _mapping_destination(target_path: Path, mapping: dict) -> tuple[str, Path]:
+    target_root = mapping.get("target_root", ".cursor")
+    if target_root not in ALLOWED_TARGET_ROOTS:
+        raise ValueError(
+            f"Unsupported target_root '{target_root}'. Allowed: {', '.join(sorted(ALLOWED_TARGET_ROOTS))}"
+        )
+    relative_target = _validated_relative_path(mapping["target"], "mapping.target")
+    return target_root, target_path / target_root / relative_target
+
+
+def _record_path(target_path: Path, record_root: str) -> Path:
+    if record_root not in ALLOWED_TARGET_ROOTS:
+        raise ValueError(
+            f"Unsupported record_root '{record_root}'. Allowed: {', '.join(sorted(ALLOWED_TARGET_ROOTS))}"
+        )
+    return target_path / record_root / "installed-packs.yaml"
+
+
+def _remove_legacy_record_entry(
+    pack_name: str,
+    target_path: Path,
+    current_record_file: Path,
+) -> dict | None:
+    """升级 record_root 后移除旧 .cursor 记录中的同名 Pack，保留其他条目。"""
+    legacy_record_file = target_path / ".cursor" / "installed-packs.yaml"
+    if legacy_record_file == current_record_file or not legacy_record_file.exists():
+        return None
+
+    try:
+        legacy_record = load_yaml_simple(legacy_record_file)
+    except Exception:
+        return None
+
+    installed = legacy_record.get("installed", {})
+    if pack_name not in installed:
+        return None
+
+    removed_entry = installed.pop(pack_name)
+    legacy_record["installed"] = installed
+    dump_yaml_simple(legacy_record, legacy_record_file)
+    return removed_entry
+
+
 def install_pack(pack_name: str, target_path: Path, source_path: Path):
     pack_dir = source_path / 'stable' / 'packs' / pack_name
     manifest_file = pack_dir / 'install-manifest.yaml'
@@ -122,13 +182,19 @@ def install_pack(pack_name: str, target_path: Path, source_path: Path):
     print(f"  Source: {pack_dir}")
     print(f"  Target: {target_path}")
 
-    cursor_dir = target_path / '.cursor'
+    record_root = manifest.get("record_root", ".cursor")
+    record_file = _record_path(target_path, record_root)
     installed_files = []
     errors = []
 
     for mapping in manifest.get('mappings', []):
-        src = pack_dir / mapping['source']
-        tgt = cursor_dir / mapping['target']
+        try:
+            relative_source = _validated_relative_path(mapping["source"], "mapping.source")
+            src = pack_dir / relative_source
+            target_root, tgt = _mapping_destination(target_path, mapping)
+        except (KeyError, ValueError) as error:
+            errors.append(f"Invalid mapping {mapping!r}: {error}")
+            continue
         is_dir = mapping.get('type') == 'directory'
 
         if not src.exists():
@@ -141,19 +207,18 @@ def install_pack(pack_name: str, target_path: Path, source_path: Path):
             if tgt.exists():
                 shutil.rmtree(tgt)
             shutil.copytree(src, tgt)
-            installed_files.append(f"{mapping['target']}/")
-            print(f"  [DIR]  {mapping['source']} -> .cursor/{mapping['target']}/")
+            installed_files.append(f"{target_root}/{mapping['target']}/")
+            print(f"  [DIR]  {mapping['source']} -> {target_root}/{mapping['target']}/")
         else:
             shutil.copy2(src, tgt)
-            installed_files.append(mapping['target'])
-            print(f"  [FILE] {mapping['source']} -> .cursor/{mapping['target']}")
+            installed_files.append(f"{target_root}/{mapping['target']}")
+            print(f"  [FILE] {mapping['source']} -> {target_root}/{mapping['target']}")
 
     if errors:
         print(f"\n[WARN] {len(errors)} error(s):")
         for e in errors:
             print(f"  - {e}")
 
-    record_file = cursor_dir / 'installed-packs.yaml'
     record = {}
     if record_file.exists():
         try:
@@ -163,15 +228,48 @@ def install_pack(pack_name: str, target_path: Path, source_path: Path):
 
     if 'installed' not in record:
         record['installed'] = {}
+    previous_entry = record['installed'].get(pack_name, {})
+    legacy_entry = (
+        _remove_legacy_record_entry(pack_name, target_path, record_file)
+        if not errors
+        else None
+    )
+    retained_candidates = set(previous_entry.get('retained_unmanaged', []))
+    if not errors:
+        retained_candidates.update(previous_entry.get('files', []))
+        if legacy_entry:
+            retained_candidates.update(legacy_entry.get('retained_unmanaged', []))
+            retained_candidates.update(legacy_entry.get('files', []))
+    active_paths = {
+        _installed_entry_path(target_path, entry).resolve()
+        for entry in installed_files
+    }
+    retained_unmanaged = {
+        entry
+        for entry in retained_candidates
+        if _installed_entry_path(target_path, entry).exists()
+        and _installed_entry_path(target_path, entry).resolve() not in active_paths
+    }
 
-    record['installed'][pack_name] = {
+    current_entry = {
         'version': pack_version,
         'installed_at': datetime.now().strftime('%Y-%m-%d %H:%M'),
         'source': str(source_path),
         'files': installed_files,
     }
+    if retained_unmanaged:
+        current_entry['retained_unmanaged'] = sorted(retained_unmanaged)
+    record['installed'][pack_name] = current_entry
 
+    record_file.parent.mkdir(parents=True, exist_ok=True)
     dump_yaml_simple(record, record_file)
+    if legacy_entry:
+        print("  [RECORD] Migrated legacy .cursor install record")
+    if retained_unmanaged:
+        print(
+            f"  [NOTICE] Retained {len(retained_unmanaged)} unmanaged legacy item(s); "
+            "no files were deleted"
+        )
 
     deps = manifest.get('dependencies', {})
     mcp_deps = deps.get('mcp', [])
@@ -192,15 +290,33 @@ def install_pack(pack_name: str, target_path: Path, source_path: Path):
     print(f"  Record saved to: {record_file}")
 
 
-def uninstall_pack(pack_name: str, target_path: Path):
-    cursor_dir = target_path / '.cursor'
-    record_file = cursor_dir / 'installed-packs.yaml'
+def _find_install_record(pack_name: str, target_path: Path) -> tuple[Path | None, dict]:
+    for root in (".agents", ".cursor"):
+        record_file = target_path / root / "installed-packs.yaml"
+        if not record_file.exists():
+            continue
+        record = load_yaml_simple(record_file)
+        if pack_name in record.get("installed", {}):
+            return record_file, record
+    return None, {}
 
-    if not record_file.exists():
+
+def _installed_entry_path(target_path: Path, entry: str) -> Path:
+    normalized = entry.rstrip("/\\")
+    entry_path = _validated_relative_path(normalized, "installed file entry")
+    if entry_path.parts and entry_path.parts[0] in ALLOWED_TARGET_ROOTS:
+        return target_path / entry_path
+    # Backward compatibility: old records stored paths relative to .cursor/.
+    return target_path / ".cursor" / entry_path
+
+
+def uninstall_pack(pack_name: str, target_path: Path):
+    record_file, record = _find_install_record(pack_name, target_path)
+
+    if record_file is None:
         print(f"[ERROR] No installed-packs.yaml found. Nothing to uninstall.")
         sys.exit(1)
 
-    record = load_yaml_simple(record_file)
     installed = record.get('installed', {})
 
     if pack_name not in installed:
@@ -211,13 +327,13 @@ def uninstall_pack(pack_name: str, target_path: Path):
     print(f"[INFO] Uninstalling pack: {pack_name}")
 
     for f in files:
-        fpath = cursor_dir / f
+        fpath = _installed_entry_path(target_path, f)
         if fpath.is_dir():
             shutil.rmtree(fpath, ignore_errors=True)
-            print(f"  [DEL DIR]  .cursor/{f}")
+            print(f"  [DEL DIR]  {f}")
         elif fpath.exists():
             fpath.unlink()
-            print(f"  [DEL FILE] .cursor/{f}")
+            print(f"  [DEL FILE] {f}")
 
     del installed[pack_name]
     record['installed'] = installed

@@ -1,22 +1,32 @@
 # cursor-genesis
 
-> **A Generative Agentic Engineering Platform for Cursor**
+> **The Human–Agent Development Collaboration Mechanisms Leaf**
 > 
 > *"Stop writing code. Start engineering how your AI writes code."*
 
 ## What is this?
 
-`cursor-genesis` is a distribution platform for reusable AI cognitive assets. 
+`cursor-genesis` (CG) is the **Human–Agent Development Collaboration Mechanisms Leaf**: it studies and publishes human operation entry points, context assembly, Rule / Skill / Workflow selection, agent/model/tool invocation, deterministic guards, human gates, and capability composition, injection, distribution, and refinement.
+
+CG is tool-independent. Cursor remains:
+
+1. a **founding sample** whose history and design rationale are preserved;
+2. a **reference implementation** from which Rules, multi-model entry points, explicit commands, Agent modes, and project-context mechanisms are generalized;
+3. a **non-core platform** with no long-term compatibility promise and no role as CG's runtime dependency.
+
+In short: **Cursor keeps its textbook role, not a constitutional role.**
+
+Current stable assets are primarily Rules, Skills, Commands, Agent/Capability definitions, Patterns, Atoms + Packs, knowledge guides, and backflow mechanisms. `create-skill-workflow`, `create-subagent-workflow`, `create-command-workflow`, and `create-rule-workflow` now provide persisted gates/retries and machine Validators. Rule Contracts register into the project `AGENTS.md` author source; Cursor activation frontmatter remains an adapter concern. `audit-agent-assets` provides read-only, evidence-based review with Agent judgment, while `harvest-session` provides tool-neutral session-outcome triage; neither is represented as a machine Validator. Agent and Command Contracts stay tool-neutral while concrete model IDs, slash-command formats, and invocation syntax stay in host adapters. Additional Workflows, a generalized Validator framework, Hooks, and versioned runtime contracts remain planned.
+
+CG mechanisms may be consumed during project initialization, but CG does not own concrete project-directory creation, personal workspace registration, or end-to-end workspace bootstrap.
 
 When configuring AI for large-scale enterprise software (e.g., 50+ modules, tens of thousands of lines of code), default AI behavior degrades: it hallucinates architectures, relies too much on legacy patterns, and loses context. 
 
-Instead of writing manual prompts for every single module, `cursor-genesis` uses **Meta-Rules**. When we discover a robust AI working model in a production enterprise project, we crystallize it into an "**Atom**" (e.g., a `.mdc` rule) and package it into a "**Pack**" for downstream teams to inject into their own repositories via Git sparse-checkout.
+Instead of writing manual prompts for every module, CG crystallizes robust Human–Agent working mechanisms into an **Atom** and packages compatible atoms into a **Pack** for projects or peer Leaves to inject primarily during init/build. Existing `.mdc` assets are Cursor-format reference implementations, not the definition of the Atom model.
 
-> **Tool-agnostic by design.** Built and battle-tested on Cursor, but the patterns — meta-rules, ontology-driven generation, intent routing, self-evolving rules — are about *how you govern an agent*, not which IDE. They carry over to Claude Code, Gemini CLI, Cline, and others. The point isn't the tool; it's understanding *why* the workflow works.
+## Proven Assets: Enterprise Meta-Rules
 
-## The Crown Jewels: Enterprise Meta-Rules
-
-Extracted from a real-world enterprise system delivery (50+ modules, zero to acceptance in ~2 weeks), this repository contains the core meta-rules that govern how an Agent *should* behave in a massive codebase. 
+Extracted from a real-world enterprise system delivery (6 domains, 50+ modules, zero to acceptance in 2 weeks), this repository still physically contains meta-rules that govern how an Agent should behave in a massive codebase. In KG, the enterprise-delivery concern has already been logically split from CG; the physical assets remain here until a later, separately approved triage or move.
 
 Located in `stable/atoms/rules/enterprise/`:
 
@@ -43,7 +53,7 @@ These meta-rules are **not theoretical**. They were extracted and generalized fr
 | `ontology-driven-dev` | Created after measuring 35% field omission rate in first ontology extraction | Brought omission rate to near-zero across all modules |
 | `rule-evolution` | Meta-rule created to prevent recurring behavioral failures | 5 optimization records with full root-cause analysis |
 
-The generalized versions in this repository are the first step in making these patterns available for any enterprise-scale Cursor project. Backflow from downstream adoption will continue to refine them.
+The generalized mechanisms can inform Human–Agent collaboration across tools. Their existing Cursor-format distribution remains a reference path; backflow from real adoption continues to refine the tool-independent mechanism.
 
 ## Architecture
 
@@ -64,9 +74,9 @@ User-facing scenario combinations. Users don't pick atoms; they install packs.
 - `knowledge-manage/`: Knowledge system management pack.
 - `create-toolkit/`: Project scaffolding toolkit.
 
-## How to use (Downstream Injection)
+## Current Cursor Reference Usage
 
-You can inject these cognitive assets into any new Cursor project without downloading the entire repository, using Git sparse-checkout.
+The repository still supports injecting its existing Cursor-format assets with Git sparse-checkout. This documents current assets; it is not a promise that Cursor remains a core platform or long-term compatibility target.
 
 ```bash
 # In your new project's root directory:
@@ -87,7 +97,7 @@ See [`stable/packs/enterprise/README.md`](stable/packs/enterprise/README.md) for
 
 ## The Vision
 
-Cursor is not just an IDE with autocomplete. It is a substrate for building autonomous software engineering pipelines. `cursor-genesis` aims to be the standard library for those pipelines—turning individual prompt engineering into scalable, distributable enterprise workflows.
+CG aims to turn hard-to-understand Agent capabilities into Human–Agent operating mechanisms that are easy to understand, trigger, compose, validate, correct, and distribute—without letting any one tool's file format define the domain.
 
 ---
 *Built for the future of AI-native engineering.*
