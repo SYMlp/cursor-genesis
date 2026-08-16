@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `create-toolkit` v1.6 的工具无关 `create-rule-workflow`：将薄行为契约校验并登记为项目 `AGENTS.md` 受管 block，保留 Human Gate、持久化状态和有界重试。
 - Cursor `create-rule` 薄入口与确定性 renderer；`.mdc` 路径和激活 frontmatter 不进入公共 Rule Contract。
 - `stable/atoms/skills/harvest-session`：工具无关的会话成果分诊 Skill，将定位 why、项目状态、跨项目候选与环境约定送入已有容器并明确负空间。
+- `stable/atoms/validators/` 新原子类目及首个条目 `state-header`：真相源 5 字段机器头契约 v1.0 + 死存根裁判验证器（stdlib-only，单文件/登记表批量，退出码可挂 CI/hook）。机制自 my-desk 驾驶舱现役实现回流提炼；Desk 为首个登记消费方——CG"可替换插件供给"路径的第一个完整闭环（回流→提炼→版本化→登记→消费）。
 
 ### Changed
 
