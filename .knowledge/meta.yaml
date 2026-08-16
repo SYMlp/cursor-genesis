@@ -2,12 +2,18 @@
 # 遵循 leaf-node-framework 规范
 
 id: cursor-genesis
-name: Cursor 协作模板
+name: AI 协同催化剂资产仓（别名 ai-catalyst）
 version: 1.5.0
-domain: 工具-Cursor
+domain: ai-collaboration-method
 description: |
-  Cursor AI 协作研发的组件库和知识库。
-  包含 Rules、Capabilities、Patterns、Code Templates 等可复用资产。
+  【薄自述投影——定位正本住 kg index/nodes-registry.yaml cursor-genesis 条目，冲突以彼为准】
+  AI 协同域叶子节点 = 插件包仓库/沉淀发布面：①催化方法沉淀正本（工具无关 AI 协作方法论）
+  ②跨 harness 兼容方式（cursor/claude code/codex）③可复用 skill 资产（活跃面）。
+  不承担新项目装配（装配线 = new-workspace skill + .agents 作者层 + ai-runtime-compat）。
+  定位史：Cursor 工具域 → 2026-07-03 FDE 换轴 → 2026-07-06 企业交付拆出 →
+  2026-08-07 催化剂 → 2026-08-17 仓/线分界转叙述。
+positioning_source_of_truth: knowledge-graph/index/nodes-registry.yaml#cursor-genesis
+positioning_synced_at: 2026-08-17
 
 # 框架配置
 framework:

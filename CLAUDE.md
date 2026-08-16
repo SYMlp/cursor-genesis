@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-cursor-genesis is a leaf node in the knowledge-graph system, providing Cursor AI collaboration components and knowledge assets. It produces reusable prompt engineering assets (Rules, Capabilities, Patterns, Code Templates) that downstream projects consume via sparse checkout.
+cursor-genesis（别名 ai-catalyst）is a leaf node in the knowledge-graph system——**AI 协同域插件包仓库/沉淀发布面**（定位正本：kg `index/nodes-registry.yaml` cursor-genesis 条目，2026-08-17 口径；本段是投影，冲突以 registry 为准）。三类资产：①催化方法沉淀正本 ②跨 harness 兼容方式 ③可复用 skill 资产（当前活跃面，如 `stable/packs/harness-engineering/`）。本仓不承担新项目装配——装配线 = new-workspace skill + .agents 作者层 + ai-runtime-compat；本仓提供可发布内容。旧 Cursor 工具封装资产（Rules/Capabilities/Patterns）已被官方原生化吸收，留档不维护。
 
 ### Architecture Position
 
