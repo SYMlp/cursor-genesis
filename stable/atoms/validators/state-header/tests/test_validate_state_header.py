@@ -70,9 +70,15 @@ def test_ball_bare_them_is_critical(tmp_path):
     assert r["level"] == "critical"
 
 
-def test_status_enum_enforced(tmp_path):
+def test_status_enum_enforced_when_present(tmp_path):
     r = check(write(tmp_path, good_header().replace("status: 🟢", "status: green")), today=TODAY)
     assert r["level"] == "critical"
+
+
+def test_status_optional_since_v1_1(tmp_path):
+    # v1.1：status 缺失不再 critical——机器可观测态归探针，头只硬性承载判断态
+    r = check(write(tmp_path, good_header().replace("status: 🟢\n", "")), today=TODAY)
+    assert r["level"] == "ok"
 
 
 def test_status_allows_suffix(tmp_path):
