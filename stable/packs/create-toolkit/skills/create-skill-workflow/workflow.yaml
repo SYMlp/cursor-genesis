@@ -1,0 +1,49 @@
+id: create-skill-workflow
+version: 1.0.0
+description: 创建工具无关项目 Skill 的持久化控制流
+
+state:
+  persistence: json
+  required_fields:
+    - schema_version
+    - workflow_id
+    - status
+    - current_stage
+    - spec
+    - attempts
+    - history
+    - errors
+    - artifacts
+
+stages:
+  - id: scaffold
+    kind: deterministic_action
+    on_success: refine
+    on_target_exists: blocked
+
+  - id: refine
+    kind: human_or_agent_gate
+    accepted_events: [refined]
+    on_event: validate
+
+  - id: validate
+    kind: machine_validator
+    on_success: register
+    on_failure: failed
+    retry:
+      max_attempts: 3
+      exhausted_status: blocked
+
+  - id: register
+    kind: human_or_adapter_gate
+    accepted_events: [registered, registration-not-required]
+    on_event: complete
+
+  - id: complete
+    kind: terminal
+
+exit_codes:
+  success: 0
+  waiting_gate: 2
+  retryable_failure: 3
+  blocked: 4

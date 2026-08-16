@@ -35,8 +35,9 @@ CATALOG_PATH = CG_ROOT / "stable" / "atoms" / "skills" / "resources-catalog.yaml
 mcp = FastMCP(
     "cursor-genesis",
     instructions=(
-        "cursor-genesis 是 Cursor AI 协作领域的资产库，"
-        "提供 Rules、Capabilities、Patterns、Skills、Code Templates、Packs 等可复用组件。"
+        "cursor-genesis 是人—Agent 开发协作机制 Leaf，"
+        "提供 Rules、Capabilities、Patterns、Skills、Code Templates、Packs 等可复用协作资产。"
+        "现有 Cursor 格式内容是创始样本和参考实现，不定义 CG 的领域边界或兼容承诺。"
         "使用 list_capabilities 浏览可用资产，用 install_pack 部署到目标项目。"
     ),
 )

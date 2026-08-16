@@ -1,7 +1,18 @@
 ---
 description: 根据当前对话上下文，生成复盘式沉淀记录（问题、思考方向、方案、发现与解决）
 ---
-# Command: Session Summary（会话沉淀）
+# 历史参考：Session Summary（会话沉淀）
+
+> **状态：historical_reference。** 本文件不在 active manifest 中，不是 CG 当前会话收尾能力。工具无关核心已提炼为 `stable/atoms/skills/harvest-session/SKILL.md`；当前用户环境中的 `session-harvest` Skill 是带个人 KG、容器和层级约定的运行适配。
+
+<!--
+WHY（2026-07-26）：旧命令只把当前 Chat 套入固定六段模板，并默认写入 `meta/user/session-summaries`，会混淆聊天纪要、项目状态、定位 why 与可复用提炼候选。
+参照系：CG 的“通用机制升核心、宿主入口留适配”原则，以及现有用户级 session-harvest 对过程资料四形态、三问分诊和负空间的真实实践。
+本次决定：提炼工具无关 `harvest-session` 核心 Skill；旧 Session Summary 保留为 Cursor-first 历史入口，不进入 create-toolkit。
+排除项：不复制用户级 KG 路径、L0–L3 权重或个人容器约定，不把语义分诊冒充状态型 Workflow，也不删除、移动或重写下方历史正文。
+-->
+
+以下内容保留为早期“描述性聊天纪要”样本：
 
 ## Goal
 

@@ -1,4 +1,15 @@
-# 创建项目 (Create Project)
+# 历史参考：创建项目 (Create Project)
+
+> **状态：historical_reference。** 本文件不在 active manifest 中，不是 CG 当前项目创建能力，也不能按下文直接承诺执行。当前工作环境中的完整 workspace bootstrap 由用户级 `new-workspace` Skill 承接；CG 只提供其中可复用的协作资产与 Pack 注入机制。
+
+<!--
+WHY（2026-07-26）：旧命令把目录、代码模板、Pack、Cursor 规则、个人 workspace 登记和 KG 自动接入捆成 CG 的“一步创建项目”能力。
+参照系：CG 是人—Agent 协作机制 Provider；AGENTS.md / .agents 公共作者层由 new-workspace 与 cursor-to-codex-migration 流程编排，个人工作台布局不属于 CG。
+本次决定：将 create-project 定性为越界历史参考，不在 CG 重建同名 Workflow；可复用的 Pack、Rule 与注入机制继续由 CG 单独发布。
+排除项：不把用户级 new-workspace 冒充 CG 现货，不新增 workspace schema，不修改 KG / cursor-workspaces，也不删除、移动或重写下方历史正文。
+-->
+
+以下内容保留为 2026-03 时期的 Cursor-first 设计样本：
 
 ## 概述
 

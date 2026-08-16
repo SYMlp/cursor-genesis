@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "asset_types": [
+    "skill",
+    "agent",
+    "command",
+    "workflow",
+    "adapter",
+    "prompt"
+  ],
+  "criteria": [
+    {
+      "id": "outcome-and-identity",
+      "severity": "high",
+      "applies_to": ["all"],
+      "check": "The asset states the user-visible outcome and its own responsibility without conflating identity with implementation syntax.",
+      "evidence": "A concise description, outcome, goal, or responsibility statement."
+    },
+    {
+      "id": "trigger-and-exclusion-boundary",
+      "severity": "high",
+      "applies_to": ["all"],
+      "check": "The asset makes its trigger conditions and important exclusions discoverable.",
+      "evidence": "Trigger language in metadata or an explicit applicability boundary."
+    },
+    {
+      "id": "inputs-and-preconditions",
+      "severity": "high",
+      "applies_to": ["skill", "agent", "command", "workflow", "adapter"],
+      "check": "Required inputs, defaults, preconditions, and missing-input behavior are explicit.",
+      "evidence": "An interface, inputs section, arguments table, or equivalent contract."
+    },
+    {
+      "id": "dependency-bindings",
+      "severity": "high",
+      "applies_to": ["skill", "agent", "command", "workflow", "adapter"],
+      "check": "Declared files, Skills, Agents, tools, and external services are bound to real roles and are not silently assumed.",
+      "evidence": "Dependency declarations plus where each dependency participates."
+    },
+    {
+      "id": "control-flow",
+      "severity": "high",
+      "applies_to": ["agent", "command", "workflow"],
+      "check": "Ordering, branching ownership, stop conditions, and completion state are understandable.",
+      "evidence": "A bounded workflow or an explicit autonomous decision boundary."
+    },
+    {
+      "id": "risk-and-human-gates",
+      "severity": "critical",
+      "applies_to": ["agent", "command", "workflow", "adapter"],
+      "check": "Irreversible, externally visible, or high-risk actions cannot bypass an explicit Human Gate.",
+      "evidence": "Risk classification and concrete approval points, or evidence that the asset is read-only."
+    },
+    {
+      "id": "verification-evidence",
+      "severity": "critical",
+      "applies_to": ["all"],
+      "check": "Completion depends on observable evidence rather than an unsupported success claim.",
+      "evidence": "Tests, checks, output schema, review criteria, or another explicit acceptance contract."
+    },
+    {
+      "id": "failure-and-resume",
+      "severity": "high",
+      "applies_to": ["command", "workflow"],
+      "check": "Failure states, retry limits, resume inputs, and terminal blocked conditions are explicit.",
+      "evidence": "A failure/retry/resume contract or a justified atomic no-resume boundary."
+    },
+    {
+      "id": "side-effect-scope",
+      "severity": "high",
+      "applies_to": ["skill", "agent", "command", "workflow", "adapter"],
+      "check": "Reads, writes, external calls, and destructive effects are bounded.",
+      "evidence": "A side-effects section, tool policy, or equivalent constraints."
+    },
+    {
+      "id": "host-neutral-core",
+      "severity": "high",
+      "applies_to": ["skill", "agent", "command", "workflow"],
+      "check": "The core contract does not require a specific host path, model ID, invocation API, or command syntax.",
+      "evidence": "Tool-neutral core language with host details delegated to adapters."
+    },
+    {
+      "id": "adapter-source-binding",
+      "severity": "high",
+      "applies_to": ["adapter"],
+      "check": "The adapter names its public source contract and limits itself to host-specific translation.",
+      "evidence": "A source pointer plus a narrow list of host-only responsibilities."
+    },
+    {
+      "id": "context-budget",
+      "severity": "medium",
+      "applies_to": ["all"],
+      "check": "The asset avoids duplicated background material and loads detailed references only when needed.",
+      "evidence": "Concise core instructions and explicit progressive-disclosure pointers."
+    },
+    {
+      "id": "no-unresolved-placeholders",
+      "severity": "high",
+      "applies_to": ["all"],
+      "check": "The published asset contains no TODO, template placeholder, or fabricated current capability.",
+      "evidence": "Completed content whose claims correspond to existing implementation or are explicitly marked planned."
+    }
+  ]
+}
